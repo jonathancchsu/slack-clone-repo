@@ -41,6 +41,7 @@ export const login = (email, password) => async (dispatch) => {
     })
   });
 
+  console.log('is there a response?', response)
 
   if (response.ok) {
     const data = await response.json();
@@ -52,7 +53,7 @@ export const login = (email, password) => async (dispatch) => {
       return data.errors;
     }
   } else {
-    return [response, 'An error occurred. Please try again.']
+    return ['An error occurred. Please try again.']
   }
 
 }
