@@ -13,6 +13,11 @@
     font-weight: bold;
 }
 
+.sign-in-btn:hover {
+    cursor: pointer;
+    background-color: rgb(114, 32, 116);
+}
+
 .log-in-form-container {
     font-family: 'Open Sans';
     font-weight: 700;
@@ -32,9 +37,13 @@
 .log-in-form input {
     width: 400px;
     height: 40px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     border-radius: 5px;
     border: 1px solid lightgray;
+}
+
+.log-in-form input:focus {
+    box-shadow: inset 0 0 10px lightskyblue;
 }
 
 .log-in-form-container > h4 {
