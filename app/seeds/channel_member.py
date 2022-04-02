@@ -10,6 +10,6 @@ def seed_channel_member():
         db.session.add(new_member)
         db.session.commit()
 
-def undo_channels():
+def undo_channel_members():
     db.session.execute('TRUNCATE channelMembers RESTART IDENTITY CASCADE;')
     db.session.commit()

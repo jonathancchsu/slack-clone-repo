@@ -1,6 +1,6 @@
 from app.models import db, Channel
 
-def seed_channel():
+def seed_channels():
     channels = [{'id': 1, 'name': 'test1', 'topic': 'test topic' , 'description': 'This is a channel about test description' , 'owner_id': 1, 'workspace_id': 1},{'id': 2, 'name': 'test2','topic': 'test topic' , 'description': 'This is a channel about test description' , 'owner_id': 2, 'workspace_id': 1},{'id': 3, 'name': 'test3','topic': 'test topic' , 'description': 'This is a channel about test description' , 'owner_id': 3, 'workspace_id': 1},{'id': 4, 'name': 'test1', 'topic': 'test topic' , 'description': 'This is a channel about test description' , 'owner_id': 1, 'workspace_id': 2},{'id': 5, 'name': 'test2','topic': 'test topic' , 'description': 'This is a channel about test description' , 'owner_id': 2, 'workspace_id': 2},{'id': 6, 'name': 'test3','topic': 'test topic' , 'description': 'This is a channel about test description' , 'owner_id': 3, 'workspace_id': 2},{'id': 7, 'name': 'test1','topic': 'test topic' , 'description': 'This is a channel about test description' , 'owner_id': 1, 'workspace_id': 3},{'id': 8, 'name': 'test2','topic': 'test topic' , 'description': 'This is a channel about test description' , 'owner_id': 2, 'workspace_id': 3},{'id': 9, 'name': 'test3','topic': 'test topic' , 'description': 'This is a channel about test description' , 'owner_id': 3, 'workspace_id': 3},]
 
     for channel in channels:
