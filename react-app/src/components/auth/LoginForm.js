@@ -34,7 +34,7 @@ const LoginForm = () => {
 
   return (
     <div className='log-in-form-container'>
-      <img src='/static/logo.svg' className='slack-logo' style={{height:50}} alt="logo"></img>
+      <img src='/static/logo.svg' className='slack-logo' style={{ height: 50 }} alt="logo"></img>
       <h1>Sign in to Slack</h1>
       <h4>We suggest using the email address you use at work</h4>
       <form onSubmit={onLogin} className='log-in-form'>
@@ -44,6 +44,7 @@ const LoginForm = () => {
           ))}
         </div>
         <div>
+          <label htmlFor='email'>Email</label>
           <input
             name='email'
             type='text'
@@ -53,6 +54,7 @@ const LoginForm = () => {
           />
         </div>
         <div>
+          <label htmlFor='password'>Password</label>
           <input
             name='password'
             type='password'
@@ -61,7 +63,7 @@ const LoginForm = () => {
             onChange={updatePassword}
           />
         </div>
-          <button type='submit' className='sign-in-btn'>Sign In with Email</button>
+        <button type='submit' className='sign-in-btn'>Sign In with Email</button>
       </form>
     </div>
   );
