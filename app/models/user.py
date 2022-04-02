@@ -8,7 +8,7 @@ from sqlalchemy.orm import relationship, Session
 from alembic import op
 from sqlalchemy.orm import Session
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(Integer, primary_key=True)
