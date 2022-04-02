@@ -5,7 +5,7 @@ def seed_channels():
 
     for channel in channels:
         new_channel =  Channel(
-            name = channel.name, topic = channel.topic, description = channel.description, owner_id= channel.owner_id, workspace_id = channel.workspace_id
+            name = channel['name'], topic = channel['topic'], description = channel['description'], owner_id= channel['owner_id'], workspace_id = channel['workspace_id']
         )
         db.session.add(new_channel)
         db.session.commit()

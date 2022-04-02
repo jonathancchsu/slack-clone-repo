@@ -5,7 +5,7 @@ def seed_dm_members():
 
     for member in members:
         new_member =  DirectMessageMember(
-            room_id = member.id, user_id = member.user_id
+            room_id = member['room_id'], user_id = member['user_id']
         )
         db.session.add(new_member)
         db.session.commit()
