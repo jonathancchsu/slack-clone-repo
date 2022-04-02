@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
+import './Login.css'
 
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
@@ -31,11 +32,11 @@ const LoginForm = () => {
   }
 
   return (
-    <div>
+    <div className='log-in-form-container'>
       <img src='/images/logo.svg' className='slack-logo' style={{height:50}} alt="logo"></img>
       <h1>Sign in to Slack</h1>
       <h4>We suggest using the email address you use at work</h4>
-      <form onSubmit={onLogin}>
+      <form onSubmit={onLogin} className='log-in-form'>
         <div>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
@@ -45,7 +46,7 @@ const LoginForm = () => {
           <input
             name='email'
             type='text'
-            placeholder='name@work-email.com'
+            placeholder='  name@work-email.com'
             value={email}
             onChange={updateEmail}
           />
@@ -54,12 +55,12 @@ const LoginForm = () => {
           <input
             name='password'
             type='password'
-            placeholder='Password'
+            placeholder='  password'
             value={password}
             onChange={updatePassword}
           />
-          <button type='submit'>Sign In with Email</button>
         </div>
+          <button type='submit' className='sign-in-btn'>Sign In with Email</button>
       </form>
     </div>
   );
