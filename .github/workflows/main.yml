@@ -47,8 +47,12 @@ jobs:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
 
-    - name: Run DB Migration
+    - name: Run Drop Database
       env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku run -a ${{ secrets.HEROKU_APP_NAME }} flask run db downgrade
+
+    - name: Run DB Migration
+      env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku run -a ${{ secrets.HEROKU_APP_NAME }} flask run db upgrade
