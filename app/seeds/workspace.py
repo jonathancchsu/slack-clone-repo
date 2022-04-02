@@ -10,6 +10,6 @@ def seed_workspace():
         db.session.add(new_workspace)
         db.session.commit()
 
-def undo_members():
+def undo_workspace():
     db.session.execute('TRUNCATE workspaces RESTART IDENTITY CASCADE;')
     db.session.commit()
