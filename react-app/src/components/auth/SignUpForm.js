@@ -45,7 +45,7 @@ const SignUpForm = () => {
 
   return (
     <div className='sign-up-container'>
-      <img src='/images/logo.svg' className='slack-logo' style={{height:50}} alt="logo"></img>
+      <img src='/static/logo.svg' className='slack-logo' style={{height:50}} alt="logo"></img>
       <h1>First, enter your information</h1>
       <h4>We suggest you using the email address you use at work.</h4>
       <form onSubmit={onSignUp} className='sign-up-form'>

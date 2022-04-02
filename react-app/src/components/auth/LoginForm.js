@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
 import './Login.css'
 
+
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
@@ -33,7 +34,7 @@ const LoginForm = () => {
 
   return (
     <div className='log-in-form-container'>
-      <img src='static/images/logo.svg' className='slack-logo' style={{height:50}} alt="logo"></img>
+      <img src='/static/logo.svg' className='slack-logo' style={{height:50}} alt="logo"></img>
       <h1>Sign in to Slack</h1>
       <h4>We suggest using the email address you use at work</h4>
       <form onSubmit={onLogin} className='log-in-form'>
