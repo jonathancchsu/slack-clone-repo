@@ -35,9 +35,9 @@ export const postWorkspace = (workspace) => async (dispatch) => {
     method: "POST",
     body: JSON.stringify(workspace),
   });
-  const workspace = await res.json();
+  const new_workspace = await res.json();
 
-  dispatch(addWorkspace(workspace));
+  dispatch(addWorkspace(new_workspace));
 };
 //--------------------------------------------update workspace-----------------------
 const UPDATE_WORKSPACE = "workspaces/UpdateWorkspace";
