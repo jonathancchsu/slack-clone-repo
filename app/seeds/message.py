@@ -7,13 +7,13 @@ def seed_messages():
 
     for message in channel_messages:
         new_message =  Message(
-            channel_id = message.channel_id, sender_id = message.user_id, content= message.content
+            channel_id = message['channel_id'], sender_id = message['sender_id'], content= message['content']
         )
         db.session.add(new_message)
         db.session.commit()
     for message in room_messages:
         new_message =  Message(
-            room_id = message.room_id, sender_id = message.user_id, content= message.content
+            room_id = message['room_id'], sender_id = message['sender_id'], content= message['content']
         )
         db.session.add(new_message)
         db.session.commit()

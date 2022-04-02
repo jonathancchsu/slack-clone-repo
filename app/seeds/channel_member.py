@@ -5,7 +5,7 @@ def seed_channel_member():
 
     for member in members:
         new_member =  ChannelMember(
-            channel_id = member.channel_id, user_id = channel.user_id
+            channel_id = member['channel_id'], user_id = member['user_id']
         )
         db.session.add(new_member)
         db.session.commit()

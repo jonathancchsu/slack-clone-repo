@@ -5,7 +5,7 @@ def seed_workspace_member():
 
     for member in members:
         new_member =  WorkspaceMember(
-            workspace_id = member.workspace_id, user_id = member.user_id
+            workspace_id = member["workspace_id"], user_id = member['user_id']
         )
         db.session.add(new_member)
         db.session.commit()

@@ -5,7 +5,7 @@ def seed_workspace():
 
     for workspace in workspaces:
         new_workspace =  Workspace(
-            owner_id = workspace.owner_id, name = workspace.name
+            owner_id = workspace['owner_id'], name = workspace['name']
         )
         db.session.add(new_workspace)
         db.session.commit()

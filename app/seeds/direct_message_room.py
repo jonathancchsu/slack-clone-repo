@@ -5,7 +5,7 @@ def seed_dm_rooms():
 
     for room in rooms:
         new_room =  DirectMessageRoom(
-            owner_id = room.owner_id, workspace_id = room.workspace_id
+            owner_id = room['owner_id'], workspace_id = room['workspace_id']
         )
         db.session.add(new_room)
         db.session.commit()
