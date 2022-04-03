@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 function User() {
   const [user, setUser] = useState({});
-  const { userId }  = useParams();
+  const { userId } = useParams();
 
   useEffect(() => {
     if (!userId) {
@@ -12,6 +12,7 @@ function User() {
     (async () => {
       const response = await fetch(`/api/users/${userId}`);
       const user = await response.json();
+      console.log(user, 'this is the user')
       setUser(user);
     })();
   }, [userId]);
@@ -22,6 +23,11 @@ function User() {
 
   return (
     <ul>
+      {user.profile_picture && (
+        <li>
+          <img src={user.profile_picture} style={{ height: 100 }} alt="profile picture" />
+        </li>
+      )}
       <li>
         <strong>User Id</strong> {userId}
       </li>
