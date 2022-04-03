@@ -2,8 +2,7 @@
 
 .nav-bar {
   font-family: 'Open Sans';
-  background-color: rgb(74, 21, 75);
-  color: white;
+  background-color: #350d36;
   display: flex;
   height: 40px;
   width: 100%;
@@ -34,4 +33,48 @@
 .nav-bar a:visited {
   color: white;
   text-decoration: none;
+}
+
+.nav-profile {
+  margin-right: 15px;
+}
+
+.nav-profile img{
+  height: 25px;
+  border-radius: 5px;
+}
+
+.user-menu {
+  background-color: white;
+  position: fixed;
+  top: 38px;
+  right: 10px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 2px gray;
+}
+
+.user-info {
+  display:flex;
+  align-items: center;
+}
+
+.user-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 5px;
+  margin: 1px;
+}
+
+.user-status h6 {
+  margin-bottom: 0;
+}
+
+.user-status p {
+  color: gray;
+  font-size: 8px;
+  margin-top: 0;
 }
