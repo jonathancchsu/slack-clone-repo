@@ -1,11 +1,16 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import LogoutButton from './auth/LogoutButton';
+import './NavBar.css'
+import reducer from '../store/session';
 
 const NavBar = () => {
+  const user = useSelector(state => state.session.user)
+  console.log(user, 'current user')
   return (
-    <nav>
+    <nav className='nav-bar'>
       <ul>
         <li>
           <NavLink to='/' exact={true} activeClassName='active'>
@@ -31,6 +36,7 @@ const NavBar = () => {
           <LogoutButton />
         </li>
       </ul>
+      {user?user.profile_picture ? <img src={user.profile_picture} alt='profile' style={{height:25, marginRight: 5}} /> : <div>{user.username}</div> : <></>}
     </nav>
   );
 }

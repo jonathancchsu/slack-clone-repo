@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+
+.nav-bar {
+  font-family: 'Open Sans';
+  background-color: rgb(74, 21, 75);
+  color: white;
+  display: flex;
+  height: 40px;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-bar ul {
+  list-style: none;
+  display:flex;
+  align-items: center;
+}
+
+.nav-bar li {
+  float:left;
+}
+
+.nav-bar li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+.nav-bar a:visited {
+  color: white;
+  text-decoration: none;
+}
