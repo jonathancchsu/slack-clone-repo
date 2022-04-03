@@ -44,21 +44,19 @@ const LoginForm = () => {
           ))}
         </div>
         <div>
-          <label htmlFor='email'>Email</label>
           <input
             name='email'
             type='text'
-            placeholder='email'
+            placeholder='  name@work-email.com'
             value={email}
             onChange={updateEmail}
           />
         </div>
         <div>
-          <label htmlFor='password'>Password</label>
           <input
             name='password'
             type='password'
-            placeholder='password'
+            placeholder='  password'
             value={password}
             onChange={updatePassword}
           />
