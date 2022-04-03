@@ -25,7 +25,7 @@ function User() {
     <ul>
       {user.profile_picture && (
         <li>
-          <img src={user.profile_picture} style={{ height: 100 }} alt="profile picture" />
+          <img src={user.profile_picture} style={{ height: 100 }}/>
         </li>
       )}
       <li>
