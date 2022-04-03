@@ -23,21 +23,21 @@ const NavBar = () => {
               Users
             </NavLink>
           </li>
-          <li>
-            <LogoutButton />
-          </li>
         </ul>
         <div className='nav-profile'>
           {user.profile_picture ? <img src={user.profile_picture} alt='profile' /> : <div>{user.username}</div>}
           <div className='user-menu'>
             <div className='user-info'>
-              <div>
+              <div className='user-info-picture'>
                 {user.profile_picture ? <img src={user.profile_picture} alt='profile' /> : <div>{user.username}</div>}
               </div>
               <div className='user-status'>
                 <h6>{user.username}</h6>
                 <p>🟢 Active</p>
               </div>
+            </div>
+            <div>
+              <LogoutButton />
             </div>
           </div>
         </div>
