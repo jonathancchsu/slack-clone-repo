@@ -1,14 +1,28 @@
 
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector} from 'react-redux';
 import LogoutButton from './auth/LogoutButton';
 import './NavBar.css'
-import reducer from '../store/session';
+
 
 const NavBar = () => {
+  const [userMenu, setuserMenu] = useState(false)
+  const [userShowMenu, setUserShowMenu] = useState('')
   const user = useSelector(state => state.session.user)
   console.log(user, 'current user')
+
+  useEffect(() => {
+    if (userMenu) {
+      setUserShowMenu('show-user-info')
+      console.log('show')
+      console.log(userShowMenu)
+    } else {
+      setUserShowMenu('')
+    }
+  }, [userMenu])
+
   if (user) {
     return (
       <nav className='nav-bar'>
@@ -24,9 +38,13 @@ const NavBar = () => {
             </NavLink>
           </li>
         </ul>
-        <div className='nav-profile'>
-          {user.profile_picture ? <img src={user.profile_picture} alt='profile' /> : <div>{user.username}</div>}
-          <div className='user-menu'>
+        <div className='search'>
+          <p style={{fontSize:10}}>Search Workspace</p>
+          <img src='./static/search.png' alt='search' className='search-btn'/>
+        </div>
+        <div className='nav-profile' onClick={() => setuserMenu(!userMenu)}>
+          {user.profile_picture ? <div><img src={user.profile_picture} alt='profile' />🟢</div> : <div style={{color:'white'}}>{user.username}🟢</div>}
+          <div className={`user-menu ${userShowMenu}`}>
             <div className='user-info'>
               <div className='user-info-picture'>
                 {user.profile_picture ? <img src={user.profile_picture} alt='profile' /> : <div>{user.username}</div>}

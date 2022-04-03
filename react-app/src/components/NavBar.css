@@ -39,12 +39,22 @@
   margin-right: 15px;
 }
 
+.nav-profile:hover {
+  cursor: pointer;
+}
+
 .nav-profile img{
   height: 25px;
   border-radius: 5px;
 }
 
 .user-menu {
+  display: none;
+}
+
+
+
+.show-user-info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -92,4 +102,29 @@
   align-items: center;
   justify-content: center;
   margin-right: 2px;
+}
+
+.search {
+  width: 400px;
+  height: 25px;
+  border-radius: 5px;
+  background-color: #5e515e;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search:hover {
+  cursor: pointer;
+}
+
+.search p {
+  margin-left: 10px;
+  color:white;
+  font-family: 'Arial';
+}
+
+.search-btn {
+  height: 15px;
+  margin-right:10px;
 }
