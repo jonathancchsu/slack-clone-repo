@@ -36,7 +36,7 @@ const NavBar = () => {
                 <p>🟢 Active</p>
               </div>
             </div>
-            <div>
+            <div style={{height:30}}>
               <LogoutButton />
             </div>
           </div>

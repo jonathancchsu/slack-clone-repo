@@ -1,0 +1,14 @@
+.sign-out-btn {
+  background-color: white;
+  border: none;
+  display: flex;
+  justify-content: flex-start;
+  width: 200px;
+  margin-top: 5px;
+}
+
+.sign-out-btn:hover {
+  background-color: rgb(1, 67, 109);
+  color: white;
+  cursor: pointer;
+}
