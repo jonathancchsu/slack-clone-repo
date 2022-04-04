@@ -52,17 +52,18 @@ def dm_room_messages(dm_room_id):
 
         return message.to_dict()
 
-@bp.route('/messages/<int:message_id>', methods=['PUT', 'DELETE'])
-def message(message_id):
+@bp.route('/<int:message_id>', methods=['PUT', 'DELETE'])
+def edit_message(message_id):
+    print("HELLOOOOOO***********", message_id)
     if request.method == 'PUT':
-        message =Message.query.get(message_id)
         data = request.json
+        print("************************************", data)
+        message = Message.query.get(message_id)
         message.content = data['content']
-        db.session.add(message)
+        # db.session.add(message)
         db.session.commit()
+        return message.to_dict()
     if request.method == 'DELETE':
         db.session.query(Message).filter(Message.id == message_id).delete()
-
         db.session.commit()
-
         return {'message_id': message_id}

@@ -2,12 +2,13 @@ import "./MainContent.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-// import { getChannelMessages, getDirectMessages } from "../../../store/message";
 import {
   getCurrentChannel,
   getCurrentRoom,
   postChannelMessage,
   postDirectMessage,
+  putMessage,
+  deleteMessage
 } from "../../../store/currentView";
 import { io } from "socket.io-client";
 let socket;
@@ -20,7 +21,8 @@ const MainContent = () => {
   const [channelRoom, setChannelRoom] = useState();
   const [chatInput, setChatInput] = useState("");
   const [messages, setMessages] = useState([]);
-  console.log(messages);
+  const [edit, setEdit] = useState(null);
+  const [editContent, setEditContent] = useState("");
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView);
   useEffect(() => {
@@ -68,6 +70,7 @@ const MainContent = () => {
             content: chatInput,
             user: user.username,
             created_at: message.created_at,
+            socket: true
           })
         )
       : await dispatch(
@@ -84,10 +87,31 @@ const MainContent = () => {
             content: chatInput,
             user: user.username,
             created_at: message.created_at,
+            socket: true
           })
         );
     setChatInput("");
   };
+
+  const handleEditMessage = async (e, message) => {
+    e.preventDefault();
+    message.content = editContent;
+    await dispatch(putMessage(message));
+    setEdit(null);
+    setEditContent("");
+  }
+
+  const handleDeleteMessage = async (e, message) => {
+    e.preventDefault();
+    await dispatch(deleteMessage(message));
+    if (message.socket) setMessages(messages.filter(msg => msg.id !== message.id));
+  }
+
+  const handleCancel = e => {
+    e.preventDefault();
+    setEdit(null);
+    setEditContent("");
+  }
 
   return (
     loaded && (
@@ -100,16 +124,51 @@ const MainContent = () => {
           <div>insert member icon {view.members.length}</div>
         </div>
         {view.messages.map((message) => (
+          edit === message.id ?
+          <div key={message.id}>
+            {message.sender_username}
+            <input type='text' defaultValue={message.content} onChange={e => setEditContent(e.target.value)}></input>
+            <button onClick={e => handleEditMessage(e, message)}>Submit</button>
+            <button onClick={handleCancel}>Cancel</button>
+          </div>
+          :
           <div key={message.id}>
             {message.sender_username}:{message.content}
             {message.created_at}
+            { user.id === message.sender_id &&
+            <span>
+              <button onClick={e => {
+                e.preventDefault();
+                setEdit(message.id);
+              }}>Edit</button>
+              <button onClick={e => handleDeleteMessage(e, message)}>Delete</button>
+            </span>
+            }
           </div>
         ))}
         <div>
           {messages.map((message, ind) => (
-            <div
-              key={ind}
-            >{`${message.user}: ${message.content} ${message.created_at}`}</div>
+            edit === message.id ?
+            <div key={message.id}>
+              {message.sender_username}
+              <input type='text' defaultValue={message.content} onChange={e => setEditContent(e.target.value)}></input>
+              <button onClick={e => handleEditMessage(e, message)}>Submit</button>
+              <button onClick={handleCancel}>Cancel</button>
+            </div>
+          :
+            <div key={ind}>
+              {`${message.user}: ${message.content} ${message.created_at}`}
+              { user.id === message.sender_id &&
+                <span>
+                  <button onClick={e => {
+                    e.preventDefault();
+                    console.log(message)
+                    setEdit(message.id);
+                  }}>Edit</button>
+                  <button onClick={e => handleDeleteMessage(e, message)}>Delete</button>
+                </span>
+              }
+            </div>
           ))}
         </div>
         <form onSubmit={sendChat}>

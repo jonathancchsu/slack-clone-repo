@@ -19,18 +19,16 @@ export const getCurrentRoom = (roomId) => async (dispatch) => {
 };
 
 const DELETE_MESSAGE = "view/deleteMessage";
-export const removeMessage = (messageId) => ({
+export const removeMessage = (message) => ({
   type: DELETE_MESSAGE,
-  messageId,
+  message,
 });
-export const deleteMessage = (messageId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/messages/${messageId}`, {
+export const deleteMessage = (message) => async (dispatch) => {
+  const res = await csrfFetch(`/api/messages/${message.id}`, {
     method: "DELETE",
   });
-
   const deletedMessage = await res.json();
-
-  dispatch(removeMessage(deletedMessage));
+  if (!message.socket) dispatch(removeMessage(deletedMessage));
 };
 //-------------------------------------- edit message
 const UPDATE_MESSAGE = "view/UpdateMessage";
@@ -45,7 +43,7 @@ export const putMessage = (message) => async (dispatch) => {
     body: JSON.stringify(message),
   });
   const updatedMessage = await res.json();
-  dispatch(updateMessage(updatedMessage));
+  if (!message.socket) dispatch(updateMessage(updatedMessage));
 };
 //-----------------------------add channel message
 export const postChannelMessage = (message) => async (dispatch) => {
@@ -74,14 +72,16 @@ const currentViewReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_CURRENTVIEW: {
       newState = action.view;
+      console.log(newState.messages);
       return newState;
     }
     case UPDATE_MESSAGE: {
-      newState.messages[action.message.id] = action.message;
+      newState.messages = newState.messages.map(message => action.message.id === message.id ? action.message : message);
       return newState;
     }
     case DELETE_MESSAGE: {
-      delete newState.messages[action.messageId];
+      // delete newState.messages[action.messageId];
+      newState.messages = newState.messages.filter(message => action.message.message_id !== message.id);
       return newState;
     }
     default:
