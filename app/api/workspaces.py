@@ -9,13 +9,11 @@ import json
 bp = Blueprint('workspaces', __name__, url_prefix='workspaces')
 
 
+
 @bp.route('/<int:workspace_id>')
 def get_one_workspace(workspace_id):
     workspace = Workspace.query.get(workspace_id)
     return workspace.to_dict()
-
-
-
 
 @bp.route('dm/<int:dm_id>')
 def get_one_group_message(dm_id):

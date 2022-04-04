@@ -22,6 +22,15 @@ export const getOneWorkspace = (workspaceId) => async (dispatch) => {
   dispatch(loadOneWorkspace(workspace));
 };
 
+//--------------------------------------------get current view------------------------
+// const LOAD_CURRENTVIEW = 'workspaces/LoadCurrentView'
+
+// export const loadCurrentView = (object) => {
+//   return {type:LOAD_CURRENTVIEW, object }
+// }
+
+// export const getChannelMessages
+
 //--------------------------------------------add workspace-----------------------
 
 const ADD_WORKSPACE = "workspaces/AddWorkspace";
@@ -72,7 +81,10 @@ export const deleteEvent = (workspaceId) => async (dispatch) => {
 };
 //---------------------------------------------reducer----------------------------
 
-const workspaceReducer = (state = { currentWorkspace: {} }, action) => {
+const workspaceReducer = (
+  state = { currentWorkspace: {}, currentView: {} },
+  action
+) => {
   let newState = { ...state };
 
   switch (action.type) {
