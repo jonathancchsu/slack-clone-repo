@@ -11,13 +11,13 @@ const NavBar = () => {
   const [userMenu, setuserMenu] = useState(false)
   const [userShowMenu, setUserShowMenu] = useState('')
   const user = useSelector(state => state.session.user)
-  console.log(user, 'current user')
+  // console.log(user, 'current user')
 
   useEffect(() => {
     if (userMenu) {
       setUserShowMenu('show-user-info')
-      console.log('show')
-      console.log(userShowMenu)
+      // console.log('show')
+      // console.log(userShowMenu)
     } else {
       setUserShowMenu('')
     }

@@ -41,7 +41,7 @@ export const login = (email, password) => async (dispatch) => {
     })
   });
 
-  console.log('is there a response?', response)
+  // console.log('is there a response?', response)
 
   if (response.ok) {
     const data = await response.json();
