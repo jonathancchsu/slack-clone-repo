@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+
+.sign-out-btn {
+  background-color: white;
+  border: none;
+  display: flex;
+  justify-content: flex-start;
+  width: 200px;
+  margin-top: 5px;
+  font-family: 'Open Sans';
+  font-size: 12px;
+}
+
+.sign-out-btn:hover {
+  background-color: #1164a3;
+  color: white;
+  cursor: pointer;
+}
