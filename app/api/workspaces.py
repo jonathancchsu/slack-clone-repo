@@ -15,6 +15,12 @@ def get_one_workspace(workspace_id):
     workspace = Workspace.query.get(workspace_id)
     return workspace.to_dict()
 
-@bp.route('dm/<int:dm_id>')
-def get_one_group_message(dm_id):
+@bp.route('dms/<int:dm_id>')
+def get_one_dm_group(dm_id):
     dm_room = DirectMessageRoom.query.get(dm_id)
+    return dm_room.to_dict()
+
+@bp.route('channels/<int:channel_id>')
+def get_one_channel(channel_id):
+    channel = Channel.query.get(channel_id)
+    return channel.to_dict()

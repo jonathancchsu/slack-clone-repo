@@ -3,10 +3,10 @@ import { useHistory } from "react-router-dom";
 const LeftSideBar = ({ workspace }) => {
   let history = useHistory();
 
-  const channelMessages = (id) => {
+  const channelMessages = async (id) => {
     history.push(`/workspaces/${workspace.id}/messages/channels/${id}`);
   };
-  const roomMessages = (id) => {
+  const roomMessages = async (id) => {
     history.push(`/workspaces/${workspace.id}/messages/dm_rooms/${id}`);
   };
   return (
@@ -15,7 +15,7 @@ const LeftSideBar = ({ workspace }) => {
       <div>
         <h3>Channels</h3>
         {workspace.channels.map((channel) => (
-          <div key={channel.id} onClick={() => channelMessages(channel.id)}>
+          <div onClick={() => channelMessages(channel.id)} key={channel.id}>
             # {channel.name}
           </div>
         ))}
@@ -23,11 +23,13 @@ const LeftSideBar = ({ workspace }) => {
       <div>
         <h3>Direct Messages</h3>
         {workspace.message_rooms.map((room) => (
-          <ul key={room.id} onClick={() => roomMessages(room.id)}>
-            {room.members.map((member) => (
-              <li key={member.id}>{member.username}</li>
-            ))}
-          </ul>
+          <div key={room.id} onClick={() => roomMessages(room.id)} id={room.id}>
+            <div>
+              {room.members.map((member) => (
+                <div key={member.id}>{member.username}</div>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </div>

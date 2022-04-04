@@ -16,7 +16,7 @@ const OneWorkspace = () => {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   const workspace = useSelector((state) => state.workspace.currentWorkspace);
-  console.log(workspace);
+  //   console.log(workspace);
   useEffect(() => {
     dispatch(getOneWorkspace(workspaceId)).then(() => setLoaded(true));
   }, [dispatch, workspaceId]);

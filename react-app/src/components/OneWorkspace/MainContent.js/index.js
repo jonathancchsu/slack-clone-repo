@@ -1,42 +1,45 @@
 import "./MainContent.css";
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getChannelMessages, getDirectMessages } from "../../../store/message";
+import { getCurrentChannel, getCurrentRoom } from "../../../store/workspace";
 
 const MainContent = () => {
-  const dispatch = useDispatch();
   const [loaded, setloaded] = useState(false);
-
+  const dispatch = useDispatch();
   let url = window.location.href;
-  const [dmRoom, setDmRoom] = useState(url.includes("dm_rooms"));
-  const [channelRoom, setChannelRoom] = useState(url.includes("channels"));
+  const [dmRoom, setDmRoom] = useState();
+  const [channelRoom, setChannelRoom] = useState();
 
-  let { id } = useParams();
-
-  const messagesObj = useSelector((state) => state.message);
-  const messages = Object.entries(messagesObj);
-
-  console.log("hereeeeeeeeeeee", messages);
-
+  const view = useSelector((state) => state.workspace.currentView);
   useEffect(() => {
-    if (channelRoom) {
-      //dispatch the thing.then setloaded true
-      dispatch(getChannelMessages(id)).then(() => setloaded(true));
+    let id = url.split("/")[7] * 1;
+    if (url.includes("channels")) {
+      setDmRoom(false);
+      setChannelRoom(true);
+      dispatch(getCurrentChannel(id)).then(() => setloaded(true));
+    } else {
+      setChannelRoom(false);
+      setDmRoom(true);
+      dispatch(getCurrentRoom(id)).then(() => setloaded(true));
     }
-    if (dmRoom) {
-      //dispatch the thing.then setloaded true
-      dispatch(getDirectMessages(id)).then(() => setloaded(true));
-    }
-  }, []);
+  }, [dispatch, url]);
+
   return (
     loaded && (
       <div>
-        {messages.map((message) => (
-          <div key={message[1].id}>
-            {message[1].content} {message[1].sender_username}{" "}
-            {message[1].created_at}
+        <div>
+          <div>{channelRoom && <h2>{view.topic}</h2>}</div>
+          <div>
+            {dmRoom && <h2>{view.members.map((member) => member.username)}</h2>}
+          </div>
+          <div>insert member icon {view.members.length}</div>
+        </div>
+        {view.messages.map((message) => (
+          <div key={message.id}>
+            {message.content} {message.sender_username}
+            {message.created_at}
           </div>
         ))}
       </div>

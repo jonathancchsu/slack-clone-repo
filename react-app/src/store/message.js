@@ -140,10 +140,14 @@ const messageReducer = (state = {}, action) => {
     //-------------------------------------testing
 
     case LOAD_MESSAGES: {
-      action.messages.messages.forEach((message) => {
-        return (newState[message.id] = message);
-      });
-      return newState;
+      //   action.messages.messages.forEach((message) => {
+      //     return (newState[message.id] = message);
+      //   });
+      console.log(
+        "hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        action.messages.messages
+      );
+      return (newState = action.messages.messages);
     }
 
     //-------------------------------------testing
