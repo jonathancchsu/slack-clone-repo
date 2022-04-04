@@ -3,8 +3,13 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 // import { getChannelMessages, getDirectMessages } from "../../../store/message";
-import { getCurrentChannel, getCurrentRoom } from "../../../store/workspace";
-import { io } from 'socket.io-client';
+import {
+  getCurrentChannel,
+  getCurrentRoom,
+  postChannelMessage,
+  postDirectMessage,
+} from "../../../store/currentView";
+import { io } from "socket.io-client";
 let socket;
 
 const MainContent = () => {
@@ -15,9 +20,9 @@ const MainContent = () => {
   const [channelRoom, setChannelRoom] = useState();
   const [chatInput, setChatInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const user = useSelector(state => state.session.user);
-
-  const view = useSelector((state) => state.workspace.currentView);
+  console.log(messages);
+  const user = useSelector((state) => state.session.user);
+  const view = useSelector((state) => state.currentView);
   useEffect(() => {
     let id = url.split("/")[7] * 1;
     if (url.includes("channels")) {
@@ -33,23 +38,68 @@ const MainContent = () => {
     socket = io();
 
     socket.on("chat", (chat) => {
-      setMessages(messages => [...messages, chat])
-    })
+      setMessages((messages) => [...messages, chat]);
+    });
     // when component unmounts, disconnect
-    return (() => {
-      socket.disconnect()
-    })
+    return () => {
+      socket.disconnect();
+    };
   }, [dispatch, url]);
 
   const updateChatInput = (e) => {
-    setChatInput(e.target.value)
+    setChatInput(e.target.value);
   };
 
-  const sendChat = (e) => {
-    e.preventDefault()
-    socket.emit("chat", { user: user.username, msg: chatInput });
-    setChatInput("")
-  }
+  const sendChat = async (e) => {
+    e.preventDefault();
+    // await socket
+    //   .emit("chat", { user: user.username, msg: chatInput })
+    //   .then(
+    //     () =>
+    //       dmRoom &&
+    //       dispatch({ room_id: view.id, sender_id: user.id, content: chatInput })
+    //   )
+    //   .then(
+    //     () =>
+    //       channelRoom &&
+    //       dispatch({ room_id: view.id, sender_id: user.id, content: chatInput })
+    //   );
+
+    dmRoom
+      ? await dispatch(
+          postDirectMessage({
+            room_id: view.id,
+            sender_id: user.id,
+            content: chatInput,
+          })
+        ).then((message) =>
+          socket.emit("chat", {
+            id: message.id,
+            room_id: view.id,
+            sender_id: user.id,
+            content: chatInput,
+            user: user.username,
+            created_at: message.created_at,
+          })
+        )
+      : await dispatch(
+          postChannelMessage({
+            channel_id: view.id,
+            sender_id: user.id,
+            content: chatInput,
+          })
+        ).then((message) =>
+          socket.emit("chat", {
+            id: message.id,
+            channel_id: view.id,
+            sender_id: user.id,
+            content: chatInput,
+            user: user.username,
+            created_at: message.created_at,
+          })
+        );
+    setChatInput("");
+  };
 
   return (
     loaded && (
@@ -63,20 +113,19 @@ const MainContent = () => {
         </div>
         {view.messages.map((message) => (
           <div key={message.id}>
-            {message.content} {message.sender_username}
+            {message.sender_username}:{message.content}
             {message.created_at}
           </div>
         ))}
         <div>
           {messages.map((message, ind) => (
-            <div key={ind}>{`${message.user}: ${message.msg}`}</div>
+            <div
+              key={ind}
+            >{`${message.user}: ${message.content} ${message.created_at}`}</div>
           ))}
         </div>
         <form onSubmit={sendChat}>
-          <input
-            value={chatInput}
-            onChange={updateChatInput}
-          />
+          <input value={chatInput} onChange={updateChatInput} />
           <button type="submit">Send</button>
         </form>
       </div>
