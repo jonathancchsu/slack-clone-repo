@@ -58,7 +58,7 @@ export const postChannelMessage = (message) => async (dispatch) => {
   return newMessage;
 };
 export const postDirectMessage = (message) => async (dispatch) => {
-  const res = await csrfFetch(`/api/messages/dm_rooms/${message.dm_room_id}`, {
+  const res = await csrfFetch(`/api/messages/dm_rooms/${message.room_id}`, {
     method: "POST",
     body: JSON.stringify(message),
   });

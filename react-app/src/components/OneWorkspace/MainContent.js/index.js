@@ -52,18 +52,6 @@ const MainContent = () => {
 
   const sendChat = async (e) => {
     e.preventDefault();
-    // await socket
-    //   .emit("chat", { user: user.username, msg: chatInput })
-    //   .then(
-    //     () =>
-    //       dmRoom &&
-    //       dispatch({ room_id: view.id, sender_id: user.id, content: chatInput })
-    //   )
-    //   .then(
-    //     () =>
-    //       channelRoom &&
-    //       dispatch({ room_id: view.id, sender_id: user.id, content: chatInput })
-    //   );
 
     dmRoom
       ? await dispatch(
