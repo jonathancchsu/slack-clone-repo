@@ -1,3 +1,5 @@
+import { csrfFetch } from "./csrf";
+
 // constants
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
@@ -98,6 +100,7 @@ export const signUp = (username, email, password, profile_picture) => async (dis
     return ['An error occurred. Please try again.']
   }
 }
+
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {

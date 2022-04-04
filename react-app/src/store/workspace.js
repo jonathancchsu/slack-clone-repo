@@ -49,12 +49,12 @@ export const addWorkspace = (workspace) => ({
 });
 
 export const postWorkspace = (workspace) => async (dispatch) => {
-  const res = await csrfFetch("/api/workspaces", {
+  const res = await csrfFetch("/api/workspaces/new", {
     method: "POST",
     body: JSON.stringify(workspace),
   });
   const new_workspace = await res.json();
-
+  // console.log("new workspace+++++++++++++++++++++++",new_workspace)
   dispatch(addWorkspace(new_workspace));
 };
 //--------------------------------------------update workspace-----------------------
@@ -91,14 +91,14 @@ export const deleteEvent = (workspaceId) => async (dispatch) => {
 //---------------------------------------------reducer----------------------------
 
 const workspaceReducer = (
-  state = { currentWorkspace: {}, currentView: {} },
+  state = { currentWorkspace: {}, currentView: {}, userWorkspaces: {} },
   action
 ) => {
   let newState = { ...state };
 
   switch (action.type) {
     case LOAD_WORKSPACES: {
-      action.workspaces.forEach((workspace) => {
+      newState.userWorkspaces = action.workspaces.map((workspace) => {
         return (newState[workspace.id] = workspace);
       });
       return newState;
