@@ -4,28 +4,52 @@ import { csrfFetch } from "./csrf";
 //post message
 //edit message
 //delete message
+// //--------------------------------------------load channel messages-----------------------
+// const LOAD_CHANNELMESSAGES = "messages/LoadChannelMessages";
+// export const loadChannelMessages = (messages) => {
+//   return { type: LOAD_CHANNELMESSAGES, messages };
+// };
+
+// export const getChannelMessages = (channelId) => async (dispatch) => {
+//   const res = await fetch(`/api/messages/channels/${channelId}`);
+//   const getMessages = await res.json();
+//   dispatch(loadChannelMessages(getMessages));
+// };
+
+// //--------------------------------------------load direct messages-----------------------
+// const LOAD_DIRECTMESSAGES = "messages/LoadDirectMessages";
+// export const loadDirectMessages = (messages) => {
+//   return { type: LOAD_DIRECTMESSAGES, messages };
+// };
+
+// export const getDirectMessages = (dmRoomId) => async (dispatch) => {
+//   const res = await fetch(`/api/messages/dm_rooms/${dmRoomId}`);
+//   const getMessages = await res.json();
+//   dispatch(loadDirectMessages(getMessages));
+// };
+
 //--------------------------------------------load channel messages-----------------------
-const LOAD_CHANNELMESSAGES = "messages/LoadChannelMessages";
-export const loadChannelMessages = (messages) => {
-  return { type: LOAD_CHANNELMESSAGES, messages };
+const LOAD_MESSAGES = "messages/LoadMessages";
+export const loadMessages = (messages) => {
+  return { type: LOAD_MESSAGES, messages };
 };
 
 export const getChannelMessages = (channelId) => async (dispatch) => {
   const res = await fetch(`/api/messages/channels/${channelId}`);
   const getMessages = await res.json();
-  dispatch(loadChannelMessages(getMessages));
+  dispatch(loadMessages(getMessages));
 };
 
 //--------------------------------------------load direct messages-----------------------
-const LOAD_DIRECTMESSAGES = "messages/LoadDirectMessages";
-export const loadDirectMessages = (messages) => {
-  return { type: LOAD_DIRECTMESSAGES, messages };
-};
+// const LOAD_DIRECTMESSAGES = "messages/LoadDirectMessages";
+// export const loadDirectMessages = (messages) => {
+//   return { type: LOAD_DIRECTMESSAGES, messages };
+// };
 
 export const getDirectMessages = (dmRoomId) => async (dispatch) => {
   const res = await fetch(`/api/messages/dm_rooms/${dmRoomId}`);
   const getMessages = await res.json();
-  dispatch(loadDirectMessages(getMessages));
+  dispatch(loadMessages(getMessages));
 };
 
 //--------------------------------------------add channel message-----------------------
@@ -101,18 +125,32 @@ const messageReducer = (state = {}, action) => {
   let newState = { ...state };
 
   switch (action.type) {
-    case LOAD_CHANNELMESSAGES: {
-      action.message.forEach((message) => {
-        return (newState[message.id] = message);
-      });
-      return newState;
+    // case LOAD_CHANNELMESSAGES: {
+    //   action.message.forEach((message) => {
+    //     return (newState[message.id] = message);
+    //   });
+    //   return newState;
+    // }
+    // case LOAD_DIRECTMESSAGES: {
+    //   action.message.forEach((message) => {
+    //     return (newState[message.id] = message);
+    //   });
+    //   return newState;
+    // }
+    //-------------------------------------testing
+
+    case LOAD_MESSAGES: {
+      //   action.messages.messages.forEach((message) => {
+      //     return (newState[message.id] = message);
+      //   });
+      console.log(
+        "hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        action.messages.messages
+      );
+      return (newState = action.messages.messages);
     }
-    case LOAD_DIRECTMESSAGES: {
-      action.message.forEach((message) => {
-        return (newState[message.id] = message);
-      });
-      return newState;
-    }
+
+    //-------------------------------------testing
     case ADD_CHANNELMESSAGE: {
       newState[action.message.id] = { ...action.message };
 

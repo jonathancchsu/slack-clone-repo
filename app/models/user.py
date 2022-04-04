@@ -52,7 +52,7 @@ class User(db.Model, UserMixin):
         'email':self.email,
         'profile_picture': self.profile_picture,
         'workspaces_owned': [workspace.id for workspace in self.workspaces_owned],
-        'workspace_member': [workspace.id for workspace in self.workspace_member],
+        'workspace_member': [{'id':workspace.workspace_id, 'name': workspace.workspace.name, 'members_length': len(workspace.workspace.members)  }for workspace in self.workspace_member],
         'channels_owned': [channel.id for channel in self.channels_owned],
         'channel_member': [channel.id for channel in self.channel_member],
         'channels_owned': [channel.id for channel in self.dm_rooms_owned],

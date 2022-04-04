@@ -22,6 +22,24 @@ export const getOneWorkspace = (workspaceId) => async (dispatch) => {
   dispatch(loadOneWorkspace(workspace));
 };
 
+//--------------------------------------------get current view------------------------
+const LOAD_CURRENTVIEW = "workspaces/LoadCurrentView";
+
+export const loadCurrentView = (view) => {
+  return { type: LOAD_CURRENTVIEW, view };
+};
+
+export const getCurrentChannel = (channelId) => async (dispatch) => {
+  const res = await fetch(`/api/workspaces/channels/${channelId}`);
+  const channel = await res.json();
+  dispatch(loadCurrentView(channel));
+};
+export const getCurrentRoom = (roomId) => async (dispatch) => {
+  const res = await fetch(`/api/workspaces/dms/${roomId}`);
+  const dm_room = await res.json();
+  dispatch(loadCurrentView(dm_room));
+};
+
 //--------------------------------------------add workspace-----------------------
 
 const ADD_WORKSPACE = "workspaces/AddWorkspace";
@@ -72,7 +90,10 @@ export const deleteEvent = (workspaceId) => async (dispatch) => {
 };
 //---------------------------------------------reducer----------------------------
 
-const workspaceReducer = (state = { currentWorkspace: {} }, action) => {
+const workspaceReducer = (
+  state = { currentWorkspace: {}, currentView: {} },
+  action
+) => {
   let newState = { ...state };
 
   switch (action.type) {
@@ -97,6 +118,10 @@ const workspaceReducer = (state = { currentWorkspace: {} }, action) => {
     }
     case LOAD_ONEWORKSPACE: {
       newState.currentWorkspace = action.workspace;
+      return newState;
+    }
+    case LOAD_CURRENTVIEW: {
+      newState.currentView = action.view;
       return newState;
     }
     default:
