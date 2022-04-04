@@ -28,22 +28,31 @@ def get_one_channel(channel_id):
     return channel.to_dict()
 
 
-@bp.route('/', methods=['POST'])
+# @bp.route('/<int:user_id>')
+# def get_all_workspaces(user_id):
+#     user = User.query(user_id)
+#     workspaces = User.query.filter().all()
+#     return
+
+@bp.route('/new', methods=['POST'])
 def workspace_create():
+    # print("current user here ___________________",current_user)
     form = WorkspaceForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        # print('curent user here',current_user)
         workspace = Workspace(
             name=form.data['name'],
-            owner_id=current_user.id
+            owner_id=form.data['owner_id']
         )
         db.session.add(workspace)
         db.session.commit()
 
         workspaceMember = WorkspaceMember(
-            workspace_id=Workspace.query.filter(Workspace.name == form.data['name']),
-            user_id=current_user.id
+            workspace_id=workspace.id,
+            user_id=workspace.owner_id
         )
+        print('workspacemember here ----------------------------',workspaceMember)
         db.session.add(workspaceMember)
         db.session.commit()
 

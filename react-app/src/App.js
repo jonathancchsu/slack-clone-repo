@@ -9,6 +9,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import Workspaces from "./components/AllWorkspaces";
 import OneWorkspace from "./components/OneWorkspace";
+import WorkspaceForm from "./components/workspace_form";
 import { authenticate } from "./store/session";
 
 function App() {
@@ -45,8 +46,11 @@ function App() {
         <ProtectedRoute path="/users/:userId" exact={true}>
           <User />
         </ProtectedRoute>
+        <ProtectedRoute path="/workspaces/new" exact={true}>
+          <WorkspaceForm />
+        </ProtectedRoute>
         <ProtectedRoute path={`/workspaces/:workspaceId`}>
-          <NavBar></NavBar>
+          <NavBar />
           <OneWorkspace />
         </ProtectedRoute>
       </Switch>
