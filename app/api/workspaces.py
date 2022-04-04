@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, redirect, url_for, request
 # from sqlalchemy.orm import Session
 from app.models import User, Workspace, WorkspaceMember, Channel, ChannelMember, Message, DirectMessageRoom, DirectMessageMember, db
 from flask_login import current_user, login_user, logout_user, login_required
-from app.forms import WorkSpaceForm
+from app.forms import WorkspaceForm
 
 import json
 
@@ -30,7 +30,7 @@ def get_one_channel(channel_id):
 
 @bp.route('/', methods=['POST'])
 def workspace_create():
-    form = WorkSpaceForm()
+    form = WorkspaceForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         workspace = Workspace(
@@ -39,6 +39,14 @@ def workspace_create():
         )
         db.session.add(workspace)
         db.session.commit()
+
+        workspaceMember = WorkspaceMember(
+            workspace_id=Workspace.query.filter(Workspace.name == form.data['name']),
+            user_id=current_user.id
+        )
+        db.session.add(workspaceMember)
+        db.session.commit()
+
         return workspace.to_dict()
 
 

@@ -6,6 +6,8 @@ const Workspaces = ({ user }) => {
   const redirect = (workspaceId) => {
     history.push(`/workspaces/${workspaceId}`);
   };
+
+
   return (
     <div>
       <h1>👋 Welcome back</h1>
@@ -19,6 +21,12 @@ const Workspaces = ({ user }) => {
           </button>
         </div>
       ))}
+
+      <div className="create-workspace">
+        <button className="create-btn" >
+          Add New Workspace
+        </button>
+      </div>
     </div>
   );
 };
