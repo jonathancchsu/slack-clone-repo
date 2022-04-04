@@ -2,7 +2,7 @@ import "./MainContent.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getChannelMessages, getDirectMessages } from "../../../store/message";
+// import { getChannelMessages, getDirectMessages } from "../../../store/message";
 import { getCurrentChannel, getCurrentRoom } from "../../../store/workspace";
 
 const MainContent = () => {
