@@ -13,6 +13,7 @@ def get_one_channel(channel_id):
 
 @bp.route('/channels/<int:channel_id>', methods=['GET', 'POST'])
 def channel_messages(channel_id):
+    print('before ifssssssssssssssssssssssssssssssss')
     if request.method == 'GET':
 
         messages = Message.query.filter(Message.channel_id == channel_id).all()
@@ -21,6 +22,7 @@ def channel_messages(channel_id):
         return {"messages":[message.to_dict() for message in messages]}
     if request.method == 'POST':
         data = request.json
+        print('hereeeeeeeeeeeeeeeeeeeeeeeeeee',data)
         message = Message(
             channel_id=data['channel_id'],
             sender_id=data['sender_id'],
@@ -29,39 +31,39 @@ def channel_messages(channel_id):
         db.session.add(message)
         db.session.commit()
 
-        return message
+        return message.to_dict()
 
 @bp.route('/dm_rooms/<int:dm_room_id>', methods=['GET', 'POST'])
 def dm_room_messages(dm_room_id):
     if request.method == 'GET':
 
         messages = Message.query.filter(Message.room_id == dm_room_id).all()
-        print('hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',messages)
 
         return {"messages":[message.to_dict() for message in messages]}
     if request.method == 'POST':
         data = request.json
         message = Message(
-            room_id=data['channel_id'],
+            room_id=data['room_id'],
             sender_id=data['sender_id'],
             content=data['content']
         )
         db.session.add(message)
         db.session.commit()
 
-        return message
+        return message.to_dict()
 
-@bp.route('/messages/<int:message_id>', methods=['PUT', 'DELETE'])
-def message(message_id):
+@bp.route('/<int:message_id>', methods=['PUT', 'DELETE'])
+def edit_message(message_id):
+    print("HELLOOOOOO***********", message_id)
     if request.method == 'PUT':
-        message =Message.query.get(message_id)
         data = request.json
+        print("************************************", data)
+        message = Message.query.get(message_id)
         message.content = data['content']
-        db.session.add(message)
+        # db.session.add(message)
         db.session.commit()
+        return message.to_dict()
     if request.method == 'DELETE':
         db.session.query(Message).filter(Message.id == message_id).delete()
-
         db.session.commit()
-
         return {'message_id': message_id}

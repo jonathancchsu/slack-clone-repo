@@ -31,7 +31,7 @@ class Channel(db.Model):
             'workspace_id': self.workspace_id,
             'members': [member.to_dict() for member in self.members],
             'messages': [message.to_dict() for message in self.messages],
-    }
+        }
 
 class ChannelMember(db.Model):
     __tablename__ = 'channelMembers'

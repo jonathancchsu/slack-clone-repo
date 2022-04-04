@@ -3,11 +3,13 @@ import thunk from "redux-thunk";
 import session from "./session";
 import workspaceReducer from "./workspace";
 import messageReducer from "./message";
+import currentViewReducer from "./currentView";
 
 const rootReducer = combineReducers({
   session,
   workspace: workspaceReducer,
   message: messageReducer,
+  currentView: currentViewReducer,
 });
 
 let enhancer;
