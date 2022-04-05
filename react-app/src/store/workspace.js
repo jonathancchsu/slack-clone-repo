@@ -22,6 +22,28 @@ export const getOneWorkspace = (workspaceId) => async (dispatch) => {
   dispatch(loadOneWorkspace(workspace));
 };
 
+//-------------------------------------------add Workspace member
+const ADD_MEMBER = "workspaces/AddMember";
+const addMember = (member) => {
+  return {type: ADD_MEMBER, member}
+}
+
+
+export const addAMember = (user_id, workspace_id) => async dispatch => {
+  console.log('new member.........', user_id, workspace_id)
+
+  const res = await csrfFetch(`/api/workspaces/members/${workspace_id}/${user_id}`,
+    {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user_id, workspace_id)
+    }
+  )
+
+  const member = await res.json();
+  dispatch(addMember(member));
+}
+
 //--------------------------------------------get current view------------------------
 // const LOAD_CURRENTVIEW = "workspaces/LoadCurrentView";
 
