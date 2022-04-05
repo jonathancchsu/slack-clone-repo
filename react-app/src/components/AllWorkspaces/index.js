@@ -4,11 +4,13 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUser } from "../../store/session";
 import { useDispatch } from "react-redux";
-import { deleteEvent } from "../../store/workspace";
-// import WorkspaceForm from "../workspace_form";
+import { deleteEvent, putWorkspace } from "../../store/workspace";
+import WorkspaceForm from "../workspace_form";
 
 const Workspaces = ({ userId }) => {
   const [loaded, setLoaded] = useState(false);
+  const [edit, setEdit] = useState('');
+  const [workspaceName, setWorkspaceName] = useState('');
   let history = useHistory();
   const dispatch = useDispatch();
   // useEffect(() => {
@@ -22,6 +24,16 @@ const Workspaces = ({ userId }) => {
   const createForm = () => {
     history.push("/workspaces/new");
   };
+
+  const handleEdit = async (e, workspace) => {
+    e.preventDefault()
+    workspace.name = workspaceName
+    await dispatch(putWorkspace(workspace))
+    setEdit('');
+    setWorkspaceName('');
+    return dispatch(getUser(userId)).then(() => setLoaded(true));
+  }
+
   const user = useSelector((state) => state.session.user);
   useEffect(() => {
     dispatch(getUser(userId)).then(() => setLoaded(true));
@@ -45,6 +57,16 @@ const Workspaces = ({ userId }) => {
               Launch Workspace
             </button>
             <button onClick={() => deleteWorkspace(workspace.id)}>DELETE</button>
+            <button onClick={() => setEdit(workspace.id)}>EDIT</button>
+            {edit === workspace.id? <div>
+              <input type='text'
+                value={workspaceName}
+                onChange={(e) => setWorkspaceName(e.target.value)}
+              ></input>
+              <button onClick={(e) => handleEdit(e, workspace)}>Save</button>
+              <button onClick={() => setEdit('')}>Cancel</button>
+              </div>: <></>}
+            <div></div>
           </div>
         ))}
         {/* <div>

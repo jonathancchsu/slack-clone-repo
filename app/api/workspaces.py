@@ -68,6 +68,7 @@ def workspace_edit_delete(workspace_id):
         data = request.json
         workspace.name = data['name']
         db.session.commit()
+        return {'workspace_id': workspace_id}
     if request.method == 'DELETE':
         workspace = db.session.query(Workspace).filter(Workspace.id == workspace_id).first()
         db.session.delete(workspace)
