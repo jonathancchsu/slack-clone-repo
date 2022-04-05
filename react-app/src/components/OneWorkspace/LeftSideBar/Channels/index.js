@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getUser } from "../../../../store/session";
 import { deleteChannel, putChannel } from "../../../../store/channel";
 
@@ -22,8 +22,8 @@ const Channels = ({ workspace, users, user_id }) => {
     history.push(`/workspaces/${workspace.id}/messages/channels/${id}`);
   };
 
-  const createChannelForm = (channel_id) => {
-    history.push(`/workspaces/${channel_id}`)
+  const createChannelForm = () => {
+    history.push("/channels/new")
   }
 
   const handleEdit = (e, channel) => {
@@ -31,22 +31,21 @@ const Channels = ({ workspace, users, user_id }) => {
     channel.name = channelName;
     channel.topic = channelTopic;
     channel.description = channelDescription;
-    await dispatch(putChannel(channel));
+    dispatch(putChannel(channel))
     setEdit('');
     setChannelName('');
     setChannelTopic('');
     setChannelDescription('');
-    dispatch(getUser(user_id));
+    dispatch(getUser(user_id).then(() => setLoaded(true)));
   };
 
-  const deleteChannel = (id) => {
+  const deleteEvent = (id) => {
     dispatch(deleteChannel(id)
               .then(() => dispatch(getUser(user_id)
               .then(() => setLoaded(true))))
     );
   };
 
-  const workspace = useSelector((state) => state.workspace);
   useEffect(() => {
     dispatch(getUser(user_id)).then(() => setLoaded(true));
   }, [user_id, dispatch]);
@@ -60,7 +59,7 @@ const Channels = ({ workspace, users, user_id }) => {
           <div onClick={() => channelMessages(channel.id)}>
             # {channel.name}
           </div>
-          <button onClick={() =>deleteChannel(channel.id)}>delete channel</button>
+          <button onClick={() =>deleteEvent(channel.id)}>delete channel</button>
           <button onClick={() => setEdit(channel.id)}>edit channel</button>
           {edit === channel.id ? <div>
             <input type='text'

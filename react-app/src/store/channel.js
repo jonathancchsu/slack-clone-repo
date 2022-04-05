@@ -1,6 +1,4 @@
 import { csrfFetch } from "./csrf";
-import reducer from "./session";
-
 //add, edit, delete
 
 //------------------------------------add channel---------------------------------
