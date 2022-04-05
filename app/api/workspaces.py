@@ -73,6 +73,18 @@ def channel(channel_id):
         db.session.commit()
         return {'channel_id': channel_id}
 
+
+@bp.route('members/<int:channel_id>/<int:user_id>', methods=['POST'])
+def add_channel_member(channel_id, user_id):
+    data = request.json
+    member = ChannelMember(
+        channel_id = channel_id,
+        user_id = user_id,
+    )
+    db.session.add(member)
+    db.session.commit()
+    return {'member': member};
+
 # @bp.route('/<int:user_id>')
 # def get_all_workspaces(user_id):
 #     user = User.query(user_id)
