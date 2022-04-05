@@ -205,7 +205,6 @@ const MainContent = () => {
                     <button
                       onClick={(e) => {
                         e.preventDefault();
-
                         setEdit(message.id);
                       }}
                     >
