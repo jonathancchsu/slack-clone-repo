@@ -1,5 +1,4 @@
 import { useHistory } from "react-router-dom";
-
 const LeftSideBar = ({ workspace }) => {
   let history = useHistory();
 
