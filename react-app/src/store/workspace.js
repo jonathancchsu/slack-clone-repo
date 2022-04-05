@@ -140,6 +140,9 @@ const workspaceReducer = (
       newState.currentWorkspace = action.workspace;
       return newState;
     }
+    case ADD_MEMBER: {
+      return newState;
+    }
     // case LOAD_CURRENTVIEW: {
     //   newState.currentView = action.view;
     //   return newState;

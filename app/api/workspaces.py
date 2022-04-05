@@ -79,10 +79,12 @@ def workspace_edit_delete(workspace_id):
 def add_workspace_member(workspace_id, user_id):
     data = request.json
     print(user_id, '...........................', workspace_id)
+
+
     member = WorkspaceMember(
         workspace_id = workspace_id,
         user_id = user_id,
     )
     db.session.add(member)
     db.session.commit()
-    return {'member': member};
+    return {'member': data};

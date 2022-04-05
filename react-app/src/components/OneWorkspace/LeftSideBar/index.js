@@ -9,17 +9,19 @@ import { getAllUsers } from "../../../store/session";
 import { addAMember } from "../../../store/workspace";
 import { setChannels, setDmRooms } from "../../../store/currentView";
 
+
 const LeftSideBar = ({ workspace }) => {
-  // let history = useHistory();
   const dispatch = useDispatch();
   const users = useSelector((state) => state.session.users);
   const [user_id, setUserID] = useState(workspace.owner.id);
+
   const user = useSelector((state) => state.session.user);
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(addAMember(user_id, workspace.id));
     // return history.push('/')
   };
+  
   useEffect(() => {
     let dmRooms = user.dm_room_member.filter((room) => {
       return room.workspace_id === workspace.id;
@@ -33,12 +35,20 @@ const LeftSideBar = ({ workspace }) => {
   }, [dispatch, workspace, user]);
 
   useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
+    dispatch(getAllUsers()).then(() => dispatch(getOneWorkspace(workspace.id)))
+    ;
+  }, [dispatch, workspace.id]);
 
   return (
     <div>
       <h2>{workspace.name}</h2>
+      <h6>Members:</h6>
+      {current_workspace.members?.map (member => (
+        <div key={`member:${member.username}`}>{member.username}</div>
+      ))}
+      {errors?.map(error => (
+        <p key={error} style={{color:'red'}}>{error}</p>
+      ))}
       <select value={user_id} onChange={(e) => setUserID(e.target.value)}>
         {users?.map((user) => (
           <option value={user.id} key={user.id}>
