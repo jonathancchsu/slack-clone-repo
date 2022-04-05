@@ -80,18 +80,11 @@ def add_workspace_member(workspace_id, user_id):
     data = request.json
     print(user_id, '...........................', workspace_id)
 
-    member_exists = db.Session.query(WorkspaceMember).filter(
-        WorkspaceMember.workspace_id.like(workspace_id),
-        WorkspaceMember.user_id.like(user_id)
-    )
 
-    if (member_exists):
-        return {'errors': 'Already a member!'}, 401
-    else:
-        member = WorkspaceMember(
-            workspace_id = workspace_id,
-            user_id = user_id,
-        )
-        db.session.add(member)
-        db.session.commit()
-        return {'member': member};
+    member = WorkspaceMember(
+        workspace_id = workspace_id,
+        user_id = user_id,
+    )
+    db.session.add(member)
+    db.session.commit()
+    return {'member': data};

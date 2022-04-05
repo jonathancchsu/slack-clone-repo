@@ -9,13 +9,22 @@ const LeftSideBar = ({ workspace }) => {
   const dispatch = useDispatch();
   const users = useSelector(state => state.session.users)
   const [user_id, setUserID] = useState(workspace.owner.id);
+  const current_workspace = useSelector(state => state.workspace.currentWorkspace);
 
+  console.log('current workspace:', current_workspace)
 
 
   const onSubmit = (e) => {
     e.preventDefault();
     console.log('user_id:', user_id)
-    dispatch(addAMember(user_id, workspace.id))
+    current_workspace.members.forEach(member => {
+      if (member.user_id === user_id) {
+        console.log(member, 'current member', user_id, member.user_id === user_id)
+        return 'User is already a member!'
+      } else {
+        dispatch(addAMember(user_id, workspace.id))
+      }
+    })
     // return history.push('/')
   }
 
