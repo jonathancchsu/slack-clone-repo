@@ -8,7 +8,7 @@ import { deleteChannel, putChannel } from "../../../../store/channel";
 import "./channels.css"
 
 
-const Channels = ({ workspace, users, user_id }) => {
+const Channels = ({ workspace, user_id }) => {
   const [loaded, setLoaded] = useState(false);
   const [edit, setEdit] = useState('');
   const [channelName, setChannelName] = useState('');
