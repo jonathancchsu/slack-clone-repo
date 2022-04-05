@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUser } from "../../store/session";
 import { useDispatch } from "react-redux";
-// import { getWorkspaces } from "../../store/workspace";
+import { deleteEvent } from "../../store/workspace";
 // import WorkspaceForm from "../workspace_form";
 
 const Workspaces = ({ userId }) => {
@@ -27,6 +27,11 @@ const Workspaces = ({ userId }) => {
     dispatch(getUser(userId)).then(() => setLoaded(true));
   }, [userId, dispatch]);
 
+  const deleteWorkspace = (id) => {
+    dispatch(deleteEvent(id));
+    dispatch(getUser(userId)).then(() => setLoaded(true));
+  }
+
   return (
     loaded && (
       <div>
@@ -39,6 +44,7 @@ const Workspaces = ({ userId }) => {
             <button onClick={(e) => redirect(workspace.id)}>
               Launch Workspace
             </button>
+            <button onClick={() => deleteWorkspace(workspace.id)}>DELETE</button>
           </div>
         ))}
         {/* <div>

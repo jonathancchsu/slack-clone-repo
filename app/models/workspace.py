@@ -1,10 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Integer, ForeignKey, String, DateTime
 from sqlalchemy.sql import func, table, column
-from sqlalchemy.orm import relationship, Session
+from sqlalchemy.orm import relationship, Session, backref
 from alembic import op
 from sqlalchemy.orm import Session
 from .db import db
+
 
 
 class Workspace(db.Model):
@@ -17,11 +18,11 @@ class Workspace(db.Model):
     updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())
 
 
-    channels = relationship('Channel', backref='workspace', cascade="all, delete")
+    channels = relationship('Channel', backref='workspace', cascade="all,delete-orphan")
 
-    direct_message_rooms = relationship('DirectMessageRoom', backref='workspace',cascade="all, delete")
+    direct_message_rooms = relationship('DirectMessageRoom', backref='workspace',cascade="all,delete-orphan")
 
-    members = relationship('WorkspaceMember', backref='workspace',cascade="all, delete")
+    members = relationship('WorkspaceMember', cascade='all, delete, delete-orphan', backref='workspace')
 
 
 
@@ -40,7 +41,7 @@ class WorkspaceMember(db.Model):
     __tablename__ = 'workspaceMembers'
 
     id = db.Column(Integer, primary_key=True)
-    workspace_id = db.Column(Integer, ForeignKey('workspaces.id'), nullable=False)
+    workspace_id = db.Column(Integer, db.ForeignKey('workspaces.id', passive_deletes=True), nullable=False)
     user_id = db.Column(Integer, ForeignKey('users.id'), nullable=False)
     created_at = db.Column(DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())

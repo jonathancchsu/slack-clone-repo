@@ -84,7 +84,7 @@ export const deleteEvent = (workspaceId) => async (dispatch) => {
   const res = await csrfFetch(`/api/workspaces/${workspaceId}`, {
     method: "DELETE",
   });
-
+  console.log('does this run????????????????????', res)
   const workspaceNum = await res.json();
 
   dispatch(removeEvent(workspaceNum));
