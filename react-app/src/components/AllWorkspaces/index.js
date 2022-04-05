@@ -31,7 +31,7 @@ const Workspaces = ({ userId }) => {
     await dispatch(putWorkspace(workspace))
     setEdit('');
     setWorkspaceName('');
-    return dispatch(getUser(userId)).then(() => setLoaded(true));
+    dispatch(getUser(userId)).then(() => setLoaded(true));
   }
 
   const user = useSelector((state) => state.session.user);
@@ -40,8 +40,8 @@ const Workspaces = ({ userId }) => {
   }, [userId, dispatch]);
 
   const deleteWorkspace = (id) => {
-    dispatch(deleteEvent(id));
-    dispatch(getUser(userId)).then(() => setLoaded(true));
+    dispatch(deleteEvent(id)).then(() => dispatch(getUser(userId)).then(() => setLoaded(true)))
+
   }
 
   return (
