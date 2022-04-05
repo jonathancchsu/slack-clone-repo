@@ -33,7 +33,8 @@ const SignUpForm = () => {
   };
 
   const updateProfile = (e) => {
-    setProfilePicture(e.target.value);
+    const file = e.target.files[0];
+    setProfilePicture(file);
   }
 
   const updatePassword = (e) => {
@@ -79,10 +80,11 @@ const SignUpForm = () => {
         </div>
         <div>
           <input
-            type='url'
+            type='file'
+            accept='image/*'
             name='profile_img'
             onChange={updateProfile}
-            value={profile_picture}
+            defaultValue={profile_picture}
             placeholder='  profile picture(optional)'
             />
         </div>
