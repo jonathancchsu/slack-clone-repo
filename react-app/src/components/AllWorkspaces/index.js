@@ -22,7 +22,6 @@ const Workspaces = ({ userId }) => {
   const createForm = () => {
     history.push("/workspaces/new");
   };
-  const workspaces = useSelector((state) => state.workspace.userWorkspaces);
   const user = useSelector((state) => state.session.user);
   useEffect(() => {
     dispatch(getUser(userId)).then(() => setLoaded(true));
