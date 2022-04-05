@@ -37,7 +37,7 @@ const LeftSideBar = ({ workspace }) => {
   useEffect(() => {
     dispatch(getAllUsers()).then(() => dispatch(getOneWorkspace(workspace.id)))
     ;
-  }, [dispatch]);
+  }, [dispatch, workspace.id]);
 
   return (
     <div>
