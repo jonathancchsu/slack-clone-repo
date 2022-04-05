@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 // import { useEffect, useState } from "react";
-const Channels = ({ workspace, user }) => {
+const Channels = ({ workspace, users }) => {
   let history = useHistory();
   const channelMessages = async (id) => {
     history.push(`/workspaces/${workspace.id}/messages/channels/${id}`);
