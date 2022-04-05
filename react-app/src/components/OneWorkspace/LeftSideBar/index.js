@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../../../store/session";
 import { addAMember } from "../../../store/workspace";
+import { getOneWorkspace } from "../../../store/workspace";
+import { useHistory } from "react-router-dom";
 
 const LeftSideBar = ({ workspace }) => {
-  // let history = useHistory();
+  const history = useHistory();
   const dispatch = useDispatch();
   const users = useSelector((state) => state.session.users);
   const [user_id, setUserID] = useState(workspace.owner.id);
@@ -32,16 +34,23 @@ const LeftSideBar = ({ workspace }) => {
     if (member_exists === -1) {
       console.log(user_id, members.indexOf(+user_id))
       dispatch(addAMember(user_id, workspace.id))
+      // history.push('/'))
     }
+    dispatch(getOneWorkspace(workspace.id))
   };
 
   useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch, addAMember]);
+    dispatch(getAllUsers()).then(() => dispatch(getOneWorkspace(workspace.id)))
+    ;
+  }, [dispatch]);
 
   return (
     <div>
       <h2>{workspace.name}</h2>
+      <h6>Members:</h6>
+      {current_workspace.members?.map (member => (
+        <div key={member.id}>{member.username}</div>
+      ))}
       <select value={user_id} onChange={(e) => setUserID(e.target.value)}>
         {users?.map((user) => (
           <option value={user.id} key={user.id}>
@@ -51,9 +60,9 @@ const LeftSideBar = ({ workspace }) => {
       </select>
       <button onClick={onSubmit}>Add User</button>
 
-      <Channels workspace={workspace} user={users} />
+      <Channels workspace={workspace} users={users} />
 
-      <DmRooms workspace={workspace} user={users} />
+      <DmRooms workspace={workspace} users={users} />
     </div>
   );
 };
