@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { getUser } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { deleteEvent, putWorkspace } from "../../store/workspace";
-import WorkspaceForm from "../workspace_form";
+
 
 const Workspaces = ({ userId }) => {
   const [loaded, setLoaded] = useState(false);
