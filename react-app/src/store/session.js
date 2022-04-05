@@ -102,11 +102,12 @@ export const logout = () => async (dispatch) => {
 };
 
 export const signUp =
-  (username, email, password, profile_picture) => async (dispatch) => {
+  (username, email, password, repeatPassword, profile_picture) => async (dispatch) => {
     const formData = new FormData();
     formData.append("username", username);
     formData.append("email", email);
     formData.append("password", password);
+    formData.append("repeat_password", repeatPassword)
     formData.append("profile_picture", profile_picture);
     const response = await fetch("/api/auth/signup", {
       method: "POST",

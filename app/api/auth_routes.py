@@ -60,6 +60,23 @@ def sign_up():
     Creates a new user and logs them in
     """
 
+    errors = []
+    email = User.query.filter(User.email == request.form['email']).first()
+    username = User.query.filter(User.username == request.form['username']).first()
+    password = request.form['password']
+    repeat_password = request.form['repeat_password']
+
+    print(password, repeat_password)
+
+    if email:
+        errors.append('Email address is already in use.')
+    if username:
+        errors.append('Username is already in use.')
+    if password != repeat_password:
+        errors.append('Passwords do not match.')
+    if len(errors):
+        return {'errors': errors}, 401
+
     image = request.files["profile_picture"]
     image.filename = get_unique_filename(image.filename)
     upload = upload_file_to_s3(image)
