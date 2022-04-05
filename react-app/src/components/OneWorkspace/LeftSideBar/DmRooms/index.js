@@ -3,15 +3,13 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 const DmRooms = ({ workspace, users }) => {
   const [loaded, setLoaded] = useState(false);
-  const [dmRooms, setDmRooms] = useState();
+
   let history = useHistory();
   const user = useSelector((state) => state.session.user);
-  console.log(user);
+  const dmRooms = useSelector((state) => state.currentView.dm_rooms);
+
   useEffect(() => {
     setLoaded(false);
-    setDmRooms(
-      user.dm_room_member.filter((room) => room.workspace_id === workspace.id)
-    );
     setLoaded(true);
   }, [user, workspace]);
   const roomMessages = async (id) => {

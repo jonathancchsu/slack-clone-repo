@@ -2,8 +2,7 @@ import { csrfFetch } from "./csrf";
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
-const GET_USERS = "session/GET_USERS"
-
+const GET_USERS = "session/GET_USERS";
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -34,20 +33,20 @@ export const authenticate = () => async (dispatch) => {
 
 const getUsers = (users) => ({
   type: GET_USERS,
-  users
-})
+  users,
+});
 
-export const getAllUsers = () => async dispatch => {
-  const response = await csrfFetch('/api/users/all');
+export const getAllUsers = () => async (dispatch) => {
+  const response = await csrfFetch("/api/users/all");
 
   if (response.ok) {
     const users = await response.json();
-    console.log('data..............', users)
+
     dispatch(getUsers(users));
     return users;
   }
   return response;
-}
+};
 
 export const getUser = (userId) => async (dispatch) => {
   const response = await fetch(`/api/users/${userId}`, {
@@ -141,8 +140,8 @@ export default function reducer(state = initialState, action) {
     case GET_USERS:
       return {
         ...state,
-        ...action.users
-      }
+        ...action.users,
+      };
     default:
       return state;
   }
