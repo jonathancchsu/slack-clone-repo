@@ -76,6 +76,7 @@ const Workspaces = ({ userId }) => {
               <div className="workspace-name">
                 <div className="team">
                   <img src='./static/icon.png' style={{ height: 40, marginLeft: 10 }} />
+
                   <div className="workspace-info">
                     <h2>{workspace.name}</h2>
                     <p>{workspace.members_length} members</p>
