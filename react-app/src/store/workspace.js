@@ -65,6 +65,7 @@ export const updateWorkspace = (workspace) => ({
   workspace,
 });
 export const putWorkspace = (workspace) => async (dispatch) => {
+  console.log('edit workspaceeeeeeeeeeeee', workspace)
   const res = await csrfFetch(`/api/workspaces/${workspace.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
