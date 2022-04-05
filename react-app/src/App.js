@@ -10,6 +10,7 @@ import User from "./components/User";
 import Workspaces from "./components/AllWorkspaces";
 import OneWorkspace from "./components/OneWorkspace";
 import WorkspaceForm from "./components/workspace_form";
+import ChannelForm from "./components/OneWorkspace/LeftSideBar/ChannelForm";
 import { authenticate } from "./store/session";
 
 function App() {
@@ -52,6 +53,9 @@ function App() {
         <ProtectedRoute path={`/workspaces/:workspaceId`}>
           <NavBar />
           <OneWorkspace />
+        </ProtectedRoute>
+        <ProtectedRoute path="/channels/new" exact={true}>
+          <ChannelForm />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

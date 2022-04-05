@@ -2,8 +2,7 @@ import { csrfFetch } from "./csrf";
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
-const GET_USERS = "session/GET_USERS"
-
+const GET_USERS = "session/GET_USERS";
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -34,20 +33,20 @@ export const authenticate = () => async (dispatch) => {
 
 const getUsers = (users) => ({
   type: GET_USERS,
-  users
-})
+  users,
+});
 
-export const getAllUsers = () => async dispatch => {
-  const response = await csrfFetch('/api/users/all');
+export const getAllUsers = () => async (dispatch) => {
+  const response = await csrfFetch("/api/users/all");
 
   if (response.ok) {
     const users = await response.json();
-    console.log('data..............', users)
+
     dispatch(getUsers(users));
     return users;
   }
   return response;
-}
+};
 
 export const getUser = (userId) => async (dispatch) => {
   const response = await fetch(`/api/users/${userId}`, {
@@ -74,8 +73,6 @@ export const login = (email, password) => async (dispatch) => {
       password,
     }),
   });
-
-  // console.log('is there a response?', response)
 
   if (response.ok) {
     const data = await response.json();
@@ -104,18 +101,16 @@ export const logout = () => async (dispatch) => {
 };
 
 export const signUp =
-  (username, email, password, profile_picture) => async (dispatch) => {
+  (username, email, password, repeatPassword, profile_picture) => async (dispatch) => {
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("repeat_password", repeatPassword)
+    formData.append("profile_picture", profile_picture);
     const response = await fetch("/api/auth/signup", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-        profile_picture,
-      }),
+      body: formData
     });
 
     if (response.ok) {
@@ -141,8 +136,8 @@ export default function reducer(state = initialState, action) {
     case GET_USERS:
       return {
         ...state,
-        ...action.users
-      }
+        ...action.users,
+      };
     default:
       return state;
   }

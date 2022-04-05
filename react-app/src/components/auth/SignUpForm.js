@@ -16,11 +16,9 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password, profile_picture));
-      if (data) {
-        setErrors(data)
-      }
+    const data = await dispatch(signUp(username, email, password, repeatPassword, profile_picture));
+    if (data) {
+      setErrors(data)
     }
   };
 
@@ -33,7 +31,8 @@ const SignUpForm = () => {
   };
 
   const updateProfile = (e) => {
-    setProfilePicture(e.target.value);
+    const file = e.target.files[0];
+    setProfilePicture(file);
   }
 
   const updatePassword = (e) => {
@@ -79,10 +78,11 @@ const SignUpForm = () => {
         </div>
         <div>
           <input
-            type='url'
+            type='file'
+            accept='image/*'
             name='profile_img'
             onChange={updateProfile}
-            value={profile_picture}
+            defaultValue={profile_picture}
             placeholder='  profile picture(optional)'
             />
         </div>
