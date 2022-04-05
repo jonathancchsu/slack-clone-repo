@@ -22,6 +22,13 @@ def get_one_dm_group(dm_id):
     dm_room = DirectMessageRoom.query.get(dm_id)
     return dm_room.to_dict()
 
+
+@bp.route('/channels/new', methods=['POST'])
+def channel_create():
+    data = request.json
+    form 
+
+
 @bp.route('channels/<int:channel_id>')
 def get_one_channel(channel_id):
     channel = Channel.query.get(channel_id)
