@@ -32,7 +32,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <ProtectedRoute path="/" exact={true}>
-          <Workspaces user={user} />
+          <Workspaces userId={user.id} />
         </ProtectedRoute>
         <Route path="/login" exact={true}>
           <LoginForm />

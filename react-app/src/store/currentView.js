@@ -47,7 +47,6 @@ export const putMessage = (message) => async (dispatch) => {
 };
 //-----------------------------add channel message
 export const postChannelMessage = (message) => async (dispatch) => {
-  console.log(message);
   const res = await csrfFetch(`/api/messages/channels/${message.channel_id}`, {
     method: "POST",
     body: JSON.stringify(message),
@@ -72,16 +71,20 @@ const currentViewReducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_CURRENTVIEW: {
       newState = action.view;
-      console.log(newState.messages);
+
       return newState;
     }
     case UPDATE_MESSAGE: {
-      newState.messages = newState.messages.map(message => action.message.id === message.id ? action.message : message);
+      newState.messages = newState.messages.map((message) =>
+        action.message.id === message.id ? action.message : message
+      );
       return newState;
     }
     case DELETE_MESSAGE: {
       // delete newState.messages[action.messageId];
-      newState.messages = newState.messages.filter(message => action.message.message_id !== message.id);
+      newState.messages = newState.messages.filter(
+        (message) => action.message.message_id !== message.id
+      );
       return newState;
     }
     default:
