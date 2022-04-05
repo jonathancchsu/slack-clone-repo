@@ -66,22 +66,29 @@ const Workspaces = ({ userId }) => {
           {user.workspace_member.map((workspace) => (
             <div key={workspace.id} className='workspace-box'>
               <div className="main-user">Workspaces for {user.email}</div>
-              <h2>{workspace.name}</h2>
-              <h3>{workspace.members_length} members</h3>
-              <button onClick={(e) => redirect(workspace.id)}>
-                Launch Workspace
-              </button>
-              <button onClick={() => deleteWorkspace(workspace.id)}>DELETE</button>
-              <button onClick={() => setEdit(workspace.id)}>EDIT</button>
-              {edit === workspace.id ? <div>
-                <input type='text'
-                  value={workspaceName}
-                  onChange={(e) => setWorkspaceName(e.target.value)}
-                ></input>
-                <button onClick={(e) => handleEdit(e, workspace)}>Save</button>
-                <button onClick={() => setEdit('')}>Cancel</button>
-              </div> : <></>}
-              <div></div>
+              <div className="workspace-name">
+                <div className="workspace-info">
+                  <h2>{workspace.name}</h2>
+                  <p>{workspace.members_length} members</p>
+                </div>
+                <div>
+                  <button className='launch-workspace' onClick={(e) => redirect(workspace.id)}>
+                    Launch Workspace
+                  </button>
+                </div>
+              </div>
+              <div className="main-buttons">
+                <button className='main-delete-btn' onClick={() => deleteWorkspace(workspace.id)}>DELETE</button>
+                <button className='main-edit-btn' onClick={() => setEdit(workspace.id)}>EDIT</button>
+                {edit === workspace.id ? <div>
+                  <input type='text'
+                    value={workspaceName}
+                    onChange={(e) => setWorkspaceName(e.target.value)}
+                  ></input>
+                  <button onClick={(e) => handleEdit(e, workspace)}>Save</button>
+                  <button onClick={() => setEdit('')}>Cancel</button>
+                </div> : <></>}
+              </div>
             </div>
           ))}
         </div>
