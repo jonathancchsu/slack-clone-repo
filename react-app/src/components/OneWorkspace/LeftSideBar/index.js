@@ -21,7 +21,7 @@ const LeftSideBar = ({ workspace }) => {
 
   useEffect(() => {
     dispatch(getAllUsers())
-  }, [])
+  }, [dispatch])
 
   const channelMessages = async (id) => {
     history.push(`/workspaces/${workspace.id}/messages/channels/${id}`);
