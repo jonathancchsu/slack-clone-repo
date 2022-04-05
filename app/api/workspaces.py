@@ -50,13 +50,13 @@ def workspace_create():
         db.session.add(workspace)
         db.session.commit()
 
-        workspaceMember = WorkspaceMember(
-            workspace_id=workspace.id,
-            user_id=workspace.owner_id
-        )
-        print('workspacemember here ----------------------------',workspaceMember)
-        db.session.add(workspaceMember)
-        db.session.commit()
+        # workspaceMember = WorkspaceMember(
+        #     workspace_id=workspace.id,
+        #     user_id=workspace.owner_id
+        # )
+        # print('workspacemember here ----------------------------',workspaceMember)
+        # db.session.add(workspaceMember)
+        # db.session.commit()
 
         return workspace.to_dict()
 
