@@ -10,11 +10,12 @@ import { addAMember } from "../../../store/workspace";
 import { getOneWorkspace } from "../../../store/workspace";
 import { setChannels, setDmRooms } from "../../../store/currentView";
 
+
 const LeftSideBar = ({ workspace }) => {
-  // let history = useHistory();
   const dispatch = useDispatch();
   const users = useSelector((state) => state.session.users);
   const [user_id, setUserID] = useState(workspace.owner.id);
+
   const user = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
   const members = useSelector(
@@ -37,6 +38,7 @@ const LeftSideBar = ({ workspace }) => {
     }
     dispatch(getOneWorkspace(workspace.id));
   };
+  
   useEffect(() => {
     dispatch(getAllUsers()).then(() => dispatch(getOneWorkspace(workspace.id)));
   }, [dispatch, workspace.id]);
@@ -54,8 +56,9 @@ const LeftSideBar = ({ workspace }) => {
   }, [dispatch, workspace, user]);
 
   useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
+    dispatch(getAllUsers()).then(() => dispatch(getOneWorkspace(workspace.id)))
+    ;
+  }, [dispatch, workspace.id]);
 
   return (
     <div>
