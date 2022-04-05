@@ -18,8 +18,8 @@ class Channel(db.Model):
     created_at = db.Column(DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())
 
-    members = relationship('ChannelMember', backref='channel',cascade="all, delete")
-    messages = relationship('Message', backref='channel_messages',cascade="all, delete")
+    members = relationship('ChannelMember', backref='channel',cascade="all, delete-orphan")
+    messages = relationship('Message', backref='channel_messages',cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
@@ -37,7 +37,7 @@ class ChannelMember(db.Model):
     __tablename__ = 'channelMembers'
 
     id = db.Column(Integer, primary_key=True)
-    channel_id = db.Column(Integer, ForeignKey('channels.id'), nullable=False)
+    channel_id = db.Column(Integer, db.ForeignKey('channels.id', passive_deletes=True), nullable=False)
     user_id = db.Column(Integer, ForeignKey('users.id'), nullable=False)
     created_at = db.Column(DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())
