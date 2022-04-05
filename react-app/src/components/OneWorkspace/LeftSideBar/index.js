@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../../../store/session";
 import { addAMember } from "../../../store/workspace";
+import { getOneWorkspace } from "../../../store/workspace";
 import { setChannels, setDmRooms } from "../../../store/currentView";
 
 const LeftSideBar = ({ workspace }) => {
@@ -15,11 +16,31 @@ const LeftSideBar = ({ workspace }) => {
   const users = useSelector((state) => state.session.users);
   const [user_id, setUserID] = useState(workspace.owner.id);
   const user = useSelector((state) => state.session.user);
+  const [errors, setErrors] = useState([]);
+  const members = useSelector(
+    (state) => state.workspace.currentWorkspace.members
+  );
+  const current_workspace = useSelector(
+    (state) => state.workspace.currentWorkspace.members
+  );
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(addAMember(user_id, workspace.id));
-    // return history.push('/')
+    setErrors([]);
+    console.log("user_id:", typeof user_id);
+    const member_exists = members.indexOf(Number(user_id));
+    console.log("member exists?:", member_exists);
+    if (member_exists === -1) {
+      console.log(user_id, members.indexOf(+user_id));
+      dispatch(addAMember(user_id, workspace.id));
+    } else {
+      setErrors(["That user is already a member of this workspace"]);
+    }
+    dispatch(getOneWorkspace(workspace.id));
   };
+  useEffect(() => {
+    dispatch(getAllUsers()).then(() => dispatch(getOneWorkspace(workspace.id)));
+  }, [dispatch, workspace.id]);
+
   useEffect(() => {
     let dmRooms = user.dm_room_member.filter((room) => {
       return room.workspace_id === workspace.id;
@@ -39,6 +60,15 @@ const LeftSideBar = ({ workspace }) => {
   return (
     <div>
       <h2>{workspace.name}</h2>
+      <h6>Members:</h6>
+      {current_workspace.members?.map((member) => (
+        <div key={`member:${member.username}`}>{member.username}</div>
+      ))}
+      {errors?.map((error) => (
+        <p key={error} style={{ color: "red" }}>
+          {error}
+        </p>
+      ))}
       <select value={user_id} onChange={(e) => setUserID(e.target.value)}>
         {users?.map((user) => (
           <option value={user.id} key={user.id}>
