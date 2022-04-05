@@ -10,12 +10,19 @@ import { deleteEvent, putWorkspace } from "../../store/workspace";
 const Workspaces = ({ userId }) => {
   const [loaded, setLoaded] = useState(false);
   const [edit, setEdit] = useState('');
+  const [seeMore, setSeeMore] = useState(false);
+  const [show, setShow] = useState('');
   const [workspaceName, setWorkspaceName] = useState('');
   let history = useHistory();
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch()
-  // })
+
+  useEffect(() => {
+    if (seeMore) {
+      setShow('show')
+    } else {
+      setShow('');
+    }
+  }, [seeMore])
 
   const redirect = (workspaceId) => {
     history.push(`/workspaces/${workspaceId}`);
@@ -67,26 +74,35 @@ const Workspaces = ({ userId }) => {
             <div key={workspace.id} className='workspace-box'>
               <div className="main-user">Workspaces for {user.email}</div>
               <div className="workspace-name">
-                <div className="workspace-info">
-                  <h2>{workspace.name}</h2>
-                  <p>{workspace.members_length} members</p>
+                <div className="team">
+                  <img src='./images/icon.png' style={{ height: 40, marginLeft: 10 }} />
+                  <div className="workspace-info">
+                    <h2>{workspace.name}</h2>
+                    <p>{workspace.members_length} members</p>
+                  </div>
                 </div>
                 <div>
                   <button className='launch-workspace' onClick={(e) => redirect(workspace.id)}>
-                    Launch Workspace
+                    LAUNCH SLACK
                   </button>
                 </div>
               </div>
-              <div className="main-buttons">
+              <div className="see-more">
+                <p onClick={() => setSeeMore(!seeMore)}>See more v</p>
+              </div>
+              <div className={`main-buttons ${show}`}>
                 <button className='main-delete-btn' onClick={() => deleteWorkspace(workspace.id)}>DELETE</button>
                 <button className='main-edit-btn' onClick={() => setEdit(workspace.id)}>EDIT</button>
                 {edit === workspace.id ? <div>
                   <input type='text'
                     value={workspaceName}
                     onChange={(e) => setWorkspaceName(e.target.value)}
+                    className='main-edit-field'
                   ></input>
-                  <button onClick={(e) => handleEdit(e, workspace)}>Save</button>
-                  <button onClick={() => setEdit('')}>Cancel</button>
+                  <div className="edit-btns">
+                    <button className='main-save-btn' onClick={(e) => handleEdit(e, workspace)}>Save</button>
+                    <button className='main-cancel-btn' onClick={() => setEdit('')}>Cancel</button>
+                  </div>
                 </div> : <></>}
               </div>
             </div>
