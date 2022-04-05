@@ -143,10 +143,7 @@ const messageReducer = (state = {}, action) => {
       //   action.messages.messages.forEach((message) => {
       //     return (newState[message.id] = message);
       //   });
-      console.log(
-        "hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-        action.messages.messages
-      );
+
       return (newState = action.messages.messages);
     }
 

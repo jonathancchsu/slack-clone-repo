@@ -8,7 +8,7 @@ import {
   postChannelMessage,
   postDirectMessage,
   putMessage,
-  deleteMessage
+  deleteMessage,
 } from "../../../store/currentView";
 import { io } from "socket.io-client";
 let socket;
@@ -70,7 +70,7 @@ const MainContent = () => {
             content: chatInput,
             user: user.username,
             created_at: message.created_at,
-            socket: true
+            socket: true,
           })
         )
       : await dispatch(
@@ -87,7 +87,7 @@ const MainContent = () => {
             content: chatInput,
             user: user.username,
             created_at: message.created_at,
-            socket: true
+            socket: true,
           })
         );
     setChatInput("");
@@ -99,19 +99,20 @@ const MainContent = () => {
     await dispatch(putMessage(message));
     setEdit(null);
     setEditContent("");
-  }
+  };
 
   const handleDeleteMessage = async (e, message) => {
     e.preventDefault();
     await dispatch(deleteMessage(message));
-    if (message.socket) setMessages(messages.filter(msg => msg.id !== message.id));
-  }
+    if (message.socket)
+      setMessages(messages.filter((msg) => msg.id !== message.id));
+  };
 
-  const handleCancel = e => {
+  const handleCancel = (e) => {
     e.preventDefault();
     setEdit(null);
     setEditContent("");
-  }
+  };
 
   return (
     loaded && (
@@ -123,53 +124,79 @@ const MainContent = () => {
           </div>
           <div>insert member icon {view.members.length}</div>
         </div>
-        {view.messages.map((message) => (
-          edit === message.id ?
-          <div key={message.id}>
-            {message.sender_username}
-            <input type='text' defaultValue={message.content} onChange={e => setEditContent(e.target.value)}></input>
-            <button onClick={e => handleEditMessage(e, message)}>Submit</button>
-            <button onClick={handleCancel}>Cancel</button>
-          </div>
-          :
-          <div key={message.id}>
-            {message.sender_username}:{message.content}
-            {message.created_at}
-            { user.id === message.sender_id &&
-            <span>
-              <button onClick={e => {
-                e.preventDefault();
-                setEdit(message.id);
-              }}>Edit</button>
-              <button onClick={e => handleDeleteMessage(e, message)}>Delete</button>
-            </span>
-            }
-          </div>
-        ))}
-        <div>
-          {messages.map((message, ind) => (
-            edit === message.id ?
+        {view.messages.map((message) =>
+          edit === message.id ? (
             <div key={message.id}>
               {message.sender_username}
-              <input type='text' defaultValue={message.content} onChange={e => setEditContent(e.target.value)}></input>
-              <button onClick={e => handleEditMessage(e, message)}>Submit</button>
+              <input
+                type="text"
+                defaultValue={message.content}
+                onChange={(e) => setEditContent(e.target.value)}
+              ></input>
+              <button onClick={(e) => handleEditMessage(e, message)}>
+                Submit
+              </button>
               <button onClick={handleCancel}>Cancel</button>
             </div>
-          :
-            <div key={ind}>
-              {`${message.user}: ${message.content} ${message.created_at}`}
-              { user.id === message.sender_id &&
+          ) : (
+            <div key={message.id}>
+              {message.sender_username}:{message.content}
+              {message.created_at}
+              {user.id === message.sender_id && (
                 <span>
-                  <button onClick={e => {
-                    e.preventDefault();
-                    console.log(message)
-                    setEdit(message.id);
-                  }}>Edit</button>
-                  <button onClick={e => handleDeleteMessage(e, message)}>Delete</button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setEdit(message.id);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button onClick={(e) => handleDeleteMessage(e, message)}>
+                    Delete
+                  </button>
                 </span>
-              }
+              )}
             </div>
-          ))}
+          )
+        )}
+        <div>
+          {messages.map((message, ind) =>
+            edit === message.id ? (
+              <div key={message.id}>
+                {message.sender_username}
+                <input
+                  type="text"
+                  defaultValue={message.content}
+                  onChange={(e) => setEditContent(e.target.value)}
+                ></input>
+                <button onClick={(e) => handleEditMessage(e, message)}>
+                  Submit
+                </button>
+                <button onClick={handleCancel}>Cancel</button>
+              </div>
+            ) : (
+              <div key={ind}>
+                {`${message.user}: ${message.content} ${message.created_at}`}
+                {user.id === message.sender_id && (
+                  <span>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+
+                        setEdit(message.id);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button onClick={(e) => handleDeleteMessage(e, message)}>
+                      Delete
+                    </button>
+                  </span>
+                )}
+              </div>
+            )
+          )}
         </div>
         <form onSubmit={sendChat}>
           <input value={chatInput} onChange={updateChatInput} />

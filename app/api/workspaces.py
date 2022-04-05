@@ -37,13 +37,15 @@ def get_one_channel(channel_id):
 @bp.route('/new', methods=['POST'])
 def workspace_create():
     # print("current user here ___________________",current_user)
+    data = request.json
+    print('hereeeeeeeeeeeeeeeeeeeeeeeeee', data)
     form = WorkspaceForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         # print('curent user here',current_user)
         workspace = Workspace(
             name=form.data['name'],
-            owner_id=form.data['owner_id']
+            owner_id=data['owner_id']
         )
         db.session.add(workspace)
         db.session.commit()

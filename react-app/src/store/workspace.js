@@ -49,6 +49,7 @@ export const addWorkspace = (workspace) => ({
 });
 
 export const postWorkspace = (workspace) => async (dispatch) => {
+  console.log("from thunkkkkkkkkkkkkkkkkkkkkkkkkkkk", workspace);
   const res = await csrfFetch("/api/workspaces/new", {
     method: "POST",
     body: JSON.stringify(workspace),
