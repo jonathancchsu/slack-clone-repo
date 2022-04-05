@@ -88,22 +88,28 @@ const Workspaces = ({ userId }) => {
                 </div>
               </div>
               <div className="see-more">
-                <p onClick={() => setSeeMore(!seeMore)}>See more v</p>
+                <p onClick={() => user.workspaces_owned.includes(workspace.id) ? setSeeMore(!seeMore) : setSeeMore(seeMore)}>See more v</p>
               </div>
               <div className={`main-buttons ${show}`}>
-                <button className='main-delete-btn' onClick={() => deleteWorkspace(workspace.id)}>DELETE</button>
-                <button className='main-edit-btn' onClick={() => setEdit(workspace.id)}>EDIT</button>
-                {edit === workspace.id ? <div>
-                  <input type='text'
-                    value={workspaceName}
-                    onChange={(e) => setWorkspaceName(e.target.value)}
-                    className='main-edit-field'
-                  ></input>
-                  <div className="edit-btns">
-                    <button className='main-save-btn' onClick={(e) => handleEdit(e, workspace)}>Save</button>
-                    <button className='main-cancel-btn' onClick={() => setEdit('')}>Cancel</button>
-                  </div>
-                </div> : <></>}
+                <div>
+                  {user.workspaces_owned.includes(workspace.id) ?
+                    <div className={`main-buttons ${show}`}>
+                      <button className='main-delete-btn' onClick={() => deleteWorkspace(workspace.id)}>DELETE</button>
+                      <button className='main-edit-btn' onClick={() => setEdit(workspace.id)}>EDIT</button>
+                      {edit === workspace.id ? <div>
+                        <input type='text'
+                          value={workspaceName}
+                          onChange={(e) => setWorkspaceName(e.target.value)}
+                          className='main-edit-field'
+                        ></input>
+                        <div className="edit-btns">
+                          <button className='main-save-btn' onClick={(e) => handleEdit(e, workspace)}>Save</button>
+                          <button className='main-cancel-btn' onClick={() => setEdit('')}>Cancel</button>
+                        </div>
+                      </div> : <></>}
+                    </div>
+                    : <></>}
+                </div>
               </div>
             </div>
           ))}
