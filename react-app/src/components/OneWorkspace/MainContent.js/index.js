@@ -1,4 +1,5 @@
 import "./MainContent.css";
+
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -26,27 +27,33 @@ const MainContent = () => {
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView);
   useEffect(() => {
+    setloaded(false);
     let id = url.split("/")[7] * 1;
     if (url.includes("channels")) {
       setDmRoom(false);
       setChannelRoom(true);
-      dispatch(getCurrentChannel(id)).then(() => setloaded(true));
+      dispatch(getCurrentChannel(id));
     } else {
       setChannelRoom(false);
       setDmRoom(true);
-      dispatch(getCurrentRoom(id)).then(() => setloaded(true));
+      dispatch(getCurrentRoom(id));
     }
 
     socket = io();
-
     socket.on("chat", (chat) => {
       setMessages((messages) => [...messages, chat]);
     });
+
     // when component unmounts, disconnect
     return () => {
       socket.disconnect();
     };
   }, [dispatch, url]);
+
+  useEffect(() => {
+    setMessages(view.messages);
+    setloaded(true);
+  }, [view.messages]);
 
   const updateChatInput = (e) => {
     setChatInput(e.target.value);
@@ -68,7 +75,7 @@ const MainContent = () => {
             room_id: view.id,
             sender_id: user.id,
             content: chatInput,
-            user: user.username,
+            sender_username: user.username,
             created_at: message.created_at,
             socket: true,
           })
@@ -85,7 +92,7 @@ const MainContent = () => {
             channel_id: view.id,
             sender_id: user.id,
             content: chatInput,
-            user: user.username,
+            sender_username: user.username,
             created_at: message.created_at,
             socket: true,
           })
@@ -118,13 +125,15 @@ const MainContent = () => {
     loaded && (
       <div>
         <div>
-          <div>{channelRoom && <h2>{view.topic}</h2>}</div>
+          <div>{channelRoom && <h2>{view?.topic}</h2>}</div>
           <div>
-            {dmRoom && <h2>{view.members.map((member) => member.username)}</h2>}
+            {dmRoom && (
+              <h2>{view.members?.map((member) => member.username)}</h2>
+            )}
           </div>
-          <div>insert member icon {view.members.length}</div>
+          <div>insert member icon {view.members?.length}</div>
         </div>
-        {view.messages.map((message) =>
+        {messages?.map((message) =>
           edit === message.id ? (
             <div key={message.id}>
               {message.sender_username}
@@ -160,7 +169,7 @@ const MainContent = () => {
             </div>
           )
         )}
-        <div>
+        {/* <div>
           {messages.map((message, ind) =>
             edit === message.id ? (
               <div key={message.id}>
@@ -177,7 +186,7 @@ const MainContent = () => {
               </div>
             ) : (
               <div key={ind}>
-                {`${message.user}: ${message.content} ${message.created_at}`}
+                {`${message.sender_username}: ${message.content} ${message.created_at}`}
                 {user.id === message.sender_id && (
                   <span>
                     <button
@@ -197,7 +206,7 @@ const MainContent = () => {
               </div>
             )
           )}
-        </div>
+        </div> */}
         <form onSubmit={sendChat}>
           <input value={chatInput} onChange={updateChatInput} />
           <button type="submit">Send</button>
