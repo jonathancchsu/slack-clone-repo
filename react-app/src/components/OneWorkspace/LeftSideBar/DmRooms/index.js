@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-const DmRooms = ({ workspace, user }) => {
+const DmRooms = ({ workspace, users }) => {
   let history = useHistory();
   const user = useSelector((state) => state.session.user);
   console.log(user);
