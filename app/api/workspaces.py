@@ -50,13 +50,13 @@ def workspace_create():
         db.session.add(workspace)
         db.session.commit()
 
-        # workspaceMember = WorkspaceMember(
-        #     workspace_id=workspace.id,
-        #     user_id=workspace.owner_id
-        # )
-        # print('workspacemember here ----------------------------',workspaceMember)
-        # db.session.add(workspaceMember)
-        # db.session.commit()
+        workspaceMember = WorkspaceMember(
+            workspace_id=workspace.id,
+            user_id=workspace.owner_id
+        )
+        print('workspacemember here ----------------------------',workspaceMember)
+        db.session.add(workspaceMember)
+        db.session.commit()
 
         return workspace.to_dict()
 
@@ -67,9 +67,9 @@ def workspace_edit_delete(workspace_id):
         workspace = Workspace.query.get(workspace_id)
         data = request.json
         workspace.name = data['name']
-        db.session.add(workspace)
         db.session.commit()
     if request.method == 'DELETE':
-        db.session.query(Workspace).filter(Workspace.id == workspace_id).delete()
+        workspace = db.session.query(Workspace).filter(Workspace.id == workspace_id).first()
+        db.session.delete(workspace)
         db.session.commit()
         return {'workspace_id': workspace_id}
