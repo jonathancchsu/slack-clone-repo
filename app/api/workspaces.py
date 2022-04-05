@@ -66,6 +66,7 @@ def workspace_edit_delete(workspace_id):
     if request.method == 'PUT':
         workspace = Workspace.query.get(workspace_id)
         data = request.json
+
         workspace.name = data['name']
         db.session.commit()
         return {'workspace_id': workspace_id}
