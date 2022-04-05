@@ -29,7 +29,6 @@ class DirectMessageRoom(db.Model):
             'messages': [message.to_dict() for message in self.messages],
     }
 
-
 class DirectMessageMember(db.Model):
     __tablename__ = 'directMessageMembers'
 
