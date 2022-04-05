@@ -25,24 +25,22 @@ export const getOneWorkspace = (workspaceId) => async (dispatch) => {
 //-------------------------------------------add Workspace member
 const ADD_MEMBER = "workspaces/AddMember";
 const addMember = (member) => {
-  return {type: ADD_MEMBER, member}
-}
+  return { type: ADD_MEMBER, member };
+};
 
-
-export const addAMember = (user_id, workspace_id) => async dispatch => {
-  console.log('new member.........', user_id, workspace_id)
-
-  const res = await csrfFetch(`/api/workspaces/members/${workspace_id}/${user_id}`,
+export const addAMember = (user_id, workspace_id) => async (dispatch) => {
+  const res = await csrfFetch(
+    `/api/workspaces/members/${workspace_id}/${user_id}`,
     {
-      method: 'POST',
+      method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user_id, workspace_id)
+      body: JSON.stringify(user_id, workspace_id),
     }
-  )
+  );
 
   const member = await res.json();
   dispatch(addMember(member));
-}
+};
 
 //--------------------------------------------get current view------------------------
 // const LOAD_CURRENTVIEW = "workspaces/LoadCurrentView";
@@ -71,7 +69,6 @@ export const addWorkspace = (workspace) => ({
 });
 
 export const postWorkspace = (workspace) => async (dispatch) => {
-  console.log("from thunkkkkkkkkkkkkkkkkkkkkkkkkkkk", workspace);
   const res = await csrfFetch("/api/workspaces/new", {
     method: "POST",
     body: JSON.stringify(workspace),
@@ -87,7 +84,6 @@ export const updateWorkspace = (workspace) => ({
   workspace,
 });
 export const putWorkspace = (workspace) => async (dispatch) => {
-  console.log('edit workspaceeeeeeeeeeeee', workspace)
   const res = await csrfFetch(`/api/workspaces/${workspace.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -107,7 +103,7 @@ export const deleteEvent = (workspaceId) => async (dispatch) => {
   const res = await csrfFetch(`/api/workspaces/${workspaceId}`, {
     method: "DELETE",
   });
-  console.log('does this run????????????????????', res)
+
   const workspaceNum = await res.json();
 
   dispatch(removeEvent(workspaceNum));

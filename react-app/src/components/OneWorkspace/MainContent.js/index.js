@@ -3,9 +3,9 @@ import "./MainContent.css";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import ReactHtmlParser from 'react-html-parser';
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import ReactHtmlParser from "react-html-parser";
 
 import {
   getCurrentChannel,
@@ -29,7 +29,7 @@ const MainContent = () => {
   const [edit, setEdit] = useState(null);
   const [editContent, setEditContent] = useState("");
   const user = useSelector((state) => state.session.user);
-  const view = useSelector((state) => state.currentView);
+  const view = useSelector((state) => state.currentView.main_content);
 
   useEffect(() => {
     setloaded(false);
@@ -60,71 +60,69 @@ const MainContent = () => {
     setloaded(true);
   }, [view.messages]);
 
-
   const sendChat = async (e) => {
     e.preventDefault();
 
     dmRoom
-    ? await dispatch(
-      postDirectMessage({
-        room_id: view.id,
-        sender_id: user.id,
-        content: chatInput,
-      })
-      ).then((message) =>
-      socket.emit("chat", {
-        id: message.id,
-        room_id: view.id,
-        sender_id: user.id,
-        content: chatInput,
-        sender_username: user.username,
-        created_at: message.created_at,
-        socket: true,
-      })
-      )
-      : await dispatch(
-        postChannelMessage({
-          channel_id: view.id,
-          sender_id: user.id,
-          content: chatInput,
-        })
+      ? await dispatch(
+          postDirectMessage({
+            room_id: view.id,
+            sender_id: user.id,
+            content: chatInput,
+          })
         ).then((message) =>
-        socket.emit("chat", {
-          id: message.id,
-          channel_id: view.id,
-          sender_id: user.id,
-          content: chatInput,
-          sender_username: user.username,
-          created_at: message.created_at,
-          socket: true,
-        })
+          socket.emit("chat", {
+            id: message.id,
+            room_id: view.id,
+            sender_id: user.id,
+            content: chatInput,
+            sender_username: user.username,
+            created_at: message.created_at,
+            socket: true,
+          })
+        )
+      : await dispatch(
+          postChannelMessage({
+            channel_id: view.id,
+            sender_id: user.id,
+            content: chatInput,
+          })
+        ).then((message) =>
+          socket.emit("chat", {
+            id: message.id,
+            channel_id: view.id,
+            sender_id: user.id,
+            content: chatInput,
+            sender_username: user.username,
+            created_at: message.created_at,
+            socket: true,
+          })
         );
-        setChatInput("");
-      };
+    setChatInput("");
+  };
 
-      const updateChatInput = (e, editor) => {
-        const richText = editor.getData();
-        setChatInput(richText);
-      };
+  const updateChatInput = (e, editor) => {
+    const richText = editor.getData();
+    setChatInput(richText);
+  };
 
-      const updateMessageContent = (e, editor) => {
-        const richText = editor.getData();
-        setEditContent(richText);
-      }
+  const updateMessageContent = (e, editor) => {
+    const richText = editor.getData();
+    setEditContent(richText);
+  };
 
-      const handleEditMessage = async (e, message) => {
-        e.preventDefault();
-        message.content = editContent;
-        await dispatch(putMessage(message));
-        setEdit(null);
-        setEditContent("");
-      };
+  const handleEditMessage = async (e, message) => {
+    e.preventDefault();
+    message.content = editContent;
+    await dispatch(putMessage(message));
+    setEdit(null);
+    setEditContent("");
+  };
 
   const handleDeleteMessage = async (e, message) => {
     e.preventDefault();
     await dispatch(deleteMessage(message));
-    if (message.socket)
-      setMessages(messages.filter((msg) => msg.id !== message.id));
+    setMessages(messages.filter((msg) => msg.id !== message.id));
   };
 
   const handleCancel = (e) => {
@@ -154,7 +152,11 @@ const MainContent = () => {
                 defaultValue={message.content}
                 onChange={(e) => setEditContent(e.target.value)}
               ></input> */}
-              <CKEditor data={message.content} editor={ClassicEditor} onChange={updateMessageContent}/>
+              <CKEditor
+                data={message.content}
+                editor={ClassicEditor}
+                onChange={updateMessageContent}
+              />
               <button onClick={(e) => handleEditMessage(e, message)}>
                 Submit
               </button>
@@ -221,7 +223,7 @@ const MainContent = () => {
         </div> */}
         <form onSubmit={sendChat}>
           {/* <input value={chatInput} onChange={updateChatInput} /> */}
-          <CKEditor editor={ClassicEditor} onChange={updateChatInput}/>
+          <CKEditor editor={ClassicEditor} onChange={updateChatInput} />
           <button type="submit">Send</button>
         </form>
       </div>
