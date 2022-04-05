@@ -46,7 +46,7 @@ const Channels = ({ workspace, users, user_id }) => {
     );
   };
 
-  const user = useSelector((state) => state.session.user);
+  const workspace = useSelector((state) => state.workspace);
   useEffect(() => {
     dispatch(getUser(user_id)).then(() => setLoaded(true));
   }, [user_id, dispatch]);
