@@ -40,7 +40,7 @@ const NavBar = () => {
         </ul>
         <div className='search'>
           <p style={{fontSize:10}}>Search Workspace</p>
-          <img src='./static/search.png' alt='search' className='search-btn'/>
+          <img src='../static/search.png' alt='search' className='search-btn'/>
         </div>
         <div className='nav-profile' onClick={() => setuserMenu(!userMenu)}>
           {user.profile_picture ? <div><img src={user.profile_picture} alt='profile' />🟢</div> : <div style={{color:'white'}}>{user.username}🟢</div>}

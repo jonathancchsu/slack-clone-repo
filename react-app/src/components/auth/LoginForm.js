@@ -63,6 +63,7 @@ const LoginForm = () => {
         </div>
         <button type='submit' className='sign-in-btn'>Sign In with Email</button>
       </form>
+      <p>Don't have an account? <a href='/sign-up' style={{textDecoration:'none'}}>Sign up</a></p>
     </div>
   );
 };

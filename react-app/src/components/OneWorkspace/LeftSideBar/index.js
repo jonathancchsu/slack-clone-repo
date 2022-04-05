@@ -8,33 +8,28 @@ import { useEffect, useState } from "react";
 import { getAllUsers } from "../../../store/session";
 import { addAMember } from "../../../store/workspace";
 import { getOneWorkspace } from "../../../store/workspace";
-import { useHistory } from "react-router-dom";
+
 
 const LeftSideBar = ({ workspace }) => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const users = useSelector((state) => state.session.users);
   const [user_id, setUserID] = useState(workspace.owner.id);
+  const [errors, setErrors] = useState([])
   const current_workspace = useSelector(state => state.workspace.currentWorkspace);
 
   const members = current_workspace.members.map(member => member.user_id);
 
-  console.log(typeof(members[0]), 'member number 1');
-  console.log('member ids............', members)
-
-  console.log('current workspace:', current_workspace)
-  console.log('current user selected', user_id, typeof(user_id))
-
-
   const onSubmit = (e) => {
     e.preventDefault();
+    setErrors([]);
     console.log('user_id:', typeof(user_id))
     const member_exists = members.indexOf(Number(user_id))
     console.log('member exists?:', member_exists)
     if (member_exists === -1) {
       console.log(user_id, members.indexOf(+user_id))
       dispatch(addAMember(user_id, workspace.id))
-      // history.push('/'))
+    } else {
+      setErrors(['That user is already a member of this workspace'])
     }
     dispatch(getOneWorkspace(workspace.id))
   };
@@ -49,7 +44,10 @@ const LeftSideBar = ({ workspace }) => {
       <h2>{workspace.name}</h2>
       <h6>Members:</h6>
       {current_workspace.members?.map (member => (
-        <div key={member.id}>{member.username}</div>
+        <div key={`member:${member.username}`}>{member.username}</div>
+      ))}
+      {errors?.map(error => (
+        <p key={error} style={{color:'red'}}>{error}</p>
       ))}
       <select value={user_id} onChange={(e) => setUserID(e.target.value)}>
         {users?.map((user) => (
