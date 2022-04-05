@@ -11,7 +11,7 @@ import { addAMember } from "../../../store/workspace";
 const LeftSideBar = ({ workspace }) => {
   // let history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.session.users);
+  const users = useSelector((state) => state.session.users);
   const [user_id, setUserID] = useState(workspace.owner.id);
 
   const onSubmit = (e) => {
@@ -29,7 +29,7 @@ const LeftSideBar = ({ workspace }) => {
     <div>
       <h2>{workspace.name}</h2>
       <select value={user_id} onChange={(e) => setUserID(e.target.value)}>
-        {user?.map((user) => (
+        {users?.map((user) => (
           <option value={user.id} key={user.id}>
             {user.username}
           </option>
@@ -37,9 +37,9 @@ const LeftSideBar = ({ workspace }) => {
       </select>
       <button onClick={onSubmit}>Add User</button>
 
-      <Channels workspace={workspace} user={user} />
+      <Channels workspace={workspace} users={users} />
 
-      <DmRooms workspace={workspace} user={user} />
+      <DmRooms workspace={workspace} users={users} />
     </div>
   );
 };
