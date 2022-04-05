@@ -46,36 +46,44 @@ const Workspaces = ({ userId }) => {
 
   return (
     loaded && (
-      <div>
-        <h1>👋 Welcome back</h1>
-
-        {user.workspace_member.map((workspace) => (
-          <div key={workspace.id}>
-            <h2>{workspace.name}</h2>
-            <h3>{workspace.members_length} members</h3>
-            <button onClick={(e) => redirect(workspace.id)}>
-              Launch Workspace
-            </button>
-            <button onClick={() => deleteWorkspace(workspace.id)}>DELETE</button>
-            <button onClick={() => setEdit(workspace.id)}>EDIT</button>
-            {edit === workspace.id? <div>
-              <input type='text'
-                value={workspaceName}
-                onChange={(e) => setWorkspaceName(e.target.value)}
-              ></input>
-              <button onClick={(e) => handleEdit(e, workspace)}>Save</button>
-              <button onClick={() => setEdit('')}>Cancel</button>
-              </div>: <></>}
-            <div></div>
+      <div className="workspaces-container">
+        <div className="main-nav">
+          <div className="main-logo">
+            <img src='./images/icon.png' style={{ height: 30 }} />
+            slack
           </div>
-        ))}
-        {/* <div>
-        <WorkspaceForm />
-      </div> */}
-        <div className="create-workspace">
-          <button className="create-btn" onClick={(e) => createForm()}>
-            Add New Workspace
-          </button>
+          <div className="create-workspace">
+            <button className="create-btn" onClick={(e) => createForm()}>
+              CREATE A NEW WORKSPACE
+            </button>
+          </div>
+        </div>
+        <div className="workspaces">
+          <div className="main-head">
+            <img src='./images/waving-hand.gif' style={{ height: 40 }} />
+            <h1>Welcome back</h1>
+          </div>
+          {user.workspace_member.map((workspace) => (
+            <div key={workspace.id} className='workspace-box'>
+              <div className="main-user">Workspaces for {user.email}</div>
+              <h2>{workspace.name}</h2>
+              <h3>{workspace.members_length} members</h3>
+              <button onClick={(e) => redirect(workspace.id)}>
+                Launch Workspace
+              </button>
+              <button onClick={() => deleteWorkspace(workspace.id)}>DELETE</button>
+              <button onClick={() => setEdit(workspace.id)}>EDIT</button>
+              {edit === workspace.id ? <div>
+                <input type='text'
+                  value={workspaceName}
+                  onChange={(e) => setWorkspaceName(e.target.value)}
+                ></input>
+                <button onClick={(e) => handleEdit(e, workspace)}>Save</button>
+                <button onClick={() => setEdit('')}>Cancel</button>
+              </div> : <></>}
+              <div></div>
+            </div>
+          ))}
         </div>
       </div>
     )
