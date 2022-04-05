@@ -1,80 +1,59 @@
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
+
+import Channels from "./Channels";
+import DmRooms from "./DmRooms";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../../../store/session";
 import { addAMember } from "../../../store/workspace";
 
 const LeftSideBar = ({ workspace }) => {
-  let history = useHistory();
+  // let history = useHistory();
   const dispatch = useDispatch();
-  const users = useSelector(state => state.session.users)
+  const users = useSelector((state) => state.session.users);
   const [user_id, setUserID] = useState(workspace.owner.id);
   const current_workspace = useSelector(state => state.workspace.currentWorkspace);
 
+  const members = current_workspace.members.map(member => member.user_id);
+
+  console.log(typeof(members[0]), 'member number 1');
+  console.log('member ids............', members)
+
   console.log('current workspace:', current_workspace)
+  console.log('current user selected', user_id, typeof(user_id))
 
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('user_id:', user_id)
-    current_workspace.members.forEach(member => {
-      if (member.user_id === user_id) {
-        console.log(member, 'current member', user_id, member.user_id === user_id)
-        return 'User is already a member!'
-      } else {
-        dispatch(addAMember(user_id, workspace.id))
-      }
-    })
-    // return history.push('/')
-  }
+    console.log('user_id:', typeof(user_id))
+    const member_exists = members.indexOf(Number(user_id))
+    console.log('member exists?:', member_exists)
+    if (member_exists === -1) {
+      console.log(user_id, members.indexOf(+user_id))
+      dispatch(addAMember(user_id, workspace.id))
+    }
+  };
 
   useEffect(() => {
-    dispatch(getAllUsers())
-  }, [dispatch])
-
-  const channelMessages = async (id) => {
-    history.push(`/workspaces/${workspace.id}/messages/channels/${id}`);
-  };
-  const roomMessages = async (id) => {
-    history.push(`/workspaces/${workspace.id}/messages/dm_rooms/${id}`);
-  };
-
-
+    dispatch(getAllUsers());
+  }, [dispatch, addAMember]);
 
   return (
     <div>
       <h2>{workspace.name}</h2>
-        <select
-          value ={user_id}
-          onChange={(e) => setUserID(e.target.value)}
-        >
-         {
-           users?.map((user => (
-             <option value = {user.id} key={user.id}>{user.username}</option>
-           )))
-         }
-        </select>
-        <button onClick={onSubmit}>Add User</button>
-      <div>
-        <h3>Channels</h3>
-        {workspace.channels.map((channel) => (
-          <div onClick={() => channelMessages(channel.id)} key={channel.id}>
-            # {channel.name}
-          </div>
+      <select value={user_id} onChange={(e) => setUserID(e.target.value)}>
+        {users?.map((user) => (
+          <option value={user.id} key={user.id}>
+            {user.username}
+          </option>
         ))}
-      </div>
-      <div>
-        <h3>Direct Messages</h3>
-        {workspace.message_rooms.map((room) => (
-          <div key={room.id} onClick={() => roomMessages(room.id)} id={room.id}>
-            <div>
-              {room.members.map((member) => (
-                <div key={member.id}>{member.username}</div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+      </select>
+      <button onClick={onSubmit}>Add User</button>
+
+      <Channels workspace={workspace} user={users} />
+
+      <DmRooms workspace={workspace} user={users} />
     </div>
   );
 };
