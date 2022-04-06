@@ -35,7 +35,9 @@ const WorkspaceForm = () => {
 
   return (
     <div className="create-workspace-container">
-      <div className="create-top-bar"></div>
+      <div className="create-top-bar">
+        <a href='/' style={{ fontSize: 25, display: 'flex', alignItems: 'center' }}><img src='/static/icon.png' style={{ height: 30 }} />slack</a>
+      </div>
       <div className="create-box">
         <h1>What's the name of your company or team?</h1>
         <p>This will be the name of your Slack workspace - choose something that your team will recognize.</p>
@@ -53,13 +55,16 @@ const WorkspaceForm = () => {
               value={name}
               required={true}
               className="create-ws"
-              placeholder="Ex: App Academy or Bootcamp"
+              placeholder="  Ex: App Academy or Bootcamp"
             ></input>
           </div>
           <button type="submit" className="create-workspace-btn">
             Create Workspace
           </button>
         </form>
+        <div className="create-ws-cancel-btn">
+          <a style={{ textDecoration: 'none', fontSize: 12 }} href='/'>cancel</a>
+        </div>
       </div>
     </div>
   );
