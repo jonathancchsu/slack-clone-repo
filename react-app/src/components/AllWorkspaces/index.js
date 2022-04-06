@@ -10,12 +10,19 @@ import { deleteEvent, putWorkspace } from "../../store/workspace";
 const Workspaces = ({ userId }) => {
   const [loaded, setLoaded] = useState(false);
   const [edit, setEdit] = useState('');
+  const [seeMore, setSeeMore] = useState(false);
+  const [show, setShow] = useState('');
   const [workspaceName, setWorkspaceName] = useState('');
   let history = useHistory();
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch()
-  // })
+
+  useEffect(() => {
+    if (seeMore) {
+      setShow('show')
+    } else {
+      setShow('');
+    }
+  }, [seeMore])
 
   const redirect = (workspaceId) => {
     history.push(`/workspaces/${workspaceId}`);
@@ -46,36 +53,66 @@ const Workspaces = ({ userId }) => {
 
   return (
     loaded && (
-      <div>
-        <h1>👋 Welcome back</h1>
-
-        {user.workspace_member.map((workspace) => (
-          <div key={workspace.id}>
-            <h2>{workspace.name}</h2>
-            <h3>{workspace.members_length} members</h3>
-            <button onClick={(e) => redirect(workspace.id)}>
-              Launch Workspace
-            </button>
-            <button onClick={() => deleteWorkspace(workspace.id)}>DELETE</button>
-            <button onClick={() => setEdit(workspace.id)}>EDIT</button>
-            {edit === workspace.id? <div>
-              <input type='text'
-                value={workspaceName}
-                onChange={(e) => setWorkspaceName(e.target.value)}
-              ></input>
-              <button onClick={(e) => handleEdit(e, workspace)}>Save</button>
-              <button onClick={() => setEdit('')}>Cancel</button>
-              </div>: <></>}
-            <div></div>
+      <div className="workspaces-container">
+        <div className="main-nav">
+          <div className="main-logo">
+            <img src='./static/icon.png' alt="logo" style={{ height: 30 }} />
+            slack
           </div>
-        ))}
-        {/* <div>
-        <WorkspaceForm />
-      </div> */}
-        <div className="create-workspace">
-          <button className="create-btn" onClick={(e) => createForm()}>
-            Add New Workspace
-          </button>
+          <div className="create-workspace">
+            <button className="create-btn" onClick={(e) => createForm()}>
+              CREATE A NEW WORKSPACE
+            </button>
+          </div>
+        </div>
+        <div className="workspaces">
+          <div className="main-head">
+            <img src='./static/waving-hand.gif' alt="wave" style={{ height: 40 }} />
+            <h1>Welcome back</h1>
+          </div>
+          {user.workspace_member.map((workspace) => (
+            <div key={workspace.id} className='workspace-box'>
+              <div className="main-user">Workspaces for {user.email}</div>
+              <div className="workspace-name">
+                <div className="team">
+                  <img src='./static/icon.png' alt="icon" style={{ height: 40, marginLeft: 10 }} />
+                  <div className="workspace-info">
+                    <h2>{workspace.name}</h2>
+                    <p>{workspace.members_length} members</p>
+                  </div>
+                </div>
+                <div>
+                  <button className='launch-workspace' onClick={(e) => redirect(workspace.id)}>
+                    LAUNCH SLACK
+                  </button>
+                </div>
+              </div>
+              <div className="see-more">
+                <p onClick={() => user.workspaces_owned.includes(workspace.id) ? setSeeMore(!seeMore) : setSeeMore(seeMore)}>See more v</p>
+              </div>
+              <div className={`main-buttons ${show}`}>
+                <div>
+                  {user.workspaces_owned.includes(workspace.id) ?
+                    <div className={`main-buttons ${show}`}>
+                      <button className='main-delete-btn' onClick={() => deleteWorkspace(workspace.id)}>DELETE</button>
+                      <button className='main-edit-btn' onClick={() => setEdit(workspace.id)}>EDIT</button>
+                      {edit === workspace.id ? <div>
+                        <input type='text'
+                          value={workspaceName}
+                          onChange={(e) => setWorkspaceName(e.target.value)}
+                          className='main-edit-field'
+                        ></input>
+                        <div className="edit-btns">
+                          <button className='main-save-btn' onClick={(e) => handleEdit(e, workspace)}>Save</button>
+                          <button className='main-cancel-btn' onClick={() => setEdit('')}>Cancel</button>
+                        </div>
+                      </div> : <></>}
+                    </div>
+                    : <></>}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     )

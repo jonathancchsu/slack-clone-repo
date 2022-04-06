@@ -29,14 +29,16 @@ const addMember = (member) => {
 };
 
 export const addAMember = (user_id, workspace_id) => async (dispatch) => {
+  console.log('in store....', user_id, workspace_id)
   const res = await csrfFetch(
-    `/api/workspaces/members/${workspace_id}/${user_id}`,
+    `/api/workspaces/users/${workspace_id}/${user_id}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user_id, workspace_id),
     }
   );
+
 
   const member = await res.json();
   dispatch(addMember(member));

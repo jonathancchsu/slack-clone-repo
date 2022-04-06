@@ -7,17 +7,14 @@ import "./workspace_form.css";
 const WorkspaceForm = () => {
   const [errors, setErrors] = useState([]);
   const [name, setName] = useState("");
-  // const [owner_id, setId] = useState(1);
   const dispatch = useDispatch();
   let history = useHistory();
   const owner_id = useSelector((state) => state.session.user.id);
   console.log(owner_id);
   const onCreate = async (e) => {
     e.preventDefault();
-    // console.log(name)
     if (name.length >= 1) {
       const data = await dispatch(postWorkspace({ name, owner_id }));
-      // console.log(data)
       if (data) {
         setErrors(data);
       }
@@ -29,38 +26,39 @@ const WorkspaceForm = () => {
     setName(e.target.value);
   };
 
-  // const updateId = (e) => {
-  //   setId(e.target.value);
-  // }
-
   return (
     <div className="create-workspace-container">
-      <h1>Create Your workspace</h1>
-      <form onSubmit={onCreate} className="create-workspace-form">
-        <div className="errors-container">
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
+      <div className="create-top-bar">
+        <a href='/' style={{ fontSize: 25, display: 'flex', alignItems: 'center' }}><img src='/static/icon.png' style={{ height: 30 }} alt='icon' />slack</a>
+      </div>
+      <div className="create-box">
+        <h1>What's the name of your company or team?</h1>
+        <p>This will be the name of your Slack workspace - choose something that your team will recognize.</p>
+        <form onSubmit={onCreate} className="create-workspace-form">
+          <div className="errors-container">
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+          <div>
+            <input
+              type="text"
+              name="name"
+              onChange={updateName}
+              value={name}
+              required={true}
+              className="create-ws"
+              placeholder="  Ex: App Academy or Bootcamp"
+            ></input>
+          </div>
+          <button type="submit" className="create-workspace-btn">
+            Create Workspace
+          </button>
+        </form>
+        <div className="create-ws-cancel-btn">
+          <a style={{ textDecoration: 'none', fontSize: 12 }} href='/'>cancel</a>
         </div>
-        <div>
-          <input
-            type="text"
-            name="name"
-            onChange={updateName}
-            value={name}
-            required={true}
-            placeholder="Workspace Name"
-          ></input>
-          {/* <input
-          value={owner_id}
-          name='owner_id'
-          onChange={updateId}
-          ></input> */}
-        </div>
-        <button type="submit" className="create-workspace-btn">
-          Create Workspace
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

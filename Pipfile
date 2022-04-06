@@ -29,6 +29,7 @@ flask-socketio = "*"
 eventlet = "==0.30.2"
 psycopg2-binary = "*"
 boto3 = "*"
+aws = "*"
 
 [dev-packages]
 
