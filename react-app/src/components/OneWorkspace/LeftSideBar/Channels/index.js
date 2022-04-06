@@ -29,12 +29,13 @@ const Channels = ({ workspace, user_id }) => {
     history.push(`/workspaces/${workspace.id}/messages/channels/${id}`);
   };
 
-  const handleEdit = (e, channel) => {
+  const handleEdit = e => {
     e.preventDefault();
-    channel.name = channelName;
-    channel.topic = channelTopic;
-    channel.description = channelDescription;
-    dispatch(putChannel(channel));
+    // channel.name = channelName;
+    // channel.topic = channelTopic;
+    // channel.description = channelDescription;
+    dispatch(putChannel({ id: edit, description: channelDescription, topic: channelTopic, name: channelName }));
+    // console.log({ id: edit, description: channelDescription, topic: channelTopic, name: channelName });
     setEdit("");
     setChannelName("");
     setChannelTopic("");
@@ -55,13 +56,12 @@ const Channels = ({ workspace, user_id }) => {
             <div onClick={() => channelRoom(channel.channel_id)}>
               # {channel.channel_data.name}
             </div>
-            {user.id === channel.user_id && (
+            {user.id === channel.channel_data.owner_id && (
               <>
-                {" "}
                 <button onClick={(e) => deleteEvent(e, channel.channel_id)}>
                   delete channel
                 </button>
-                <button onClick={(e) => setEdit(e, channel.channel_id)}>
+                <button onClick={(e) => setEdit(channel.channel_id)}>
                   edit channel
                 </button>
               </>
@@ -83,7 +83,7 @@ const Channels = ({ workspace, user_id }) => {
                   value={channelDescription}
                   onChange={(e) => setChannelDescription(e.target.value)}
                 ></input>
-                <button onClick={(e) => handleEdit(e, channel)}>Save</button>
+                <button onClick={handleEdit}>Save</button>
                 <button onClick={() => setEdit("")}>Cancel</button>
               </div>
             ) : (

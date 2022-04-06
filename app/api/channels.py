@@ -46,13 +46,20 @@ def channel(channel_id):
         return channel.to_dict()
 
     if request.method == 'PUT':
-        channel = Channel.query.get(channel_id)
         data = request.json
+        channel = Channel.query.get(data['id'])
         channel.name = data['name']
         channel.topic = data['topic']
         channel.description = data['description']
         db.session.commit()
-        return channel.to_dict()
+        # return channel.to_dict()
+        return {
+            "channel_data": channel.to_dict(),
+            "channel_id": channel.id,
+            "membership_id": 1,
+            "user_id": channel.owner_id,
+            "workspace_id": channel.workspace_id
+        }
 
     if request.method == 'DELETE':
         print('herrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', request.method)
