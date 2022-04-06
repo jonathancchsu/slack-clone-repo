@@ -70,7 +70,8 @@ const dmRoomReducer = (
       return newState;
     }
     case ADD_DM_ROOM: {
-      newState.userDmRooms[action.dmRoom.id] = { ...action.dmRoom };
+      console.log("returned dm rooooooooom addd", action.dmRoom);
+      newState.userDmRooms[action.dmRoom.dm_room_id] = { ...action.dmRoom };
 
       return newState;
     }

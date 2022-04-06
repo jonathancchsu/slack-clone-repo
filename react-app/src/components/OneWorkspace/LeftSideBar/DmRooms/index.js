@@ -1,6 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import CreateDmModal from "./DmForm/DmFormModal";
 const DmRooms = ({ workspace, users }) => {
   const [loaded, setLoaded] = useState(false);
 
@@ -21,7 +22,7 @@ const DmRooms = ({ workspace, users }) => {
       <div>
         {" "}
         <div>
-          <h3>Direct Messages</h3> <button>➕</button>
+          <h3>Direct Messages</h3> <CreateDmModal />
         </div>
         {dmRooms.map((room) => (
           <div
