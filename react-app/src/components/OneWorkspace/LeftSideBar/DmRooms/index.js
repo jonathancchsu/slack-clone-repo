@@ -6,7 +6,8 @@ const DmRooms = ({ workspace, users }) => {
 
   let history = useHistory();
   const user = useSelector((state) => state.session.user);
-  const dmRooms = useSelector((state) => state.currentView.dm_rooms);
+  const dmRoomsObj = useSelector((state) => state.dmRooms);
+  const dmRooms = Object.values(dmRoomsObj.userDmRooms);
 
   useEffect(() => {
     setLoaded(false);

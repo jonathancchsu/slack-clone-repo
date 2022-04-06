@@ -3,26 +3,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { postChannel } from "../../../../store/channel";
 
-import "./ChannelForm.css"
+import "./ChannelForm.css";
 
-const ChannelForm = (workspace_id) => {
+const ChannelForm = () => {
   const [errors, setErrors] = useState([]);
-  const [name, setName] = useState('');
-  const [topic, setTopic] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState("");
+  const [topic, setTopic] = useState("");
+  const [description, setDescription] = useState("");
   const dispatch = useDispatch();
   let history = useHistory();
 
   const owner_id = useSelector((state) => state.session.user.id);
+  const workspace_id = useSelector(
+    (state) => state.workspace.currentWorkspace.id
+  );
 
   const onCreate = async (e) => {
     if (name.length >= 1 && topic.length >= 1 && description.length >= 1) {
-      const data = await dispatch(postChannel({ name, topic, description, owner_id }));
+      const data = await dispatch(
+        postChannel({ name, topic, description, owner_id, workspace_id })
+      );
       if (data) {
         setErrors(data);
       }
     }
-    return history.push(`/workspaces/${workspace_id}`);
+    history.push(`/workspaces/${workspace_id}`);
   };
 
   const updateName = (e) => {

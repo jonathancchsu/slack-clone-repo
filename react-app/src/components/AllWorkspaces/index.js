@@ -6,8 +6,6 @@ import { getUser } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { deleteEvent, putWorkspace } from "../../store/workspace";
 import { setUserWorkspaces } from "../../store/workspace";
-import { setDmRooms } from "../../store/currentView";
-import { setUserChannels } from "../../store/channel";
 
 const Workspaces = ({ userId }) => {
   const [loaded, setLoaded] = useState(false);
@@ -29,8 +27,6 @@ const Workspaces = ({ userId }) => {
 
   useEffect(() => {
     dispatch(setUserWorkspaces(user.workspace_member));
-    dispatch(setUserChannels(user.channel_member));
-    dispatch(setDmRooms(user.dm_room_member));
     setLoaded(true);
   }, [dispatch, user, userId]);
 

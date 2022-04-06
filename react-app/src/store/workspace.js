@@ -12,9 +12,9 @@ export const loadWorkspaces = (workspaces) => {
 };
 
 //-------------------------------------------get one workspace------------------------
-const LOAD_ONEWORKSPACE = "workspaces/LoadOneWorkspace";
+const SET_WORKSPACE = "workspaces/SetWorkspace";
 export const loadOneWorkspace = (workspace) => {
-  return { type: LOAD_ONEWORKSPACE, workspace };
+  return { type: SET_WORKSPACE, workspace };
 };
 
 export const getOneWorkspace = (workspaceId) => async (dispatch) => {
@@ -123,7 +123,6 @@ const workspaceReducer = (
       action.workspaces.forEach(
         (workspace) => (newState.userWorkspaces[workspace.id] = workspace)
       );
-      console.log("hereeeeeeeeeeeeeeeeeeeeeee", newState.userWorkspaces);
       return newState;
     }
     case ADD_WORKSPACE: {
@@ -136,17 +135,11 @@ const workspaceReducer = (
       return newState;
     }
     case DELETE_WORKSPACE: {
-      console.log(
-        "from reduceeeeee",
-        action.workspaceId.workspace_id,
-        newState.userWorkspaces[action.workspaceId.workspace_id],
-        newState.userWorkspaces
-      );
       delete newState.userWorkspaces[action.workspaceId.workspace_id];
       return newState;
     }
-    case LOAD_ONEWORKSPACE: {
-      newState.userWorkspaces.currentWorkspace = action.workspace;
+    case SET_WORKSPACE: {
+      newState.currentWorkspace = action.workspace;
       return newState;
     }
     case ADD_MEMBER: {

@@ -14,7 +14,7 @@ export const addChannel = (channel) => ({
 });
 
 export const postChannel = (channel) => async (dispatch) => {
-  const res = await csrfFetch("/api/channels/new", {
+  const res = await csrfFetch("/api/channels", {
     method: "POST",
     body: JSON.stringify(channel),
   });
@@ -64,7 +64,9 @@ const channelReducer = (
 
   switch (action.type) {
     case SET_USER_CHANNELS: {
-      newState.userChannels = action.channels;
+      action.channels.forEach(
+        (channel) => (newState.userChannels[channel.channel_id] = channel)
+      );
       return newState;
     }
     case ADD_CHANNEL: {
