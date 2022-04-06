@@ -13,7 +13,6 @@ import { setUserDmRooms } from "../../store/dmRooms";
 
 const OneWorkspace = () => {
   let { workspaceId } = useParams();
-  console.log("right fucking hereeeeeeeeeeeeee", workspaceId);
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   const workspace = useSelector((state) => state.workspace.currentWorkspace);
