@@ -64,6 +64,7 @@ const LoginForm = () => {
         <button type='submit' className='sign-in-btn'>Sign In with Email</button>
       </form>
       <p>Don't have an account? <a href='/sign-up' style={{textDecoration:'none'}}>Sign up</a></p>
+      <p>Want to check out the site? Log in as a <button className='demo-btn' onClick={() => dispatch(login('demo@demo.com', 'password'))}>Demo user</button></p>
     </div>
   );
 };
