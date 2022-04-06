@@ -29,7 +29,7 @@ const WorkspaceForm = () => {
   return (
     <div className="create-workspace-container">
       <div className="create-top-bar">
-        <a href='/' style={{ fontSize: 25, display: 'flex', alignItems: 'center' }}><img src='/static/icon.png' style={{ height: 30 }} />slack</a>
+        <a href='/' style={{ fontSize: 25, display: 'flex', alignItems: 'center' }}><img src='/static/icon.png' style={{ height: 30 }} alt='icon' />slack</a>
       </div>
       <div className="create-box">
         <h1>What's the name of your company or team?</h1>
