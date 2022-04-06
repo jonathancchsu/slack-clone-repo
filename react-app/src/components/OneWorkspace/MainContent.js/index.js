@@ -48,7 +48,13 @@ const MainContent = () => {
 
     socket = io();
     socket.on("chat", (chat) => {
-      setMessages((messages) => [...messages, chat]);
+      if (chat.edit) {
+        setMessages((messages) => messages.map(message => chat.id === message.id ? chat : message));
+      } else if (chat.delete) {
+        setMessages((messages) => messages.filter(message => chat.id !== message.id));
+      } else {
+        setMessages((messages) => [...messages, chat]);
+      }
     });
 
     // when component unmounts, disconnect
@@ -100,31 +106,48 @@ const MainContent = () => {
             socket: true,
           })
         );
-    setChatInput("");
-  };
+        setChatInput("");
+      };
 
-  const updateChatInput = (e, editor) => {
-    const richText = editor.getData();
-    setChatInput(richText);
-  };
+      const updateChatInput = (e, editor) => {
+        const richText = editor.getData();
+        setChatInput(richText);
+      };
 
-  const updateMessageContent = (e, editor) => {
-    const richText = editor.getData();
-    setEditContent(richText);
-  };
+      const updateMessageContent = (e, editor) => {
+        const richText = editor.getData();
+        setEditContent(richText);
+      }
 
-  const handleEditMessage = async (e, message) => {
-    e.preventDefault();
-    message.content = editContent;
-    await dispatch(putMessage(message));
-    setEdit(null);
-    setEditContent("");
-  };
+      const handleEditMessage = async (e, message) => {
+        e.preventDefault();
+        message.content = editContent;
+        socket.emit("chat", {
+          id: message.id,
+          channel_id: view.id,
+          sender_id: user.id,
+          content: editContent,
+          sender_username: user.username,
+          created_at: message.created_at,
+          edit: true
+        });
+        await dispatch(putMessage(message));
+        setEdit(null);
+        setEditContent("");
+      };
 
   const handleDeleteMessage = async (e, message) => {
     e.preventDefault();
+    socket.emit("chat", {
+      id: message.id,
+      channel_id: view.id,
+      sender_id: user.id,
+      content: editContent,
+      sender_username: user.username,
+      created_at: message.created_at,
+      delete: true
+    });
     await dispatch(deleteMessage(message));
-    setMessages(messages.filter((msg) => msg.id !== message.id));
   };
 
   const handleCancel = (e) => {
@@ -149,16 +172,7 @@ const MainContent = () => {
           edit === message.id ? (
             <div key={message.id}>
               {message.sender_username}
-              {/* <input
-                type="text"
-                defaultValue={message.content}
-                onChange={(e) => setEditContent(e.target.value)}
-              ></input> */}
-              <CKEditor
-                data={message.content}
-                editor={ClassicEditor}
-                onChange={updateMessageContent}
-              />
+              <CKEditor data={message.content} editor={ClassicEditor} onChange={updateMessageContent}/>
               <button onClick={(e) => handleEditMessage(e, message)}>
                 Submit
               </button>
@@ -173,6 +187,7 @@ const MainContent = () => {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
+                      setEditContent(message.content);
                       setEdit(message.id);
                     }}
                   >
@@ -186,46 +201,8 @@ const MainContent = () => {
             </div>
           )
         )}
-        {/* <div>
-          {messages.map((message, ind) =>
-            edit === message.id ? (
-              <div key={message.id}>
-                {message.sender_username}
-                <input
-                  type="text"
-                  defaultValue={message.content}
-                  onChange={(e) => setEditContent(e.target.value)}
-                ></input>
-                <button onClick={(e) => handleEditMessage(e, message)}>
-                  Submit
-                </button>
-                <button onClick={handleCancel}>Cancel</button>
-              </div>
-            ) : (
-              <div key={ind}>
-                {`${message.sender_username}: ${message.content} ${message.created_at}`}
-                {user.id === message.sender_id && (
-                  <span>
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setEdit(message.id);
-                      }}
-                    >
-                      Edit
-                    </button>
-                    <button onClick={(e) => handleDeleteMessage(e, message)}>
-                      Delete
-                    </button>
-                  </span>
-                )}
-              </div>
-            )
-          )}
-        </div> */}
         <form onSubmit={sendChat}>
-          {/* <input value={chatInput} onChange={updateChatInput} /> */}
-          <CKEditor editor={ClassicEditor} onChange={updateChatInput} />
+          <CKEditor editor={ClassicEditor} onChange={updateChatInput} data={chatInput}/>
           <button type="submit">Send</button>
         </form>
       </div>
