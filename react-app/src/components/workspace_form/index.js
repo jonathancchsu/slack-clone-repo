@@ -7,17 +7,14 @@ import "./workspace_form.css";
 const WorkspaceForm = () => {
   const [errors, setErrors] = useState([]);
   const [name, setName] = useState("");
-  // const [owner_id, setId] = useState(1);
   const dispatch = useDispatch();
   let history = useHistory();
   const owner_id = useSelector((state) => state.session.user.id);
   console.log(owner_id);
   const onCreate = async (e) => {
     e.preventDefault();
-    // console.log(name)
     if (name.length >= 1) {
       const data = await dispatch(postWorkspace({ name, owner_id }));
-      // console.log(data)
       if (data) {
         setErrors(data);
       }
@@ -28,10 +25,6 @@ const WorkspaceForm = () => {
   const updateName = (e) => {
     setName(e.target.value);
   };
-
-  // const updateId = (e) => {
-  //   setId(e.target.value);
-  // }
 
   return (
     <div className="create-workspace-container">
