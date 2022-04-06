@@ -159,7 +159,7 @@ const MainContent = () => {
 
   return (
     loaded && (
-      <div>
+      <div id='main-content'>
         <div>
           <div>{channelRoom && <h2>{view?.topic}</h2>}</div>
           <div>

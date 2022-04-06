@@ -1,5 +1,3 @@
-// import { useHistory } from "react-router-dom";
-
 import Channels from "./Channels";
 import DmRooms from "./DmRooms";
 
@@ -8,6 +6,8 @@ import { useEffect, useState } from "react";
 import { getAllUsers } from "../../../store/session";
 import { addAMember } from "../../../store/workspace";
 import { getOneWorkspace } from "../../../store/workspace";
+
+import './LeftSideBar.css';
 
 const LeftSideBar = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,8 @@ const LeftSideBar = () => {
   const [loaded, setLoaded] = useState(false);
   const [user_id, setUserID] = useState();
   const [errors, setErrors] = useState([]);
+
+  const [showMembers, setShowMembers] = useState(false);
 
   const members = useSelector(
     (state) => state.workspace.currentWorkspace.members
@@ -42,8 +44,7 @@ const LeftSideBar = () => {
   };
 
   useEffect(() => {
-    let workspaceId = window.location.href.split("/")[4];
-    console.log("hereeeeeeeeeeeeeeeeeeeeeeee", workspaceId);
+    // let workspaceId = window.location.href.split("/")[4];
     dispatch(getAllUsers());
     setUserID(workspace.owner_id);
     setLoaded(true);
@@ -51,25 +52,29 @@ const LeftSideBar = () => {
 
   return (
     loaded && (
-      <div>
+      <div id='left-sb-main'>
         <h2>{workspace.name}</h2>
-        <h6>Members:</h6>
-        {current_workspace?.map((member) => (
+
+        <div id='members-tab'>
+          <button onClick={() => setShowMembers(!showMembers)}>{'>'}</button>
+          <h6>Members:</h6>
+          <button onClick={onSubmit}>+</button>
+        </div>
+        {showMembers && current_workspace?.map((member) => (
           <div key={`member:${member.username}`}>{member.username}</div>
         ))}
-        {errors?.map((error) => (
-          <p key={error} style={{ color: "red" }}>
-            {error}
-          </p>
-        ))}
-        <select value={user_id} onChange={(e) => setUserID(e.target.value)}>
-          {users?.map((user) => (
-            <option value={user.id} key={user.id}>
-              {user.username}
-            </option>
-          ))}
-        </select>
-        <button onClick={onSubmit}>Add User</button>
+          {/* {errors?.map((error) => (
+            <p key={error} style={{ color: "red" }}>
+              {error}
+            </p>
+          ))} */}
+          {/* <select value={user_id} onChange={(e) => setUserID(e.target.value)}>
+            {users?.map((user) => (
+              <option value={user.id} key={user.id}>
+                {user.username}
+              </option>
+            ))}
+          </select> */}
 
         <Channels workspace={workspace} users={users} />
 
