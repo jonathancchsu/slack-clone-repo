@@ -34,8 +34,8 @@ export const addAMember = (user_id, workspace_id) => async (dispatch) => {
     `/api/workspaces/users/${workspace_id}/${user_id}`,
     {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user_id, workspace_id),
+      // headers: { "Content-Type": "application/json" },
+      // body: JSON.stringify(user_id, workspace_id),
     }
   );
 
@@ -142,6 +142,7 @@ const workspaceReducer = (
       return newState;
     }
     case ADD_MEMBER: {
+      newState.currentWorkspace.members = [...newState.currentWorkspace.members, action.member];
       return newState;
     }
     default:
