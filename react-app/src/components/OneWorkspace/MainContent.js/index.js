@@ -106,7 +106,6 @@ const MainContent = () => {
             socket: true,
           })
         );
-<<<<<<< HEAD
         setChatInput("");
       };
 
@@ -136,28 +135,6 @@ const MainContent = () => {
         setEdit(null);
         setEditContent("");
       };
-=======
-    setChatInput("");
-  };
-
-  const updateChatInput = (e, editor) => {
-    const richText = editor.getData();
-    setChatInput(richText);
-  };
-
-  const updateMessageContent = (e, editor) => {
-    const richText = editor.getData();
-    setEditContent(richText);
-  };
-
-  const handleEditMessage = async (e, message) => {
-    e.preventDefault();
-    message.content = editContent;
-    await dispatch(putMessage(message));
-    setEdit(null);
-    setEditContent("");
-  };
->>>>>>> main
 
   const handleDeleteMessage = async (e, message) => {
     e.preventDefault();
@@ -171,10 +148,6 @@ const MainContent = () => {
       delete: true
     });
     await dispatch(deleteMessage(message));
-<<<<<<< HEAD
-=======
-    setMessages(messages.filter((msg) => msg.id !== message.id));
->>>>>>> main
   };
 
   const handleCancel = (e) => {
@@ -199,20 +172,7 @@ const MainContent = () => {
           edit === message.id ? (
             <div key={message.id}>
               {message.sender_username}
-<<<<<<< HEAD
               <CKEditor data={message.content} editor={ClassicEditor} onChange={updateMessageContent}/>
-=======
-              {/* <input
-                type="text"
-                defaultValue={message.content}
-                onChange={(e) => setEditContent(e.target.value)}
-              ></input> */}
-              <CKEditor
-                data={message.content}
-                editor={ClassicEditor}
-                onChange={updateMessageContent}
-              />
->>>>>>> main
               <button onClick={(e) => handleEditMessage(e, message)}>
                 Submit
               </button>
@@ -242,12 +202,7 @@ const MainContent = () => {
           )
         )}
         <form onSubmit={sendChat}>
-<<<<<<< HEAD
           <CKEditor editor={ClassicEditor} onChange={updateChatInput} data={chatInput}/>
-=======
-          {/* <input value={chatInput} onChange={updateChatInput} /> */}
-          <CKEditor editor={ClassicEditor} onChange={updateChatInput} />
->>>>>>> main
           <button type="submit">Send</button>
         </form>
       </div>
