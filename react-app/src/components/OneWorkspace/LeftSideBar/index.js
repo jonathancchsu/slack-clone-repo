@@ -42,7 +42,7 @@ const LeftSideBar = () => {
   };
 
   useEffect(() => {
-    let workspaceId = window.location.href.split("/")[4];
+    // let workspaceId = window.location.href.split("/")[4];
     dispatch(getAllUsers());
     setUserID(workspace.owner_id);
     setLoaded(true);
