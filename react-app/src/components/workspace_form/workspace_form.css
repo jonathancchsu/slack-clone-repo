@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+
+.create-workspace-container {
+  font-family: 'Open Sans';
+}
+
+.create-box {
+  margin: 60px;
+  font-family: 'Open Sans';
+}
+.create-box > h1 {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.create-box > p {
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.create-ws {
+  width: 600px;
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+}
+
+.create-workspace-btn {
+  border: 0;
+  height: 35px;
+  width: 200px;
+  border-radius: 5px;
+  font-family: 'Open Sans';
+  background-color: lightgray;
+  margin-top: 50px;
+}
+
+.create-workspace-btn:hover {
+  cursor: pointer;
+  border:1px solid white;
+  font-size: 13px;
+}
+
+.create-top-bar {
+  background-color: #4a154b;
+  height:30px;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+}
+
+.create-top-bar > a {
+  text-decoration: none;
+  color: white;
+  font-family: 'Open Sans';
+  margin-left: 2px;
+}
+
+.create-ws-cancel-btn {
+  display: flex;
+  justify-content: center;
+  width: 195px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  margin-top: 10px;
+  height:30px;
+  align-items: center;
+  font-family: 'Open Sans';
+  color: #4a154b;
+}
+
+.create-ws-cancel-btn > a {
+  color: #4a154b;
+}
+
+.create-ws-cancel-btn > a:hover {
+  color: white;
+}
+
+.create-ws-cancel-btn:hover {
+  cursor: pointer;
+  background-color: #4a154b;
+  color: white;
+}
