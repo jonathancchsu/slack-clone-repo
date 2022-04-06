@@ -55,7 +55,25 @@ export const deleteChannel = (channel_id) => async (dispatch) => {
   dispatch(removeChannel(channelNum));
 };
 
+//------------------------------------delete channel---------------------------------
+const ADD_CHANNEL_MEMBER = "channels/addChannelMember";
+export const addChannelMember = payload => ({
+  type: ADD_CHANNEL_MEMBER,
+  payload
+})
+
+export const addNewChannelMember = (channel_id, username) => async dispatch => {
+  const res = await fetch(`/api/channels/${channel_id}/new_member`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(username)
+  });
+  const newMember = await res.json();
+  dispatch(addChannelMember(newMember));
+}
+
 //-----------------------------------channel reducer---------------------------------
+
 const channelReducer = (
   state = { currentChannel: {}, currentView: {}, userChannels: {} },
   action
@@ -75,13 +93,16 @@ const channelReducer = (
       return newState;
     }
     case UPDATE_CHANNEL: {
-      console.log(action.channel);
       newState.userChannels[action.channel.channel_id] = action.channel;
 
       return newState;
     }
     case DELETE_CHANNEL: {
       delete newState.userChannels[action.channel_id.channel_id];
+      return newState;
+    }
+    case ADD_CHANNEL_MEMBER: {
+      newState.userChannels[action.payload.channel_id].channel_data.members = [...newState.userChannels[action.payload.channel_id].channel_data.members, action.payload];
       return newState;
     }
     default:

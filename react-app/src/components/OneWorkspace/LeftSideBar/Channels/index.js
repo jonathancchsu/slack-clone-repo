@@ -2,7 +2,7 @@ import { useHistory } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteChannel, putChannel } from "../../../../store/channel";
+import { deleteChannel, putChannel, addNewChannelMember } from "../../../../store/channel";
 import CreateChannelModal from "../ChannelForm/CreateChannelModal";
 import "./Channels.css";
 
@@ -24,6 +24,7 @@ const Channels = ({ workspace }) => {
   const [channelDescription, setChannelDescription] = useState("");
 
   const [showChannels, setShowChannels] = useState(false);
+  const [newMember, setNewMember] = useState("");
 
   const channelRoom = (id) => {
     history.push(`/workspaces/${workspace.id}/messages/channels/${id}`);
@@ -64,6 +65,10 @@ const Channels = ({ workspace }) => {
                 <button onClick={(e) => setEdit(channel.channel_id)}>
                   edit channel
                 </button>
+                <form onSubmit={(e) => handleAddMember(e, channel.channel_id)}>
+                  <input type='text' value={newMember} onChange={e => setNewMember(e.target.value)}></input>
+                  <button>add member</button>
+                </form>
               </>
             )}
             {edit === channel.channel_id ? (
@@ -91,7 +96,6 @@ const Channels = ({ workspace }) => {
             )}
           </div>
         ))}
-        {/* <div className="create-channel"></div> */}
       </div>
     )
   );

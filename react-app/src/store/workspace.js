@@ -30,7 +30,6 @@ const addMember = (member) => {
 };
 
 export const addAMember = (user_id, workspace_id) => async (dispatch) => {
-  console.log("in store....", user_id, workspace_id);
   const res = await csrfFetch(
     `/api/workspaces/users/${workspace_id}/${user_id}`,
     {

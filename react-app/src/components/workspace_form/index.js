@@ -10,7 +10,6 @@ const WorkspaceForm = () => {
   const dispatch = useDispatch();
   let history = useHistory();
   const owner_id = useSelector((state) => state.session.user.id);
-  console.log(owner_id);
   const onCreate = async (e) => {
     e.preventDefault();
     if (name.length >= 1) {
