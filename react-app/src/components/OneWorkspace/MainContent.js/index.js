@@ -30,7 +30,6 @@ const MainContent = () => {
   const [editContent, setEditContent] = useState("");
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView.main_content);
-  console.log("viewwwwwwwwwwwwwwwwwwwwwwww", view);
 
   useEffect(() => {
     setloaded(false);
@@ -48,6 +47,7 @@ const MainContent = () => {
 
     socket = io();
     socket.on("chat", (chat) => {
+      console.log(chat);
       if (chat.edit) {
         setMessages((messages) => messages.map(message => chat.id === message.id ? chat : message));
       } else if (chat.delete) {
@@ -129,6 +129,7 @@ const MainContent = () => {
           content: editContent,
           sender_username: user.username,
           created_at: message.created_at,
+          socket: message.socket,
           edit: true
         });
         await dispatch(putMessage(message));
