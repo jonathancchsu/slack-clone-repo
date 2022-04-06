@@ -34,7 +34,7 @@ def channel_create():
         db.session.add(channelMember)
         db.session.commit()
 
-        return channel.to_dict()
+        return {'channel_id': channel.id, 'membership_id': channelMember.id, 'user_id':channel.owner_id, 'workspace_id': data['workspace_id'], 'channel_data': channel.to_dict()}
 
 
 

@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteChannel, putChannel } from "../../../../store/channel";
-import { setChannels } from "../../../../store/currentView";
+import CreateChannelModal from "../ChannelForm/CreateChannelModal";
 import "./channels.css";
 
 const Channels = ({ workspace, user_id }) => {
@@ -13,7 +13,7 @@ const Channels = ({ workspace, user_id }) => {
   const user = useSelector((state) => state.session.user);
   const channelsObj = useSelector((state) => state.channels);
   const userChannels = Object.values(channelsObj.userChannels);
-
+  console.log("right hereeeeeeeeeeeeeeeeeeeeeeeee", userChannels);
   useEffect(() => {
     setLoaded(true);
   }, [dispatch, channelsObj, user]);
@@ -24,12 +24,9 @@ const Channels = ({ workspace, user_id }) => {
   const [channelTopic, setChannelTopic] = useState("");
   const [channelDescription, setChannelDescription] = useState("");
 
-  const channelRoom = (id) => {
+  const channelRoom = (e, id) => {
+    console.log("hereeeeeeeeeeeeeeeeeeeeee right", id);
     history.push(`/workspaces/${workspace.id}/messages/channels/${id}`);
-  };
-
-  const createChannelForm = () => {
-    history.push("/channels/new");
   };
 
   const handleEdit = (e, channel) => {
@@ -51,17 +48,23 @@ const Channels = ({ workspace, user_id }) => {
     loaded && (
       <div>
         <h3>Channels</h3>
+        <CreateChannelModal></CreateChannelModal>
         {userChannels.map((channel) => (
           <div key={channel.channel_id}>
             <div onClick={(e) => channelRoom(e, channel.channel_id)}>
               # {channel.channel_data.name}
             </div>
-            <button onClick={(e) => deleteEvent(e, channel.channel_id)}>
-              delete channel
-            </button>
-            <button onClick={(e) => setEdit(e, channel.channel_id)}>
-              edit channel
-            </button>
+            {user.id === channel.user_id && (
+              <>
+                {" "}
+                <button onClick={(e) => deleteEvent(e, channel.channel_id)}>
+                  delete channel
+                </button>
+                <button onClick={(e) => setEdit(e, channel.channel_id)}>
+                  edit channel
+                </button>
+              </>
+            )}
             {edit === channel.channel_id ? (
               <div>
                 <input
@@ -87,11 +90,7 @@ const Channels = ({ workspace, user_id }) => {
             )}
           </div>
         ))}
-        <div className="create-channel">
-          <button className="create-btn" onClick={(e) => createChannelForm()}>
-            Add New Channel
-          </button>
-        </div>
+        <div className="create-channel"></div>
       </div>
     )
   );

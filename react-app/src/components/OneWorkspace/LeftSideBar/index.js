@@ -8,8 +8,6 @@ import { useEffect, useState } from "react";
 import { getAllUsers } from "../../../store/session";
 import { addAMember } from "../../../store/workspace";
 import { getOneWorkspace } from "../../../store/workspace";
-import { setUserChannels } from "../../../store/channel";
-import { setDmRooms } from "../../../store/currentView";
 
 const LeftSideBar = () => {
   const dispatch = useDispatch();
