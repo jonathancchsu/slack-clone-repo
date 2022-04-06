@@ -24,6 +24,7 @@ const LeftSideBar = ({ workspace }) => {
     (state) => state.workspace.currentWorkspace.members
   );
 
+  console.log('workspace...', workspace)
   console.log(members, 'members now!')
 
   console.log('user_id:', user_id)
@@ -31,11 +32,11 @@ const LeftSideBar = ({ workspace }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    console.log("user_id:", typeof user_id);
+    console.log("user_id:------------------", typeof user_id);
     const member_exists = members.indexOf(Number(user_id));
     console.log("member exists?:", member_exists);
     if (member_exists === -1) {
-      console.log(user_id, members.indexOf(+user_id));
+      console.log('dispatched!!!!!!!!!!!!');
       dispatch(addAMember(user_id, workspace.id));
     } else {
       setErrors(["That user is already a member of this workspace"]);

@@ -133,16 +133,15 @@ def workspace_edit_delete(workspace_id):
         db.session.commit()
         return {'workspace_id': workspace_id}
 
-@bp.route('members/<int:workspace_id>/<int:user_id>', methods=['POST'])
+@bp.route('users/<int:workspace_id>/<int:user_id>', methods=['POST'])
 def add_workspace_member(workspace_id, user_id):
     data = request.json
+    print(data, 'does it reach here!!!!!!!!!!!!!!!!!!')
     print(user_id, '...........................', workspace_id)
-
-
     member = WorkspaceMember(
         workspace_id = workspace_id,
         user_id = user_id,
     )
     db.session.add(member)
     db.session.commit()
-    return {'member': data};
+    return 'member'
