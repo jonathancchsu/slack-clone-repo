@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteChannel, putChannel, addNewChannelMember } from "../../../../store/channel";
 import CreateChannelModal from "../ChannelForm/CreateChannelModal";
-import "./Channels.css";
+import "./channels.css";
 
 // Random change
 
