@@ -17,7 +17,6 @@ const OneWorkspace = () => {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   const workspace = useSelector((state) => state.workspace.currentWorkspace);
-  const userChannels = useSelector((state) => state.channels.userChannels);
   const user = useSelector((state) => state.session.user);
   //   console.log(workspace);
   useEffect(() => {
