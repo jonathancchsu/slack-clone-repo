@@ -13,7 +13,7 @@ const DmRooms = ({ workspace, users }) => {
     setLoaded(false);
     setLoaded(true);
   }, [user, workspace]);
-  const roomMessages = async (id) => {
+  const dmRoom = async (id) => {
     history.push(`/workspaces/${workspace.id}/messages/dm_rooms/${id}`);
   };
   return (
@@ -26,7 +26,7 @@ const DmRooms = ({ workspace, users }) => {
         {dmRooms.map((room) => (
           <div
             key={room.dm_room_id}
-            onClick={() => roomMessages(room.dm_room_id)}
+            onClick={() => dmRoom(room.dm_room_id)}
             id={room.id}
           >
             <div>

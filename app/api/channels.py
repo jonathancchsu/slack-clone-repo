@@ -39,7 +39,7 @@ def channel_create():
 
 
 
-@bp.route('/<int:channel_id>', methods=['PUT', 'DELETE'])
+@bp.route('/<int:channel_id>', methods=['GET', 'PUT', 'DELETE'])
 def channel(channel_id):
     if request.method == 'GET':
         channel = Channel.query.get(channel_id)

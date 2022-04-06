@@ -24,7 +24,7 @@ const Channels = ({ workspace, user_id }) => {
   const [channelTopic, setChannelTopic] = useState("");
   const [channelDescription, setChannelDescription] = useState("");
 
-  const channelRoom = (e, id) => {
+  const channelRoom = (id) => {
     console.log("hereeeeeeeeeeeeeeeeeeeeee right", id);
     history.push(`/workspaces/${workspace.id}/messages/channels/${id}`);
   };
@@ -52,7 +52,7 @@ const Channels = ({ workspace, user_id }) => {
         <CreateChannelModal></CreateChannelModal>
         {userChannels.map((channel) => (
           <div key={channel.channel_id}>
-            <div onClick={(e) => channelRoom(e, channel.channel_id)}>
+            <div onClick={() => channelRoom(channel.channel_id)}>
               # {channel.channel_data.name}
             </div>
             {user.id === channel.user_id && (

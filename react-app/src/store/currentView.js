@@ -8,7 +8,7 @@ export const loadMainContent = (view) => {
 };
 
 export const getCurrentChannel = (channelId) => async (dispatch) => {
-  const res = await fetch(`/api/workspaces/channels/${channelId}`);
+  const res = await fetch(`/api/channels/${channelId}`);
   const channel = await res.json();
   dispatch(loadMainContent(channel));
 };
