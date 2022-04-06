@@ -13,7 +13,7 @@ class Workspace(db.Model):
 
     id = db.Column(Integer, primary_key=True)
     owner_id = db.Column(Integer, ForeignKey('users.id'), nullable=False,)
-    name = db.Column(String(100), nullable=False)
+    name = db.Column(String(100), nullable=False, unique=True)
     created_at = db.Column(DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())
 

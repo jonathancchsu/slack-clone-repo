@@ -1,19 +1,20 @@
 import { csrfFetch } from "./csrf";
+
+//--------------------------------------------load workspaces-----------------------
+const SET_USER_WORKSPACES = "workspaces/SetUserWorkspaces";
+export const setUserWorkspaces = (workspaces) => {
+  return { type: SET_USER_WORKSPACES, workspaces };
+};
 //--------------------------------------------load workspaces-----------------------
 const LOAD_WORKSPACES = "workspaces/LoadWorkspaces";
 export const loadWorkspaces = (workspaces) => {
   return { type: LOAD_WORKSPACES, workspaces };
 };
 
-export const getWorkspaces = (userId) => async (dispatch) => {
-  const res = await fetch(`/api/workspaces/${userId}`);
-  const workspaces = await res.json();
-  dispatch(loadWorkspaces(workspaces));
-};
 //-------------------------------------------get one workspace------------------------
-const LOAD_ONEWORKSPACE = "workspaces/LoadOneWorkspace";
+const SET_WORKSPACE = "workspaces/SetWorkspace";
 export const loadOneWorkspace = (workspace) => {
-  return { type: LOAD_ONEWORKSPACE, workspace };
+  return { type: SET_WORKSPACE, workspace };
 };
 
 export const getOneWorkspace = (workspaceId) => async (dispatch) => {
@@ -25,24 +26,23 @@ export const getOneWorkspace = (workspaceId) => async (dispatch) => {
 //-------------------------------------------add Workspace member
 const ADD_MEMBER = "workspaces/AddMember";
 const addMember = (member) => {
-  return {type: ADD_MEMBER, member}
-}
+  return { type: ADD_MEMBER, member };
+};
 
-
-export const addAMember = (user_id, workspace_id) => async dispatch => {
-  console.log('new member.........', user_id, workspace_id)
-
-  const res = await csrfFetch(`/api/workspaces/members/${workspace_id}/${user_id}`,
+export const addAMember = (user_id, workspace_id) => async (dispatch) => {
+  console.log("in store....", user_id, workspace_id);
+  const res = await csrfFetch(
+    `/api/workspaces/users/${workspace_id}/${user_id}`,
     {
-      method: 'POST',
+      method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(user_id, workspace_id)
+      body: JSON.stringify(user_id, workspace_id),
     }
-  )
+  );
 
   const member = await res.json();
   dispatch(addMember(member));
-}
+};
 
 //--------------------------------------------get current view------------------------
 // const LOAD_CURRENTVIEW = "workspaces/LoadCurrentView";
@@ -71,7 +71,6 @@ export const addWorkspace = (workspace) => ({
 });
 
 export const postWorkspace = (workspace) => async (dispatch) => {
-  console.log("from thunkkkkkkkkkkkkkkkkkkkkkkkkkkk", workspace);
   const res = await csrfFetch("/api/workspaces/new", {
     method: "POST",
     body: JSON.stringify(workspace),
@@ -87,7 +86,6 @@ export const updateWorkspace = (workspace) => ({
   workspace,
 });
 export const putWorkspace = (workspace) => async (dispatch) => {
-  console.log('edit workspaceeeeeeeeeeeee', workspace)
   const res = await csrfFetch(`/api/workspaces/${workspace.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -107,7 +105,7 @@ export const deleteEvent = (workspaceId) => async (dispatch) => {
   const res = await csrfFetch(`/api/workspaces/${workspaceId}`, {
     method: "DELETE",
   });
-  console.log('does this run????????????????????', res)
+
   const workspaceNum = await res.json();
 
   dispatch(removeEvent(workspaceNum));
@@ -121,36 +119,32 @@ const workspaceReducer = (
   let newState = { ...state };
 
   switch (action.type) {
-    case LOAD_WORKSPACES: {
-      newState.userWorkspaces = action.workspaces.map((workspace) => {
-        return (newState[workspace.id] = workspace);
-      });
+    case SET_USER_WORKSPACES: {
+      action.workspaces.forEach(
+        (workspace) => (newState.userWorkspaces[workspace.id] = workspace)
+      );
       return newState;
     }
     case ADD_WORKSPACE: {
-      newState[action.workspace.id] = { ...action.workspace };
+      newState.userWorkspaces[action.workspace.id] = { ...action.workspace };
 
       return newState;
     }
     case UPDATE_WORKSPACE: {
-      newState[action.workspace.id] = action.workspace;
+      newState.userWorkspaces[action.workspace.id] = { ...action.workspace };
       return newState;
     }
     case DELETE_WORKSPACE: {
-      delete newState[action.workspaceId];
+      delete newState.userWorkspaces[action.workspaceId.workspace_id];
       return newState;
     }
-    case LOAD_ONEWORKSPACE: {
+    case SET_WORKSPACE: {
       newState.currentWorkspace = action.workspace;
       return newState;
     }
     case ADD_MEMBER: {
       return newState;
     }
-    // case LOAD_CURRENTVIEW: {
-    //   newState.currentView = action.view;
-    //   return newState;
-    // }
     default:
       return state;
   }

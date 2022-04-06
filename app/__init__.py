@@ -9,7 +9,7 @@ from .socket import socketio
 from .models import db, User, Workspace, WorkspaceMember, Channel, ChannelMember, Message, DirectMessageRoom, DirectMessageMember
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
-from .api import messages, workspaces
+from .api import messages, workspaces, channels, dm_rooms
 
 from .seeds import seed_commands
 
@@ -34,6 +34,9 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(workspaces.bp, url_prefix='/api/workspaces')
+app.register_blueprint(channels.bp, url_prefix='/api/channels')
+app.register_blueprint(dm_rooms.bp, url_prefix='/api/dm_rooms')
+
 app.register_blueprint(messages.bp, url_prefix='/api/messages')
 db.init_app(app)
 Migrate(app, db)

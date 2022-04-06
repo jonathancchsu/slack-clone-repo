@@ -1,28 +1,43 @@
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 const DmRooms = ({ workspace, users }) => {
+  const [loaded, setLoaded] = useState(false);
+
   let history = useHistory();
   const user = useSelector((state) => state.session.user);
-  console.log(user);
-  const roomMessages = async (id) => {
+  const dmRoomsObj = useSelector((state) => state.dmRooms);
+  const dmRooms = Object.values(dmRoomsObj.userDmRooms);
+
+  useEffect(() => {
+    setLoaded(false);
+    setLoaded(true);
+  }, [user, workspace]);
+  const dmRoom = async (id) => {
     history.push(`/workspaces/${workspace.id}/messages/dm_rooms/${id}`);
   };
   return (
-    <div>
-      {" "}
+    loaded && (
       <div>
-        <h3>Direct Messages</h3> <button>➕</button>
-      </div>
-      {workspace.message_rooms.map((room) => (
-        <div key={room.id} onClick={() => roomMessages(room.id)} id={room.id}>
-          <div>
-            {room.members.map((member) => (
-              <div key={member.id}>{member.username}</div>
-            ))}
-          </div>
+        {" "}
+        <div>
+          <h3>Direct Messages</h3> <button>➕</button>
         </div>
-      ))}
-    </div>
+        {dmRooms.map((room) => (
+          <div
+            key={room.dm_room_id}
+            onClick={() => dmRoom(room.dm_room_id)}
+            id={room.id}
+          >
+            <div>
+              {room.neighbors.members.map((member) => (
+                <div key={member.id}>{member.username}</div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
   );
 };
 

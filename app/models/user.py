@@ -55,8 +55,8 @@ class User(db.Model, UserMixin):
         'workspaces_owned': [workspace.id for workspace in self.workspaces_owned],
         'workspace_member': [{'id':workspace.workspace_id, 'name': workspace.workspace.name, 'members_length': len(workspace.workspace.members)  }for workspace in self.workspace_member],
         'channels_owned': [channel.id for channel in self.channels_owned],
-        'channel_member': [{'membership_id':member.id, 'channel_id': member.channel_id, 'user_id': member.user_id, 'workspace_id':member.channel.workspace_id} for member in self.channel_member],
+        'channel_member': [{'membership_id':member.id, 'channel_id': member.channel_id, 'user_id': member.user_id, 'channel_data':member.channel.to_dict(), 'workspace_id': member.channel.workspace_id} for member in self.channel_member],
         'channels_owned': [channel.id for channel in self.dm_rooms_owned],
-        'dm_room_member': [{'membership_id':member.id, 'dm_room_id': member.room_id, 'user_id':member.user_id, 'workspace_id': member.room.workspace_id }for member in self.dm_room_member],
+        'dm_room_member': [{'membership_id':member.id, 'dm_room_id': member.room_id, 'user_id':member.user_id, 'workspace_id': member.room.workspace_id, 'neighbors': member.room.to_dict() }for member in self.dm_room_member],
         'messages_sent': [message.id for message in self.messages_sent],
     }
