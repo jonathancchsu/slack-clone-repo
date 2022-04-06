@@ -9,10 +9,11 @@ from app.forms.channel_form import ChannelForm
 
 import json
 
-bp = Blueprint('channels', __name__,)
-@bp.route('', methods=['POST'])
+bp = Blueprint('channels', __name__,url_prefix='channels')
+@bp.route('/', methods=['POST'])
 def channel_create():
     data = request.json
+    print('hereeeeeeeeeeeeeeeeeeee', data)
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -38,7 +39,7 @@ def channel_create():
 
 
 
-@bp.route('/<int:channel_id>', methods=['GET', 'PUT', 'DELETE'])
+@bp.route('/<int:channel_id>', methods=['PUT', 'DELETE'])
 def channel(channel_id):
     if request.method == 'GET':
         channel = Channel.query.get(channel_id)
@@ -54,7 +55,8 @@ def channel(channel_id):
         return channel.to_dict()
 
     if request.method == 'DELETE':
-        channel = db.session.query(Channel).filter(Channel.id == channel_id).first()
+        print('herrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr', request.method)
+        channel = Channel.query.get(channel_id)
         db.session.delete(channel)
         db.session.commit()
         return {'channel_id': channel_id}

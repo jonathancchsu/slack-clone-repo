@@ -41,7 +41,8 @@ const Channels = ({ workspace, user_id }) => {
     setChannelDescription("");
   };
 
-  const deleteEvent = (id) => {
+  const deleteEvent = (e, id) => {
+    e.preventDefault();
     dispatch(deleteChannel(id));
   };
   return (

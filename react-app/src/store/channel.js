@@ -14,7 +14,7 @@ export const addChannel = (channel) => ({
 });
 
 export const postChannel = (channel) => async (dispatch) => {
-  const res = await csrfFetch("/api/channels", {
+  const res = await csrfFetch("/api/channels/", {
     method: "POST",
     body: JSON.stringify(channel),
   });
@@ -31,7 +31,7 @@ export const updateChannel = (channel) => ({
 });
 
 export const putChannel = (channel) => async (dispatch) => {
-  const res = await csrfFetch(`api/channels/${channel.id}`, {
+  const res = await csrfFetch(`/api/channels/${channel.id}/`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(channel),
@@ -47,7 +47,7 @@ export const removeChannel = (channel_id) => ({
   channel_id,
 });
 export const deleteChannel = (channel_id) => async (dispatch) => {
-  const res = await csrfFetch(`api/channels/${channel_id}`, {
+  const res = await fetch(`/api/channels/${channel_id}`, {
     method: "DELETE",
   });
   const channelNum = await res.json();
@@ -80,7 +80,7 @@ const channelReducer = (
       return newState;
     }
     case DELETE_CHANNEL: {
-      delete newState.userChannels[action.channel_id];
+      delete newState.userChannels[action.channel_id.channel_id];
       return newState;
     }
     default:
