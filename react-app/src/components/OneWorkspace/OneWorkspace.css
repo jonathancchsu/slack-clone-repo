@@ -1,10 +1,5 @@
 div#workspace-main {
-    display: grid;
-    grid-template-columns: 0.25fr 2fr;
-    width: 100%;
- }
-
- div#workspace-main > div.right-workspace.true {
-    display: grid;
-    grid-template-columns: 2.5fr 1fr;
- }
+   display: grid;
+   grid-template-columns: 0.3fr 2fr;
+   width: 100%;
+}
