@@ -14,7 +14,6 @@ const Workspaces = ({ userId }) => {
   const [seeMore, setSeeMore] = useState(false);
   const [show, setShow] = useState("");
   const [workspaceName, setWorkspaceName] = useState("");
-  console.log(workspaceName);
   let history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
@@ -54,7 +53,6 @@ const Workspaces = ({ userId }) => {
   const handleEdit = async (e, workspace, workspaceName) => {
     e.preventDefault();
     workspace.name = workspaceName;
-    console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeee", workspace);
     await dispatch(putWorkspace(workspace))
       .then(() => setEdit(""))
       .then(() => setWorkspaceName(""))
@@ -69,7 +67,6 @@ const Workspaces = ({ userId }) => {
   };
 
   const deleteWorkspace = (id) => {
-    console.log("idddddddddddddddddddddddd", id);
     dispatch(deleteEvent(id));
   };
 
