@@ -46,14 +46,10 @@
 
 .main-nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   height: 100px;
   align-items: center;
   width: 100vw;
-  margin: 0px 100px;
-  position: fixed;
-  top:0;
-  right:0;
 }
 
 .create-btn {
@@ -61,7 +57,6 @@
   border: 0px;
   border-radius: 5px;
   height: 40px;
-  margin: 10px;
   font-family: 'Open Sans';
   color:#4a154b;
   padding: 15px;
@@ -74,7 +69,6 @@
   font-family: 'Open Sans';
   font-weight: bold;
   color: white;
-  margin-left:250px;
 }
 
 .main-user {

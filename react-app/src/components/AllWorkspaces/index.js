@@ -21,6 +21,9 @@ const Workspaces = ({ userId }) => {
   const workspacesObj = workspace.userWorkspaces;
   const workspaces = Object.values(workspacesObj);
 
+  console.log(workspacesObj, 'user workspaces')
+  console.log(workspace, 'workspace stateeeeeeeeeeeeeeeeee')
+
   useEffect(() => {
     dispatch(getUser(userId));
   }, [dispatch, userId]);
