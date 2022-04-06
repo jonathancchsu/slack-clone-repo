@@ -66,7 +66,6 @@ def sign_up():
     password = request.form['password']
     repeat_password = request.form['repeat_password']
 
-    print(password, repeat_password)
 
     if email:
         errors.append('Email address is already in use.')
@@ -77,10 +76,13 @@ def sign_up():
     if len(errors):
         return {'errors': errors}, 401
 
-    image = request.files["profile_picture"]
-    image.filename = get_unique_filename(image.filename)
-    upload = upload_file_to_s3(image)
-    url = upload["url"]
+    url = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+
+    if "profile_picture" in request.files:
+        image = request.files["profile_picture"]
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+        url = upload["url"]
 
     user = User(
         username=request.form['username'],
