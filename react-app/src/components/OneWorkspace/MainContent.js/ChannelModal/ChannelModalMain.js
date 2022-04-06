@@ -17,5 +17,7 @@ const ChannelModalMain = (channelName) => {
         </Modal>
       )}
     </>
-  )
-}
+  );
+};
+
+export default ChannelModalMain;
