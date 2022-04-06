@@ -30,10 +30,12 @@ const MainContent = () => {
   const [editContent, setEditContent] = useState("");
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView.main_content);
+  console.log("viewwwwwwwwwwwwwwwwwwwwwwww", view);
 
   useEffect(() => {
     setloaded(false);
     let id = url.split("/")[7] * 1;
+    console.log(url.includes("channels"));
     if (url.includes("channels")) {
       setDmRoom(false);
       setChannelRoom(true);

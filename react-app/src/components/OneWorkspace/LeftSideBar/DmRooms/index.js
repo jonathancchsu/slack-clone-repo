@@ -6,13 +6,14 @@ const DmRooms = ({ workspace, users }) => {
 
   let history = useHistory();
   const user = useSelector((state) => state.session.user);
-  const dmRooms = useSelector((state) => state.currentView.dm_rooms);
+  const dmRoomsObj = useSelector((state) => state.dmRooms);
+  const dmRooms = Object.values(dmRoomsObj.userDmRooms);
 
   useEffect(() => {
     setLoaded(false);
     setLoaded(true);
   }, [user, workspace]);
-  const roomMessages = async (id) => {
+  const dmRoom = async (id) => {
     history.push(`/workspaces/${workspace.id}/messages/dm_rooms/${id}`);
   };
   return (
@@ -25,7 +26,7 @@ const DmRooms = ({ workspace, users }) => {
         {dmRooms.map((room) => (
           <div
             key={room.dm_room_id}
-            onClick={() => roomMessages(room.dm_room_id)}
+            onClick={() => dmRoom(room.dm_room_id)}
             id={room.id}
           >
             <div>
