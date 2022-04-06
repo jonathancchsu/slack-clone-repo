@@ -44,11 +44,17 @@ const Channels = ({ workspace }) => {
     dispatch(deleteChannel(id));
   };
 
+  const handleAddMember = (e, id) => {
+    e.preventDefault();
+    dispatch(addNewChannelMember(id, newMember))
+    setNewMember("");
+  }
+
   return (
     loaded && (
       <div id='channels-tab-main'>
         <span id='channels-tab-child'>
-          <button onClick={() => setShowChannels(!showChannels)}>{'>'}</button>
+          <button onClick={() => setShowChannels(!showChannels)}><i className="fas fa-caret-right"></i></button>
           <h3>Channels</h3>
           <CreateChannelModal></CreateChannelModal>
         </span>

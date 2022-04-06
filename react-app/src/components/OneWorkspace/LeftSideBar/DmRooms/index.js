@@ -1,13 +1,18 @@
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-const DmRooms = ({ workspace, users }) => {
+
+import './DmRooms.css';
+
+const DmRooms = ({ workspace }) => {
   const [loaded, setLoaded] = useState(false);
 
   let history = useHistory();
   const user = useSelector((state) => state.session.user);
   const dmRoomsObj = useSelector((state) => state.dmRooms);
   const dmRooms = Object.values(dmRoomsObj.userDmRooms);
+
+  const [showDmRooms, setShowDmRooms] = useState(false);
 
   useEffect(() => {
     setLoaded(false);
@@ -18,12 +23,13 @@ const DmRooms = ({ workspace, users }) => {
   };
   return (
     loaded && (
-      <div>
-        {" "}
-        <div>
-          <h3>Direct Messages</h3> <button>➕</button>
-        </div>
-        {dmRooms.map((room) => (
+      <div id='dm-rooms-list-main'>
+        <span id='dm-rooms-list-child'>
+        <button onClick={() => setShowDmRooms(!showDmRooms)}><i className="fas fa-caret-right"></i></button>
+          <h3>Direct Messages</h3>
+          <button><i className="fas fa-plus"></i></button>
+        </span>
+        { showDmRooms && dmRooms.map((room) => (
           <div
             key={room.dm_room_id}
             onClick={() => dmRoom(room.dm_room_id)}
