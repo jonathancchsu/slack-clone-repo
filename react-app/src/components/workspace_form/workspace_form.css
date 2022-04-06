@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+
+.create-workspace-container {
+  font-family: 'Open Sans';
+}
+
+.create-box {
+  margin: 60px;
+  font-family: 'Open Sans';
+}
+.create-box > h1 {
+  font-size: 50px;
+}
+
+.create-box > p {
+  font-size: 12px;
+}
+
+.create-ws {
+  width: 600px;
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+}
+
+.create-workspace-btn {
+  border: 0;
+  height: 35px;
+  width: 200px;
+  border-radius: 5px;
+  font-family: 'Open Sans';
+  background-color: lightgray;
+  margin-top: 50px;
+}
+
+.create-top-bar {
+  background-color: #4a154b;
+  height:50px;
+  margin-top: 0;
+}

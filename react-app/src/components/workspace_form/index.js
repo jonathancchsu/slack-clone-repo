@@ -35,32 +35,32 @@ const WorkspaceForm = () => {
 
   return (
     <div className="create-workspace-container">
-      <h1>Create Your workspace</h1>
-      <form onSubmit={onCreate} className="create-workspace-form">
-        <div className="errors-container">
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
-        <div>
-          <input
-            type="text"
-            name="name"
-            onChange={updateName}
-            value={name}
-            required={true}
-            placeholder="Workspace Name"
-          ></input>
-          {/* <input
-          value={owner_id}
-          name='owner_id'
-          onChange={updateId}
-          ></input> */}
-        </div>
-        <button type="submit" className="create-workspace-btn">
-          Create Workspace
-        </button>
-      </form>
+      <div className="create-top-bar"></div>
+      <div className="create-box">
+        <h1>What's the name of your company or team?</h1>
+        <p>This will be the name of your Slack workspace - choose something that your team will recognize.</p>
+        <form onSubmit={onCreate} className="create-workspace-form">
+          <div className="errors-container">
+            {errors.map((error, ind) => (
+              <div key={ind}>{error}</div>
+            ))}
+          </div>
+          <div>
+            <input
+              type="text"
+              name="name"
+              onChange={updateName}
+              value={name}
+              required={true}
+              className="create-ws"
+              placeholder="Ex: App Academy or Bootcamp"
+            ></input>
+          </div>
+          <button type="submit" className="create-workspace-btn">
+            Create Workspace
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
