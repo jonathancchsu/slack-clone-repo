@@ -31,7 +31,7 @@ export const updateChannel = (channel) => ({
 });
 
 export const putChannel = (channel) => async (dispatch) => {
-  const res = await csrfFetch(`/api/channels/${channel.id}/`, {
+  const res = await csrfFetch(`/api/channels/${channel.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(channel),
@@ -75,7 +75,8 @@ const channelReducer = (
       return newState;
     }
     case UPDATE_CHANNEL: {
-      newState.userChannels[action.channel.id] = action.channel;
+      console.log(action.channel);
+      newState.userChannels[action.channel.channel_id] = action.channel;
 
       return newState;
     }
