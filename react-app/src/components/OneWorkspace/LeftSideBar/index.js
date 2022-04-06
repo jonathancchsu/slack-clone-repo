@@ -15,15 +15,19 @@ const LeftSideBar = ({ workspace }) => {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.session.users);
   const [user_id, setUserID] = useState(workspace.owner.id);
-
   const user = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
   const members = useSelector(
-    (state) => state.workspace.currentWorkspace.members
+    (state) => state.workspace.currentWorkspace.members.map(member => member.user_id)
   );
   const current_workspace = useSelector(
     (state) => state.workspace.currentWorkspace.members
   );
+
+  console.log(members, 'members now!')
+
+  console.log('user_id:', user_id)
+  console.log('current workspace:', current_workspace)
   const onSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
@@ -38,7 +42,7 @@ const LeftSideBar = ({ workspace }) => {
     }
     dispatch(getOneWorkspace(workspace.id));
   };
-  
+
   useEffect(() => {
     dispatch(getAllUsers()).then(() => dispatch(getOneWorkspace(workspace.id)));
   }, [dispatch, workspace.id]);
@@ -64,7 +68,7 @@ const LeftSideBar = ({ workspace }) => {
     <div>
       <h2>{workspace.name}</h2>
       <h6>Members:</h6>
-      {current_workspace.members?.map((member) => (
+      {current_workspace?.map((member) => (
         <div key={`member:${member.username}`}>{member.username}</div>
       ))}
       {errors?.map((error) => (
