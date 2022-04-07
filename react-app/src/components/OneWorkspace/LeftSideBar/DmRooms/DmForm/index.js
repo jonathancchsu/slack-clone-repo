@@ -4,7 +4,7 @@ import { postDmRoom } from "../../../../../store/dmRooms";
 
 import "./DmForm.css";
 
-const DmRoomForm = ({ setShowModal }) => {
+const DmRoomForm = ({ socket, setShowModal }) => {
   const user = useSelector((state) => state.session.user);
   const users = useSelector((state) => state.session.users);
   const owner_id = useSelector((state) => state.session.user.id);
@@ -26,10 +26,12 @@ const DmRoomForm = ({ setShowModal }) => {
     setMembers(members.filter((member) => member.id !== memberId));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch(postDmRoom({ owner_id, workspace_id, members: members }));
+    await dispatch(
+      postDmRoom({ owner_id, workspace_id, members: members })
+    ).then((dmRoom) => socket.emit("dm_rooms", dmRoom));
 
     setShowModal(false);
   };

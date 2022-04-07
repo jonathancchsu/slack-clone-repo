@@ -20,7 +20,8 @@ export const postDmRoom = (dmRoom) => async (dispatch) => {
   });
   const dm = await res.json();
 
-  dispatch(addDmRoom(dm));
+  // dispatch(addDmRoom(dm));
+  return dm;
 };
 
 //------------------------------------edit dmroom---------------------------------
@@ -52,7 +53,8 @@ export const deleteDmRoom = (roomId) => async (dispatch) => {
   });
   const dmRoomId = await res.json();
 
-  dispatch(removeDmRoom(dmRoomId));
+  // dispatch(removeDmRoom(dmRoomId));
+  return dmRoomId;
 };
 
 //-----------------------------------dmroom reducer---------------------------------

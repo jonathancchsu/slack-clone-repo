@@ -3,7 +3,7 @@ import { Modal } from "../../../../../context/Modal";
 
 import DmRoomForm from ".";
 
-const CreateDmModal = () => {
+const CreateDmModal = ({ socket }) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -11,7 +11,7 @@ const CreateDmModal = () => {
       <button onClick={() => setShowModal(true)}>➕</button>
       {showModal && (
         <Modal className="modal" onClose={() => setShowModal(false)}>
-          <DmRoomForm setShowModal={setShowModal}></DmRoomForm>
+          <DmRoomForm socket={socket} setShowModal={setShowModal}></DmRoomForm>
         </Modal>
       )}
     </>

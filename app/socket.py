@@ -17,3 +17,9 @@ socketio = SocketIO(cors_allowed_origins=origins)
 @socketio.on("chat")
 def handle_chat(data):
     emit("chat", data, broadcast=True)
+@socketio.on("channels")
+def handle_channels(data):
+    emit("channels", data, broadcast=True)
+@socketio.on("dm_rooms")
+def handle_dm_rooms(data):
+    emit("dm_rooms", data, broadcast=True)

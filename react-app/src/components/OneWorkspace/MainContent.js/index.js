@@ -40,7 +40,7 @@ const MainContent = () => {
       setDmRoom(false);
       setChannelRoom(true);
       dispatch(getCurrentChannel(id));
-    } else {
+    } else if (url.includes("/dm_rooms")) {
       setChannelRoom(false);
       setDmRoom(true);
       dispatch(getCurrentRoom(id));
