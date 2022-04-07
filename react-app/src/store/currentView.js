@@ -10,12 +10,14 @@ export const loadMainContent = (view) => {
 export const getCurrentChannel = (channelId) => async (dispatch) => {
   const res = await fetch(`/api/channels/${channelId}`);
   const channel = await res.json();
+  channel["channel_id"] = channel.id;
   dispatch(loadMainContent(channel));
 };
 
 export const getCurrentRoom = (roomId) => async (dispatch) => {
   const res = await fetch(`/api/workspaces/dms/${roomId}`);
   const dm_room = await res.json();
+  dm_room["dm_room_id"] = dm_room.id;
   dispatch(loadMainContent(dm_room));
 };
 //-----------------------------------------------------delete message
@@ -30,6 +32,7 @@ export const deleteMessage = (message) => async (dispatch) => {
   });
   const deletedMessage = await res.json();
   if (!message.socket) dispatch(removeMessage(deletedMessage));
+  return deleteMessage;
 };
 //-------------------------------------- edit message
 const UPDATE_MESSAGE = "view/UpdateMessage";
@@ -45,6 +48,12 @@ export const putMessage = (message) => async (dispatch) => {
   });
   const updatedMessage = await res.json();
   if (!message.socket) dispatch(updateMessage(updatedMessage));
+  let socketMessage = {
+    channel_id: updatedMessage.channel_id,
+    dm_room_id: updateMessage.room_id,
+  };
+  socketMessage[updateMessage.id] = updateMessage;
+  return socketMessage;
 };
 //-----------------------------add channel message
 export const postChannelMessage = (message) => async (dispatch) => {
@@ -53,7 +62,9 @@ export const postChannelMessage = (message) => async (dispatch) => {
     body: JSON.stringify(message),
   });
   const newMessage = await res.json();
-  return newMessage;
+  let socketMessage = { channel_id: newMessage.channel_id };
+  socketMessage[newMessage.id] = newMessage;
+  return socketMessage;
 };
 export const postDirectMessage = (message) => async (dispatch) => {
   const res = await csrfFetch(`/api/messages/dm_rooms/${message.room_id}`, {
@@ -61,7 +72,9 @@ export const postDirectMessage = (message) => async (dispatch) => {
     body: JSON.stringify(message),
   });
   const newMessage = await res.json();
-  return newMessage;
+  let socketMessage = { dm_room_id: newMessage.room_id };
+  socketMessage[newMessage.id] = newMessage;
+  return socketMessage;
 };
 //----------------------------------------------set channels
 const SET_CHANNELS = "view/LoadChannels";
