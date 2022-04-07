@@ -159,7 +159,7 @@ const MainContent = () => {
     loaded && (
       <div>
         <div>
-          <div>{channelRoom && <h2>{view?.topic}</h2>}</div>
+          <div>{channelRoom && <h2>{view?.name}</h2>}</div>
           <div>
             {dmRoom && (
               <h2>{view.members?.map((member) => member.username)}</h2>
