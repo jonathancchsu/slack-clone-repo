@@ -9,16 +9,10 @@ const ChannelModal = ({ setShowModal, channel }) => {
   const dispatch = useDispatch();
   const channelOwner = useSelector((state) => state.session.user.username);
   const [newMember, setNewMember] = useState("");
-  const [errors, setErrors] = useState([]);
 
   const handleAddMember = (e, id) => {
     e.preventDefault();
-    if (newMember.length >= 1) {
-      const data = dispatch(addNewChannelMember(id, newMember));
-      if (data) {
-        setErrors(data);
-      }
-    }
+    dispatch(addNewChannelMember(id, newMember));
     setNewMember("");
     setShowModal(false);
   }
@@ -35,7 +29,7 @@ const ChannelModal = ({ setShowModal, channel }) => {
         </div>
         <div className="subcontainer">
           <b>Created By</b>
-          <p>{channelOwner} on {channel.createdAt}</p>
+          <p>{channelOwner}</p>
         </div>
         <div className="subcontainer">
           <form onSubmit={(e) => handleAddMember(e, channel.id)}>

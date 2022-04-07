@@ -29,7 +29,7 @@ const MainContent = () => {
   const [messages, setMessages] = useState([]);
   const [edit, setEdit] = useState(null);
   const [editContent, setEditContent] = useState("");
-  const [showChannelModal, setShowChannelModal] = useState(false);
+  // const [showChannelModal, setShowChannelModal] = useState(false);
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView.main_content);
 
@@ -167,7 +167,8 @@ const MainContent = () => {
     setEditContent("");
   };
 
-
+  console.log("channel room ===================================",channelRoom)
+  console.log("view=============================================",view)
   return (
     loaded && (
       <div id="main-content">
@@ -175,11 +176,10 @@ const MainContent = () => {
           <div id="main-header">
             <div style={{ marginLeft: 5 }}>
               {channelRoom
+
                 &&
-                <div>
-                  onClick={(e) => setShowChannelModal(!showChannelModal)}
-                  <ChannelModalMain channel={}/>
-                </div>}
+                <ChannelModalMain channel={view}></ChannelModalMain>
+              }
             </div>
             <div className="main-header-members">
               members:{view.members?.length}
