@@ -9,32 +9,31 @@ from app.forms.channel_form import ChannelForm
 
 import json
 
-bp = Blueprint('dm_rooms', __name__,)
+bp = Blueprint('dm_rooms', __name__, url_prefix='dm_rooms')
 @bp.route('/', methods=['POST'])
 def dm_create():
     data = request.json
-    form = ChannelForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        channel = Channel(
-            name=form.data['name'],
-            topic=form.data['topic'],
-            description=form.data['description'],
+    # print('hereeeeeeeeeeeeeeeeeeeeee', data)
+    dm_room = DirectMessageRoom(
             owner_id=data['owner_id'],
             workspace_id=data['workspace_id'],
         )
-        db.session.add(channel)
-        db.session.commit()
+    db.session.add(dm_room)
+    db.session.commit()
 
+    requestMembers = data['members']
+    for member in requestMembers:
 
-        channelMember = ChannelMember(
-            channel_id=channel.id,
-            user_id=channel.owner_id,
+        dm_member = DirectMessageMember(
+            room_id=dm_room.id,
+            user_id=member['id'],
         )
-        db.session.add(channelMember)
+        db.session.add(dm_member)
         db.session.commit()
+    user = User.query.get(dm_room.owner_id)
+    dm
 
-        return channel.to_dict()
+    return {'dm_room_id': dm_room.id, 'user_id': dm_room.owner_id, 'workspace_id': dm_room.workspace_id, 'neighbors': [member.room.to_dict() for member in user.dm_room_member][-1]}
 
 
 

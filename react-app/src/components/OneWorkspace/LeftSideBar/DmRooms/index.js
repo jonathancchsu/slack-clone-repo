@@ -2,9 +2,9 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-import './DmRooms.css';
+import CreateDmModal from "./DmForm/DmFormModal";
+const DmRooms = ({ workspace, users }) => {
 
-const DmRooms = ({ workspace }) => {
   const [loaded, setLoaded] = useState(false);
 
   let history = useHistory();
@@ -26,7 +26,7 @@ const DmRooms = ({ workspace }) => {
       <div id='dm-rooms-list-main'>
         <span id='dm-rooms-list-child'>
         <button onClick={() => setShowDmRooms(!showDmRooms)}><i className="fas fa-caret-right"></i></button>
-          <h3>Direct Messages</h3>
+          <h3>Direct Messages</h3> <CreateDmModal />
           <button><i className="fas fa-plus"></i></button>
         </span>
         { showDmRooms && dmRooms.map((room) => (
