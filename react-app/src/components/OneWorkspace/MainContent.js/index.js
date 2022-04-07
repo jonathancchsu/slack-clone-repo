@@ -79,41 +79,41 @@ const MainContent = () => {
 
     dmRoom
       ? await dispatch(
-          postDirectMessage({
-            room_id: view.id,
-            sender_id: user.id,
-            content: chatInput,
-          })
-        ).then((message) =>
-          socket.emit("chat", {
-            id: message.id,
-            room_id: view.id,
-            sender_id: user.id,
-            content: chatInput,
-            sender_username: user.username,
-            sender_profile_picture: user.profile_picture,
-            created_at: message.created_at,
-            socket: true,
-          })
-        )
+        postDirectMessage({
+          room_id: view.id,
+          sender_id: user.id,
+          content: chatInput,
+        })
+      ).then((message) =>
+        socket.emit("chat", {
+          id: message.id,
+          room_id: view.id,
+          sender_id: user.id,
+          content: chatInput,
+          sender_username: user.username,
+          sender_profile_picture: user.profile_picture,
+          created_at: message.created_at,
+          socket: true,
+        })
+      )
       : await dispatch(
-          postChannelMessage({
-            channel_id: view.id,
-            sender_id: user.id,
-            content: chatInput,
-          })
-        ).then((message) =>
-          socket.emit("chat", {
-            id: message.id,
-            channel_id: view.id,
-            sender_id: user.id,
-            content: chatInput,
-            sender_username: user.username,
-            sender_profile_picture: user.profile_picture,
-            created_at: message.created_at,
-            socket: true,
-          })
-        );
+        postChannelMessage({
+          channel_id: view.id,
+          sender_id: user.id,
+          content: chatInput,
+        })
+      ).then((message) =>
+        socket.emit("chat", {
+          id: message.id,
+          channel_id: view.id,
+          sender_id: user.id,
+          content: chatInput,
+          sender_username: user.username,
+          sender_profile_picture: user.profile_picture,
+          created_at: message.created_at,
+          socket: true,
+        })
+      );
     setChatInput("");
   };
 
@@ -171,14 +171,14 @@ const MainContent = () => {
     loaded && (
       <div id="main-content">
         <div>
-          <div id="main-header">
-            <div style={{ marginLeft: 5 }}>
-              {channelRoom
+          <div style={{ marginLeft: 5 }}>
+            {channelRoom
 
-                &&
-                <ChannelModalMain channel={view}></ChannelModalMain>
-              }
-            </div>
+              &&
+              <ChannelModalMain channel={view}></ChannelModalMain>
+            }
+          </div>
+          <div id="main-header">
             <div className="main-header-members">
               members:{view.members?.length}
             </div>

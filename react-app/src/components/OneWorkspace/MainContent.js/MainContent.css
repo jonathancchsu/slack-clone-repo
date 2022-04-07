@@ -26,7 +26,7 @@ div#chat-container {
     position: fixed;
     top: 45px;
     background-color: white;
-    z-index: 1;
+    z-index: -1;
 }
 
 .main-header-members {
