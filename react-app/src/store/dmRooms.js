@@ -20,7 +20,10 @@ export const postDmRoom = (dmRoom) => async (dispatch) => {
   });
   const dm = await res.json();
 
-  dispatch(addDmRoom(dm));
+  if (!dm.errors) {
+    dispatch(addDmRoom(dm));
+  }
+
 };
 
 //------------------------------------edit dmroom---------------------------------
