@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useParams } from "react-router-dom";
-import { addNewChannelMember } from "../../../../store/channel";
+import { deleteChannel, putChannel, addNewChannelMember } from "../../../../store/channel";
 
 import "./ChannelModal.css";
 
 const ChannelModal = ({ setShowModal, channel }) => {
   const dispatch = useDispatch();
-  const channelOwner = useSelector((state) => state.session.user.username);
+  const channelOwner = useSelector((state) => state.channels.owner_id);
   const [newMember, setNewMember] = useState("");
+  const [edit, setEdit] = useState("");
+  const [channelName, setChannelName] = useState("");
+  const [channelTopic, setChannelTopic] = useState("");
+  const [channelDescription, setChannelDescription] = useState("");
 
   const handleAddMember = (e, id) => {
     e.preventDefault();
@@ -16,6 +19,20 @@ const ChannelModal = ({ setShowModal, channel }) => {
     setNewMember("");
     setShowModal(false);
   }
+
+  const handleEdit = e => {
+    e.preventDefault();
+    dispatch(putChannel({ id: edit, description: channelDescription, topic: channelTopic, name: channelName }));
+    setEdit("");
+    setChannelName("");
+    setChannelTopic("");
+    setChannelDescription("");
+  };
+
+  const deleteEvent = (e, id) => {
+    e.preventDefault();
+    dispatch(deleteChannel(id));
+  };
 
   return (
       <div className="channel-modal-container">

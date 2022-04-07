@@ -6,8 +6,6 @@ import { deleteChannel, putChannel, addNewChannelMember } from "../../../../stor
 import CreateChannelModal from "../ChannelForm/CreateChannelModal";
 import "./channels.css";
 
-// Random change
-
 const Channels = ({ workspace }) => {
   const dispatch = useDispatch();
   let history = useHistory();
