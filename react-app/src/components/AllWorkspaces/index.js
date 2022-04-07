@@ -126,16 +126,6 @@ const Workspaces = ({ userId }) => {
                             </button>
                             {edit === workspace.id ? (
                               <div>
-
-                                <input
-                                  type="text"
-                                  value={workspaceName}
-                                  onChange={(e) =>
-                                    setWorkspaceName(e.target.value)
-                                  }
-                                  className="main-edit-field"
-                                ></input>
-
                                 <div className="edit-btns">
                                   <button
                                     className="main-save-btn"
@@ -166,7 +156,6 @@ const Workspaces = ({ userId }) => {
                         </div>
                       </div>
                     </div>) : <></>}
-
                 </div>
               </div>
             ))}
