@@ -11,8 +11,6 @@ import { logout } from "../../store/session";
 const Workspaces = ({ userId }) => {
   const [loaded, setLoaded] = useState(false);
   const [edit, setEdit] = useState("");
-  const [seeMore, setSeeMore] = useState(false);
-  const [show, setShow] = useState("");
   const [workspaceName, setWorkspaceName] = useState("");
   let history = useHistory();
   const dispatch = useDispatch();
@@ -20,9 +18,6 @@ const Workspaces = ({ userId }) => {
   const workspace = useSelector((state) => state.workspace);
   const workspacesObj = workspace.userWorkspaces;
   const workspaces = Object.values(workspacesObj);
-
-  console.log(workspacesObj, 'user workspaces')
-  console.log(workspace, 'workspace stateeeeeeeeeeeeeeeeee')
 
   useEffect(() => {
     dispatch(getUser(userId));
@@ -32,14 +27,6 @@ const Workspaces = ({ userId }) => {
     dispatch(setUserWorkspaces(user.workspace_member));
     setLoaded(true);
   }, [dispatch, user, userId]);
-
-  useEffect(() => {
-    if (seeMore) {
-      setShow("show");
-    } else {
-      setShow("");
-    }
-  }, [seeMore]);
 
   const redirect = (workspaceId) => {
     history.push(`/workspaces/${workspaceId}`);
@@ -59,14 +46,6 @@ const Workspaces = ({ userId }) => {
     await dispatch(putWorkspace(workspace))
       .then(() => setEdit(""))
       .then(() => setWorkspaceName(""))
-      .then(() => setSeeMore(!seeMore));
-  };
-
-  const handleSeeMore = (e, workspaceId) => {
-    e.preventDefault();
-    user.workspaces_owned.includes(workspaceId)
-      ? setSeeMore(!seeMore)
-      : setSeeMore(seeMore);
   };
 
   const deleteWorkspace = (id) => {
