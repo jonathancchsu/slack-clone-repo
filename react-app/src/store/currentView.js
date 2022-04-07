@@ -10,12 +10,14 @@ export const loadMainContent = (view) => {
 export const getCurrentChannel = (channelId) => async (dispatch) => {
   const res = await fetch(`/api/channels/${channelId}`);
   const channel = await res.json();
+  channel["channel_id"] = channel.id;
   dispatch(loadMainContent(channel));
 };
 
 export const getCurrentRoom = (roomId) => async (dispatch) => {
   const res = await fetch(`/api/workspaces/dms/${roomId}`);
   const dm_room = await res.json();
+  dm_room["dm_room_id"] = dm_room.id;
   dispatch(loadMainContent(dm_room));
 };
 //-----------------------------------------------------delete message
