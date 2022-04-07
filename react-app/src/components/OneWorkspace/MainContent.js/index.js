@@ -33,6 +33,10 @@ const MainContent = () => {
 
   const [showButtons, setShowButtons] = useState(null);
 
+  console.log('current view', view)
+  console.log('user', user)
+  console.log('messages', messages)
+
   useEffect(() => {
     setloaded(false);
     let id = url.split("/")[7] * 1;
@@ -73,69 +77,72 @@ const MainContent = () => {
 
     dmRoom
       ? await dispatch(
-          postDirectMessage({
-            room_id: view.id,
-            sender_id: user.id,
-            content: chatInput,
-          })
-        ).then((message) =>
-          socket.emit("chat", {
-            id: message.id,
-            room_id: view.id,
-            sender_id: user.id,
-            content: chatInput,
-            sender_username: user.username,
-            created_at: message.created_at,
-            socket: true,
-          })
-        )
+        postDirectMessage({
+          room_id: view.id,
+          sender_id: user.id,
+          content: chatInput,
+        })
+      ).then((message) =>
+        socket.emit("chat", {
+          id: message.id,
+          room_id: view.id,
+          sender_id: user.id,
+          content: chatInput,
+          sender_username: user.username,
+          sender_profile_picture: user.profile_picture,
+          created_at: message.created_at,
+          socket: true,
+        })
+      )
       : await dispatch(
-          postChannelMessage({
-            channel_id: view.id,
-            sender_id: user.id,
-            content: chatInput,
-          })
-        ).then((message) =>
-          socket.emit("chat", {
-            id: message.id,
-            channel_id: view.id,
-            sender_id: user.id,
-            content: chatInput,
-            sender_username: user.username,
-            created_at: message.created_at,
-            socket: true,
-          })
-        );
-        setChatInput("");
-      };
-
-      const updateChatInput = (e, editor) => {
-        const richText = editor.getData();
-        setChatInput(richText);
-      };
-
-      const updateMessageContent = (e, editor) => {
-        const richText = editor.getData();
-        setEditContent(richText);
-      }
-
-      const handleEditMessage = async (e, message) => {
-        e.preventDefault();
-        message.content = editContent;
+        postChannelMessage({
+          channel_id: view.id,
+          sender_id: user.id,
+          content: chatInput,
+        })
+      ).then((message) =>
         socket.emit("chat", {
           id: message.id,
           channel_id: view.id,
           sender_id: user.id,
-          content: editContent,
+          content: chatInput,
           sender_username: user.username,
+          sender_profile_picture: user.profile_picture,
           created_at: message.created_at,
-          socket: message.socket,
-          edit: true
-        });
-        await dispatch(putMessage(message));
-        setEdit(null);
-        setEditContent("");
-      };
+          socket: true,
+        })
+      );
+    setChatInput("");
+  };
+
+  const updateChatInput = (e, editor) => {
+    const richText = editor.getData();
+    setChatInput(richText);
+  };
+
+  const updateMessageContent = (e, editor) => {
+    const richText = editor.getData();
+    setEditContent(richText);
+  }
+
+  const handleEditMessage = async (e, message) => {
+    e.preventDefault();
+    message.content = editContent;
+    socket.emit("chat", {
+      id: message.id,
+      channel_id: view.id,
+      sender_id: user.id,
+      content: editContent,
+      sender_username: user.username,
+      sender_profile_picture: user.profile_picture,
+      created_at: message.created_at,
+      socket: message.socket,
+      edit: true
+    });
+    await dispatch(putMessage(message));
+    setEdit(null);
+    setEditContent("");
+  };
 
   const handleDeleteMessage = async (e, message) => {
     e.preventDefault();
@@ -145,6 +152,7 @@ const MainContent = () => {
       sender_id: user.id,
       content: editContent,
       sender_username: user.username,
+      sender_profile_picture: user.profile_picture,
       created_at: message.created_at,
       delete: true
     });
@@ -161,21 +169,23 @@ const MainContent = () => {
     loaded && (
       <div id='main-content'>
         <div>
-          <div>{channelRoom && <h2>{view?.topic}</h2>}</div>
+          <div id='main-header'>
+            <div style={{ marginLeft: 5 }}>{channelRoom && <h2>#{view?.name}</h2>}</div>
+            <div className="main-header-members">members:{view.members?.length}</div>
+          </div>
           <div>
             {dmRoom && (
               <h2>{view.members?.map((member) => member.username)}</h2>
             )}
           </div>
-          <div>insert member icon {view.members?.length}</div>
         </div>
         <div id='chat-container'>
           {messages?.map((message, idx) =>
-          // TO EDIT
+            // TO EDIT
             edit === message.id ? (
               <div key={message.id}>
                 {message.sender_username}
-                <CKEditor data={message.content} editor={ClassicEditor} onChange={updateMessageContent}/>
+                <CKEditor data={message.content} editor={ClassicEditor} onChange={updateMessageContent} />
                 <button onClick={(e) => handleEditMessage(e, message)}>
                   Submit
                 </button>
@@ -183,8 +193,18 @@ const MainContent = () => {
               </div>
             ) : (
               <div className="single-msg" key={message.id} onMouseEnter={() => setShowButtons(idx)} >
-                {message.sender_username}:{ReactHtmlParser(message.content)}
-                {message.created_at}
+                <div className="sender-pic">
+                  <img src={message.sender_profile_picture} style={{ height: 50 }} />
+                </div>
+                <div className="sender-content">
+                  <div className="sender-name">
+                    <h4>{message.sender_username}</h4>
+                    <p style={{ fontSize: 10, marginLeft: 5 }}>{message.created_at.split(' ')[4]} PM</p>
+                  </div>
+                  <div className="sender-msg">
+                    {ReactHtmlParser(message.content)}
+                  </div>
+                </div>
                 {user.id === message.sender_id && showButtons === idx && (
                   <span>
                     <button
@@ -205,10 +225,12 @@ const MainContent = () => {
             )
           )}
         </div>
-        <form onSubmit={sendChat}>
-          <CKEditor editor={ClassicEditor} onChange={updateChatInput} data={chatInput}/>
-          <button type="submit">Send</button>
-        </form>
+        <div className="chat-box">
+          <form onSubmit={sendChat}>
+            <CKEditor editor={ClassicEditor} onChange={updateChatInput} data={chatInput} />
+            <button className='send-btn' type="submit">Send</button>
+          </form>
+        </div>
       </div>
     )
   );

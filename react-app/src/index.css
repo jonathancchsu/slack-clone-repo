@@ -4,4 +4,10 @@
 body {
   margin: 0;
   font-family: 'Open Sans';
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
