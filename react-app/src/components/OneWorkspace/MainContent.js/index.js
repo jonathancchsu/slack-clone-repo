@@ -183,41 +183,42 @@ const MainContent = () => {
           {messages?.map((message, idx) =>
             // TO EDIT
             edit === message.id ? (
-              <div key={message.id}>
-                {message.sender_username}
-                <CKEditor data={message.content} editor={ClassicEditor} onChange={updateMessageContent} />
-                <button onClick={(e) => handleEditMessage(e, message)}>
-                  Submit
-                </button>
-                <button onClick={handleCancel}>Cancel</button>
+              <div key={message.id} className='edit-message'>
+                <img src={message.sender_profile_picture} alt=''></img>
+                <div className='editor'>
+                  <CKEditor data={message.content} editor={ClassicEditor} onChange={updateMessageContent} />
+                </div>
+                <span className="edit-box">
+                  <button onClick={handleCancel}>Cancel</button>
+                  <button onClick={(e) => handleEditMessage(e, message)}>Save</button>
+                </span>
               </div>
             ) : (
               <div className="single-msg" key={message.id} onMouseEnter={() => setShowButtons(idx)} >
                 <div className="sender-pic">
-                  <img src={message.sender_profile_picture} style={{ height: 50 }} alt='profile'/>
+                  <img src={message.sender_profile_picture} alt='profile'/>
                 </div>
                 <div className="sender-content">
                   <div className="sender-name">
                     <h4>{message.sender_username}</h4>
-                    <p style={{ fontSize: 10, marginLeft: 5 }}>{message.created_at.split(' ')[4]} PM</p>
+                    <p style={{ fontSize: 10, marginLeft: 5 }}>{message.created_at.split(' ')[4].slice(0, 5)} PM</p>
                   </div>
                   <div className="sender-msg">
                     {ReactHtmlParser(message.content)}
                   </div>
                 </div>
                 {user.id === message.sender_id && showButtons === idx && (
-                  <span>
+                  <span className="edit-delete">
                     <button
                       onClick={(e) => {
                         e.preventDefault();
                         setEditContent(message.content);
                         setEdit(message.id);
-                      }}
-                    >
-                      Edit
+                      }}>
+                      <i className="far fa-edit"></i>
                     </button>
                     <button onClick={(e) => handleDeleteMessage(e, message)}>
-                      Delete
+                    <i className="far fa-trash-alt"></i>
                     </button>
                   </span>
                 )}
@@ -227,8 +228,28 @@ const MainContent = () => {
         </div>
         <div className="chat-box">
           <form onSubmit={sendChat}>
-            <CKEditor editor={ClassicEditor} onChange={updateChatInput} data={chatInput} />
-            <button className='send-btn' type="submit">Send</button>
+            <CKEditor editor={ClassicEditor} onChange={updateChatInput} data={chatInput}
+              config={{
+                toolbar: [
+                  "heading",
+                  "|",
+                  "bold",
+                  "italic",
+                  "link",
+                  "bulletedList",
+                  "numberedList",
+                  "|",
+                  "indent",
+                  "outdent",
+                  "|",
+                  "codeBlock",
+                  "blockQuote",
+                  "insertTable",
+                  "undo",
+                  "redo",
+                ]
+                }} />
+            <button className={`send-btn ${!chatInput.length}`} type="submit" disabled={!chatInput.length}><i className="fas fa-paper-plane"></i></button>
           </form>
         </div>
       </div>

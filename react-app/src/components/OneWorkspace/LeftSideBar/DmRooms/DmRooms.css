@@ -3,3 +3,9 @@ span#dm-rooms-list-child {
     justify-content: center;
     align-items: center;
 }
+
+span#dm-rooms-list-child > button {
+    background-color: transparent;
+    border: none;
+    color: white;
+}

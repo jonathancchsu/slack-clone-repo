@@ -4,6 +4,12 @@ span#members-tab {
     align-items: center;
 }
 
+span#members-tab > button {
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
 div#add-members-modal {
     color: wheat;
 }
