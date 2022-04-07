@@ -21,9 +21,6 @@ const Workspaces = ({ userId }) => {
   const workspacesObj = workspace.userWorkspaces;
   const workspaces = Object.values(workspacesObj);
 
-  console.log(workspacesObj, 'user workspaces')
-  console.log(workspace, 'workspace stateeeeeeeeeeeeeeeeee')
-
   useEffect(() => {
     dispatch(getUser(userId));
   }, [dispatch, userId]);
@@ -153,7 +150,9 @@ const Workspaces = ({ userId }) => {
                                 <input
                                   type="text"
                                   value={workspaceName}
-                                  onChange={(e) => setWorkspaceName(e.target.value)}
+                                  onChange={(e) =>
+                                    setWorkspaceName(e.target.value)
+                                  }
                                   className="main-edit-field"
                                 ></input>
                                 <div className="edit-btns">
@@ -179,19 +178,27 @@ const Workspaces = ({ userId }) => {
                           </div>
                         </div>
                       </div>
-                    </div>):<></>}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             ))}
           </div>
           <div className="create-wmn-ws">
-            <img src='/static/create-ws.png' alt='wmn'/>
+            <img src="/static/create-ws.png" alt="wmn" />
             <h4>Want to use Slack with a different team?</h4>
             <button className="create-wmn-btn" onClick={(e) => createForm()}>
               CREATE A NEW WORKSPACE
             </button>
           </div>
-          <div className="not-seeing-ws">Not seeing your workspace?<button onClick={onLogout} className="diff-email-btn">Try using a different email</button></div>
+          <div className="not-seeing-ws">
+            Not seeing your workspace?
+            <button onClick={onLogout} className="diff-email-btn">
+              Try using a different email
+            </button>
+          </div>
         </div>
       </div>
     )

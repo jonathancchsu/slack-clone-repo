@@ -47,7 +47,7 @@ export const removeDmRoom = (roomId) => ({
   roomId,
 });
 export const deleteDmRoom = (roomId) => async (dispatch) => {
-  const res = await csrfFetch(`api/dm_rooms/${roomId}`, {
+  const res = await csrfFetch(`/api/dm_rooms/${roomId}`, {
     method: "DELETE",
   });
   const dmRoomId = await res.json();
@@ -70,7 +70,6 @@ const dmRoomReducer = (
       return newState;
     }
     case ADD_DM_ROOM: {
-      console.log("returned dm rooooooooom addd", action.dmRoom);
       newState.userDmRooms[action.dmRoom.dm_room_id] = { ...action.dmRoom };
 
       return newState;
@@ -81,7 +80,7 @@ const dmRoomReducer = (
       return newState;
     }
     case DELETE_DM_ROOM: {
-      delete newState.userDmRooms[action.dm_room_id];
+      delete newState.userDmRooms[action.roomId.dm_room_id];
       return newState;
     }
     default:
