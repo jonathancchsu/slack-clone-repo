@@ -51,5 +51,4 @@ class WorkspaceMember(db.Model):
             'workspace_id': self.workspace_id,
             'user_id': self.user_id,
             'username':self.member.username,
-
         }

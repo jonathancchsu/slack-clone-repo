@@ -60,3 +60,28 @@ class User(db.Model, UserMixin):
         'dm_room_member': [{'membership_id':member.id, 'dm_room_id': member.room_id, 'user_id':member.user_id, 'workspace_id': member.room.workspace_id, 'neighbors': member.room.to_dict() }for member in self.dm_room_member],
         'messages_sent': [message.id for message in self.messages_sent],
     }
+
+    def in_workspace(self, workspace_id):
+        for workspace in self.workspace_member:
+            if workspace.workspace_id == workspace_id:
+                return True
+        return False
+
+    def in_channel(self, channel_id):
+        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        print(self.channel_member)
+        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+
+        for channel in self.channel_member:
+            print("HERE??????")
+            if channel.channel_id == channel_id:
+                return True
+        return False
+
+    def in_dm_room(self, room_id):
+        for dm_room in self.dm_room_member:
+            if dm_room.room_id == room_id:
+                return True
+        return False

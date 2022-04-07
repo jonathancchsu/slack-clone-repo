@@ -285,7 +285,6 @@ const MainContent = () => {
                   "indent",
                   "outdent",
                   "|",
-                  "codeBlock",
                   "blockQuote",
                   "insertTable",
                   "undo",
