@@ -11,33 +11,38 @@ import { setUserChannels } from "../../store/channel";
 import { setUserDmRooms } from "../../store/dmRooms";
 
 const OneWorkspace = () => {
- let { workspaceId } = useParams();
- const [loaded, setLoaded] = useState(false);
- const dispatch = useDispatch();
- const workspace = useSelector((state) => state.workspace.currentWorkspace);
- const user = useSelector((state) => state.session.user);
+  let { workspaceId } = useParams();
+  const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
+  const workspacesObj = useSelector((state) => state.workspace);
+  const workspaces = Object.values(workspacesObj.userWorkspaces);
+  const workspace = workspaces.find(
+    (workspace) => workspace.id === workspaceId
+  );
+  const user = useSelector((state) => state.session.user);
 
- useEffect(() => {
-   let dmRooms = user.dm_room_member.filter((room) => {
-     return room.workspace_id === workspaceId * 1;
-   });
-   let channels = user.channel_member.filter((channel) => {
-     return channel.workspace_id === workspaceId * 1;
-   });
-   dispatch(getOneWorkspace(workspaceId))
-     .then(() => dispatch(setUserChannels(channels)))
-     .then(dispatch(setUserDmRooms(dmRooms)))
-     .then(() => setLoaded(true));
- }, [dispatch, user, workspaceId]);
+  useEffect(() => {
+    setLoaded(false);
+    let dmRooms = user.dm_room_member.filter((room) => {
+      return room.workspace_id === workspaceId * 1;
+    });
+    let channels = user.channel_member.filter((channel) => {
+      return channel.workspace_id === workspaceId * 1;
+    });
+    dispatch(getOneWorkspace(workspaceId))
+      .then(() => dispatch(setUserChannels(channels)))
+      .then(dispatch(setUserDmRooms(dmRooms)))
+      .then(() => setLoaded(true));
+  }, [dispatch, user, workspaceId]);
 
- return (
-   loaded && (
-     <div id='workspace-main'>
-      <LeftSideBar workspace={workspace}></LeftSideBar>
-      <MainContent></MainContent>
-     </div>
-   )
- );
+  return (
+    loaded && (
+      <div id="workspace-main">
+        <LeftSideBar workspace={workspace}></LeftSideBar>
+        <MainContent></MainContent>
+      </div>
+    )
+  );
 };
 
 export default OneWorkspace;
