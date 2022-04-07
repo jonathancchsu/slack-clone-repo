@@ -76,7 +76,7 @@ def sign_up():
     if len(errors):
         return {'errors': errors}, 401
 
-    url = "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+    url = "https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png"
 
     if "profile_picture" in request.files:
         image = request.files["profile_picture"]

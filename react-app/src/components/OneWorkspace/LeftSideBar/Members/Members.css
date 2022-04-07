@@ -1,11 +1,15 @@
-span#channels-tab-child {
+span#members-tab {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-span#channels-tab-child > button {
+span#members-tab > button {
     background-color: transparent;
     border: none;
     color: white;
+}
+
+div#add-members-modal {
+    color: wheat;
 }

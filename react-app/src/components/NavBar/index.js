@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import LogoutButton from '../auth/LogoutButton';
 
 import './NavBar.css'
@@ -28,22 +28,18 @@ const NavBar = () => {
       <nav className='nav-bar'>
         <ul>
           <li>
-            <NavLink to='/' exact={true} activeClassName='active'>
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to='/users' exact={true} activeClassName='active'>
-              Users
+            <NavLink to='/' exact={true} activeClassName='active' className='nav-logo'>
+              <img src="../static/icon.png" alt="logo" style={{ height: 30 }} />
+              slack
             </NavLink>
           </li>
         </ul>
-        <div className='search'>
-          <p style={{fontSize:10}}>Search Workspace</p>
-          <img src='../static/search.png' alt='search' className='search-btn'/>
+        <div className='search' onClick={() => alert('UNDER CONSTRUCTION!')}>
+          <p style={{ fontSize: 10 }}>Search Workspace</p>
+          <img src='../static/search.png' alt='search' className='search-btn' />
         </div>
         <div className='nav-profile' onClick={() => setuserMenu(!userMenu)}>
-          {user.profile_picture ? <div><img src={user.profile_picture} alt='profile' />🟢</div> : <div style={{color:'white'}}>{user.username}🟢</div>}
+          {user.profile_picture ? <div><img src={user.profile_picture} alt='profile' />🟢</div> : <div style={{ color: 'white' }}>{user.username}🟢</div>}
           <div className={`user-menu ${userShowMenu}`}>
             <div className='user-info'>
               <div className='user-info-picture'>
@@ -54,7 +50,7 @@ const NavBar = () => {
                 <p>🟢 Active</p>
               </div>
             </div>
-            <div style={{height:30}}>
+            <div style={{ height: 30 }}>
               <LogoutButton />
             </div>
           </div>

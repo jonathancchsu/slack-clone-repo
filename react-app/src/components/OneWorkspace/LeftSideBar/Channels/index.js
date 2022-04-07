@@ -6,7 +6,9 @@ import { deleteChannel, putChannel, addNewChannelMember } from "../../../../stor
 import CreateChannelModal from "../ChannelForm/CreateChannelModal";
 import "./channels.css";
 
-const Channels = ({ workspace, user_id }) => {
+// Random change
+
+const Channels = ({ workspace }) => {
   const dispatch = useDispatch();
   let history = useHistory();
 
@@ -23,6 +25,7 @@ const Channels = ({ workspace, user_id }) => {
   const [channelTopic, setChannelTopic] = useState("");
   const [channelDescription, setChannelDescription] = useState("");
 
+  const [showChannels, setShowChannels] = useState(false);
   const [newMember, setNewMember] = useState("");
 
   const channelRoom = (id) => {
@@ -31,11 +34,7 @@ const Channels = ({ workspace, user_id }) => {
 
   const handleEdit = e => {
     e.preventDefault();
-    // channel.name = channelName;
-    // channel.topic = channelTopic;
-    // channel.description = channelDescription;
     dispatch(putChannel({ id: edit, description: channelDescription, topic: channelTopic, name: channelName }));
-    // console.log({ id: edit, description: channelDescription, topic: channelTopic, name: channelName });
     setEdit("");
     setChannelName("");
     setChannelTopic("");
@@ -55,10 +54,13 @@ const Channels = ({ workspace, user_id }) => {
 
   return (
     loaded && (
-      <div>
-        <h3>Channels</h3>
-        <CreateChannelModal></CreateChannelModal>
-        {userChannels.map((channel, idx) => (
+      <div id='channels-tab-main'>
+        <span id='channels-tab-child'>
+          <button onClick={() => setShowChannels(!showChannels)}><i className="fas fa-caret-right"></i></button>
+          <p>Channels</p>
+          <CreateChannelModal></CreateChannelModal>
+        </span>
+        { showChannels && userChannels.map((channel) => (
           <div key={channel.channel_id}>
             <div onClick={() => channelRoom(channel.channel_id)}>
               # {channel.channel_data.name}

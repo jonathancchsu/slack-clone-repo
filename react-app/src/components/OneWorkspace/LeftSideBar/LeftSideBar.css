@@ -1,0 +1,45 @@
+div#left-sb-main {
+    color: #CFC3CF;
+    background-color: #3F0E40;
+    min-height: 100vh;
+    width:250px;
+    margin-top: 41px;
+}
+
+div#members-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+}
+
+.left-sb-ws-name {
+    border-top: 1px solid #7e6b7e;
+    border-bottom: 1px solid rgba(192, 143, 199, 0.5);
+    height: 27px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    color: white;
+    font-size: 12px;
+    position:fixed;
+    top: 45px;
+    width: 230px;
+    background-color: #3F0E40;
+}
+
+.left-sb-container {
+    margin-top: 53px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: fixed;
+    padding: 20px;
+}
+
+.left-sb-container::-webkit-scrollbar {
+    display: none;
+}

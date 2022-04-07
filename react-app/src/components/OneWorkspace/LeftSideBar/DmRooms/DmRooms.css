@@ -1,0 +1,20 @@
+span#dm-rooms-list-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.single_dm_room {
+  display: flex;
+  flex-direction: row;
+}
+.single_dm_room_child {
+  display: flex;
+  flex-direction: row;
+}
+
+span#dm-rooms-list-child > button {
+    background-color: transparent;
+    border: none;
+    color: white;
+}

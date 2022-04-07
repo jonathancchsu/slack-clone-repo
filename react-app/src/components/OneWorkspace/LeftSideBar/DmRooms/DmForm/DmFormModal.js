@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Modal } from "../../../../context/Modal";
+import { Modal } from "../../../../../context/Modal";
 
-import ChannelForm from ".";
+import DmRoomForm from ".";
 
-const CreateChannelModal = () => {
+const CreateDmModal = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -11,11 +11,11 @@ const CreateChannelModal = () => {
       <button onClick={() => setShowModal(true)}><i className="fas fa-plus"></i></button>
       {showModal && (
         <Modal className="modal" onClose={() => setShowModal(false)}>
-          <ChannelForm setShowModal={setShowModal}></ChannelForm>
+          <DmRoomForm setShowModal={setShowModal}></DmRoomForm>
         </Modal>
       )}
     </>
   );
 };
 
-export default CreateChannelModal;
+export default CreateDmModal;
