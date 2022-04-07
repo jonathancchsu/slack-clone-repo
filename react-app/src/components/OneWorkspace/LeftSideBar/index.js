@@ -29,10 +29,14 @@ const LeftSideBar = () => {
   return (
     loaded && (
       <div id='left-sb-main'>
-        <h2>{workspace.name}</h2>
-        <Members workspace={workspace} user={user} members={members}/>
-        <Channels workspace={workspace}/>
-        <DmRooms workspace={workspace}/>
+        <div className="left-sb-ws-name">
+          <h2>{workspace.name}</h2>
+        </div>
+        <div className="left-sb-container">
+          <Members workspace={workspace} user={user} members={members} />
+          <Channels workspace={workspace} />
+          <DmRooms workspace={workspace} />
+        </div>
       </div>
     )
   );

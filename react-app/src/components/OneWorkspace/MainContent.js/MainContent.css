@@ -1,23 +1,85 @@
 div#main-content {
-    overflow-y: scroll;
-}
-
-div#main-content::-webkit-scrollbar {
-    display: none;
+    margin-top: 42px;
 }
 
 div#chat-container {
-    padding-bottom: 100px;
+    margin-top:50px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    margin-bottom:100px;
+}
+#chat-container::-webkit-scrollbar {
+    display: none;
 }
 
-div#main-content > form {
+#main-header {
+    border-bottom: 1px solid lightgray;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    font-size: 10px;
+    position: fixed;
+    top: 45px;
+    background-color: white;
+}
+
+.main-header-members {
+    position: fixed;
+    right: 0;
+    margin-right: 5px;
+    border: 1px solid lightgray;
+    height: 20px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;;
+}
+
+.single-msg {
+    display: flex;
+    padding: 10px;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.sender-name {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    height: 20px;
+}
+
+.sender-content {
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sender-name > p {
+    font-family: 'Helvetica';
+}
+
+.sender-msg {
+    margin-top: 0;
+    font-size: 12px;
+    font-weight: lighter;
+    font-family: 'Helvetica';
+}
+
+.chat-box {
     position: fixed;
     bottom: 0;
-    width: 100vw;
+    display: flex;
+    padding: 20px;
 }
 
-div#main-content > form > button {
+.send-btn {
     position: fixed;
-    bottom: 10px;
-    right: 10px;
+    bottom: 25px;
+    right: 20px;
 }
