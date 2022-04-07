@@ -16,6 +16,7 @@ import {
   deleteMessage,
 } from "../../../store/currentView";
 import { io } from "socket.io-client";
+import ChannelModalMain from "./ChannelModal/ChannelModalMain";
 let socket;
 
 const MainContent = () => {
@@ -28,6 +29,7 @@ const MainContent = () => {
   const [messages, setMessages] = useState([]);
   const [edit, setEdit] = useState(null);
   const [editContent, setEditContent] = useState("");
+  // const [showChannelModal, setShowChannelModal] = useState(false);
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView.main_content);
 
@@ -165,13 +167,19 @@ const MainContent = () => {
     setEditContent("");
   };
 
+  console.log("channel room ===================================",channelRoom)
+  console.log("view=============================================",view)
   return (
     loaded && (
       <div id="main-content">
         <div>
           <div id="main-header">
             <div style={{ marginLeft: 5 }}>
-              {channelRoom && <h2>#{view?.name}</h2>}
+              {channelRoom
+
+                &&
+                <ChannelModalMain channel={view}></ChannelModalMain>
+              }
             </div>
             <div className="main-header-members">
               members:{view.members?.length}
