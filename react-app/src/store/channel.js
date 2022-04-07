@@ -88,8 +88,8 @@ const channelReducer = (
       return newState;
     }
     case ADD_CHANNEL: {
-      newState.userChannels[action.channel.id] = { ...action.channel };
-
+      newState.userChannels[action.channel.channel_id] = { ...action.channel };
+      
       return newState;
     }
     case UPDATE_CHANNEL: {

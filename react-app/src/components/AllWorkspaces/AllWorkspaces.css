@@ -59,6 +59,7 @@
   padding: 15px;
   display: flex;
   align-items: center;
+  transition-duration: 0.2s;
 }
 
 .main-logo {
@@ -78,11 +79,13 @@
   height: 30px;
   font-family: 'Open Sans';
   padding: 10px;
+  transition-duration: 0.5s;
 }
 
 .create-btn:hover {
   cursor: pointer;
   border: 2px solid #350f35;
+  transform: scale(1.1);
 }
 
 .launch-workspace {
@@ -96,11 +99,13 @@
   padding: 15px;
   display: flex;
   align-items: center;
+  transition-duration: 0.5s;
 }
 
 .launch-workspace:hover {
   cursor: pointer;
   background-color: #350f35;
+  transform: scale(1.1);
 }
 
 .main-edit-btn {
@@ -119,6 +124,8 @@
 .main-edit-btn {
   cursor: pointer;
 }
+
+
 
 .main-delete-btn {
   background-color: #4a154b;
@@ -131,6 +138,7 @@
   padding: 15px;
   display: flex;
   align-items: center;
+  transition-duration: 0.5s;
 }
 
 .main-delete-btn:hover {
@@ -138,21 +146,21 @@
 }
 
 .main-buttons {
-  display: none;
+  display: flex;
+  opacity: 0;
+  height: 10px;
+  transition-duration: 1s;
+}
+
+.main-buttons:hover {
+  display:flex;
+  opacity: 1;
+  height: 100px;
+  align-items: center;
 }
 
 .show {
   display: flex;
-}
-
-.see-more {
-  display: flex;
-  justify-content: center;
-  font-size: 11px;
-}
-
-.see-more:hover {
-  cursor: pointer;
 }
 
 .workspace-name {
@@ -211,6 +219,7 @@
   padding: 15px;
   display: flex;
   align-items: center;
+  transition-duration: 0.5s;
 }
 
 .main-save-btn:hover {
@@ -228,6 +237,7 @@
   padding: 15px;
   display: flex;
   align-items: center;
+  transition-duration: 0.5s;
 }
 
 .main-cancel-btn:hover {
@@ -236,6 +246,7 @@
 
 .edit-btns {
   display: flex;
+  flex-direction: row;
 }
 
 .create-wmn-ws {
@@ -264,11 +275,13 @@
   margin-right: 15px;
   padding: 5px;
   font-family: 'Open Sans';
+  transition-duration: 0.5s;
 }
 
 .create-wmn-btn:hover {
   cursor: pointer;
   border: 3px solid #350f35;
+  transform: scale(1.1);
 }
 
 .not-seeing-ws {
@@ -286,9 +299,22 @@
   background-color: rgba(255,255,255, 0);
   border:0;
   color: cornflowerblue;
+  transition-duration: 0.5s;
 }
 
 .diff-email-btn:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.view-more {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.view-more > p {
+  font-size: 8px;
+  margin-bottom: 5px;
 }

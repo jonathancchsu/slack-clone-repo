@@ -27,7 +27,6 @@ const Channels = ({ workspace }) => {
 
   const [showChannels, setShowChannels] = useState(false);
   const [newMember, setNewMember] = useState("");
-
   const channelRoom = (id) => {
     history.push(`/workspaces/${workspace.id}/messages/channels/${id}`);
   };

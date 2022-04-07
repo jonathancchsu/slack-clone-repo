@@ -47,6 +47,7 @@ div#chat-container {
     padding-left: 20px;
     margin-bottom: 5px;
     align-items: center;
+    z-index: -2;
 }
 
 .single-msg:hover {

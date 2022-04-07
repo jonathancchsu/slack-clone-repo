@@ -27,7 +27,7 @@ const NavBar = () => {
         <ul>
           <li>
             <NavLink to='/' exact={true} activeClassName='active' className='nav-logo'>
-              <img src="../static/icon.png" alt="logo" style={{ height: 30 }} />
+              <img src="/static/icon.png" alt="logo" style={{ height: 30 }} />
               slack
             </NavLink>
           </li>
@@ -43,7 +43,7 @@ const NavBar = () => {
         }
         <div className='nav-profile' onClick={() => setuserMenu(!userMenu)}>
           {user.profile_picture ? <div><img src={user.profile_picture} alt='profile' />🟢</div> : <div style={{ color: 'white' }}>{user.username}🟢</div>}
-          <div className={`user-menu ${userShowMenu}`}>
+          <div className={`user-menu ${userShowMenu}`} onMouseLeave={() => setuserMenu(!userMenu)}>
             <div className='user-info'>
               <div className='user-info-picture'>
                 {user.profile_picture ? <img src={user.profile_picture} alt='profile' /> : <div>{user.username}</div>}
