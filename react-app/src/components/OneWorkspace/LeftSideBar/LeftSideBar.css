@@ -16,8 +16,9 @@ div#members-tab {
 .left-sb-ws-name {
     border-top: 1px solid #7e6b7e;
     border-bottom: 1px solid rgba(192, 143, 199, 0.5);
-    height: 27px;
+    height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     padding: 10px;

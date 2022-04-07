@@ -21,6 +21,7 @@
   font-family: 'Open Sans';
   font-weight: bold;
   color: white;
+  transition-duration: 0.5s;
 }
 
 .nav-logo:hover {
@@ -52,6 +53,7 @@
 
 .nav-profile {
   margin-right: 15px;
+  transition-duration: 0.5s;
 }
 
 .nav-profile:hover {
@@ -127,6 +129,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  transition-duration: 0.5s;
 }
 
 .search:hover {

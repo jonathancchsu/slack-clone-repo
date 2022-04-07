@@ -128,14 +128,9 @@ const Workspaces = ({ userId }) => {
                 <div>
                   {user.workspaces_owned.includes(workspace.id) ? (
                     <div>
-                      <div className="see-more">
-                        <p onClick={(e) => handleSeeMore(e, workspace.id)}>
-                          See more v
-                        </p>
-                      </div>
-                      <div className={`main-buttons ${show}`}>
+                      <div>
                         <div>
-                          <div className={`main-buttons ${show}`}>
+                          <div className={`main-buttons`}>
                             <button
                               className="main-delete-btn"
                               onClick={() => deleteWorkspace(workspace.id)}
