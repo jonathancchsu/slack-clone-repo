@@ -11,8 +11,6 @@ import { logout } from "../../store/session";
 const Workspaces = ({ userId }) => {
   const [loaded, setLoaded] = useState(false);
   const [edit, setEdit] = useState("");
-  const [seeMore, setSeeMore] = useState(false);
-  const [show, setShow] = useState("");
   const [workspaceName, setWorkspaceName] = useState("");
   let history = useHistory();
   const dispatch = useDispatch();
@@ -29,14 +27,6 @@ const Workspaces = ({ userId }) => {
     dispatch(setUserWorkspaces(user.workspace_member));
     setLoaded(true);
   }, [dispatch, user, userId]);
-
-  useEffect(() => {
-    if (seeMore) {
-      setShow("show");
-    } else {
-      setShow("");
-    }
-  }, [seeMore]);
 
   const redirect = (workspaceId) => {
     history.push(`/workspaces/${workspaceId}`);
@@ -56,14 +46,6 @@ const Workspaces = ({ userId }) => {
     await dispatch(putWorkspace(workspace))
       .then(() => setEdit(""))
       .then(() => setWorkspaceName(""))
-      .then(() => setSeeMore(!seeMore));
-  };
-
-  const handleSeeMore = (e, workspaceId) => {
-    e.preventDefault();
-    user.workspaces_owned.includes(workspaceId)
-      ? setSeeMore(!seeMore)
-      : setSeeMore(seeMore);
   };
 
   const deleteWorkspace = (id) => {
@@ -79,7 +61,7 @@ const Workspaces = ({ userId }) => {
       <div className="workspaces-container">
         <div className="main-nav">
           <div className="main-logo">
-            <img src="./static/icon.png" alt="logo" style={{ height: 30 }} />
+            <img src="/static/icon.png" alt="logo" style={{ height: 30 }} />
             slack
           </div>
           <div className="create-workspace">
@@ -91,7 +73,7 @@ const Workspaces = ({ userId }) => {
         <div className="workspaces">
           <div className="main-head">
             <img
-              src="./static/waving-hand.gif"
+              src="/static/waving-hand.gif"
               alt="wave"
               style={{ height: 40 }}
             />
@@ -104,7 +86,7 @@ const Workspaces = ({ userId }) => {
                 <div className="workspace-name">
                   <div className="team">
                     <img
-                      src="./static/icon.png"
+                      src="/static/icon.png"
                       alt="icon"
                       style={{ height: 40, marginLeft: 10 }}
                     />
@@ -125,14 +107,11 @@ const Workspaces = ({ userId }) => {
                 <div>
                   {user.workspaces_owned.includes(workspace.id) ? (
                     <div>
-                      <div className="see-more">
-                        <p onClick={(e) => handleSeeMore(e, workspace.id)}>
-                          See more v
-                        </p>
-                      </div>
-                      <div className={`main-buttons ${show}`}>
-                        <div>
-                          <div className={`main-buttons ${show}`}>
+                      <div>
+                        <div className="view-more">
+                          <p>view more</p>
+                          <i className="fas fa-chevron-down" />
+                          <div className={`main-buttons`}>
                             <button
                               className="main-delete-btn"
                               onClick={() => deleteWorkspace(workspace.id)}
@@ -147,6 +126,7 @@ const Workspaces = ({ userId }) => {
                             </button>
                             {edit === workspace.id ? (
                               <div>
+
                                 <input
                                   type="text"
                                   value={workspaceName}
@@ -155,6 +135,7 @@ const Workspaces = ({ userId }) => {
                                   }
                                   className="main-edit-field"
                                 ></input>
+
                                 <div className="edit-btns">
                                   <button
                                     className="main-save-btn"
@@ -170,6 +151,12 @@ const Workspaces = ({ userId }) => {
                                   >
                                     Cancel
                                   </button>
+                                  <input
+                                    type="text"
+                                    value={workspaceName}
+                                    onChange={(e) => setWorkspaceName(e.target.value)}
+                                    className="main-edit-field"
+                                  ></input>
                                 </div>
                               </div>
                             ) : (
@@ -178,16 +165,15 @@ const Workspaces = ({ userId }) => {
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
+                    </div>) : <></>}
+
                 </div>
               </div>
             ))}
           </div>
           <div className="create-wmn-ws">
-            <img src="/static/create-ws.png" alt="wmn" />
+            <img src='/static/create-ws.png' alt='wmn' />
+
             <h4>Want to use Slack with a different team?</h4>
             <button className="create-wmn-btn" onClick={(e) => createForm()}>
               CREATE A NEW WORKSPACE
