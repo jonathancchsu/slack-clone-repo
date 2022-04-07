@@ -3,3 +3,9 @@ span#channels-tab-child {
     justify-content: center;
     align-items: center;
 }
+
+span#channels-tab-child > button {
+    background-color: transparent;
+    border: none;
+    color: white;
+}
