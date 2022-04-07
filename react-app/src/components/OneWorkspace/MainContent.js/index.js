@@ -194,7 +194,7 @@ const MainContent = () => {
             ) : (
               <div className="single-msg" key={message.id} onMouseEnter={() => setShowButtons(idx)} >
                 <div className="sender-pic">
-                  <img src={message.sender_profile_picture} style={{ height: 50 }} />
+                  <img src={message.sender_profile_picture} style={{ height: 50 }} alt='profile'/>
                 </div>
                 <div className="sender-content">
                   <div className="sender-name">
