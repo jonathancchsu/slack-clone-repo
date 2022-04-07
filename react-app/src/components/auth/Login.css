@@ -28,6 +28,10 @@
     margin-top: 100px;
 }
 
+.login-sgnup {
+    color: rgb(65, 199, 253);
+}
+
 .log-in-form {
     display: flex;
     flex-direction: column;

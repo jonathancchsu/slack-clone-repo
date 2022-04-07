@@ -25,6 +25,7 @@ div#chat-container {
     position: fixed;
     top: 45px;
     background-color: white;
+    z-index: -1;
 }
 
 .main-header-members {
@@ -46,6 +47,7 @@ div#chat-container {
     padding-left: 20px;
     margin-bottom: 5px;
     align-items: center;
+    z-index: -2;
 }
 
 .single-msg:hover {

@@ -11,13 +11,11 @@ const NavBar = () => {
   const [userMenu, setuserMenu] = useState(false)
   const [userShowMenu, setUserShowMenu] = useState('')
   const user = useSelector(state => state.session.user)
-  // console.log(user, 'current user')
+
 
   useEffect(() => {
     if (userMenu) {
       setUserShowMenu('show-user-info')
-      // console.log('show')
-      // console.log(userShowMenu)
     } else {
       setUserShowMenu('')
     }
@@ -40,7 +38,7 @@ const NavBar = () => {
         </div>
         <div className='nav-profile' onClick={() => setuserMenu(!userMenu)}>
           {user.profile_picture ? <div><img src={user.profile_picture} alt='profile' />🟢</div> : <div style={{ color: 'white' }}>{user.username}🟢</div>}
-          <div className={`user-menu ${userShowMenu}`}>
+          <div className={`user-menu ${userShowMenu}`} onMouseLeave={() => setuserMenu(!userMenu)}>
             <div className='user-info'>
               <div className='user-info-picture'>
                 {user.profile_picture ? <img src={user.profile_picture} alt='profile' /> : <div>{user.username}</div>}
