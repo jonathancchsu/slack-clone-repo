@@ -5,7 +5,7 @@ import ChannelModal from ".";
 
 const ChannelModalMain = (channel) => {
   const [showModal, setShowModal] = useState(false);
-  console.log("channel name================================",channel)
+
   return(
     <>
       <div onClick={() => setShowModal(true)} className='channel-name-modal'>
