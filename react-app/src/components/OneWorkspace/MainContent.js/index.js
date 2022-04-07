@@ -167,8 +167,6 @@ const MainContent = () => {
     setEditContent("");
   };
 
-  console.log("channel room ===================================",channelRoom)
-  console.log("view=============================================",view)
   return (
     loaded && (
       <div id="main-content">
