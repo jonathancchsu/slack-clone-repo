@@ -8,7 +8,6 @@ function AddMembersModal({ workspace, members, users, setShowModal }) {
     const dispatch = useDispatch();
     const [userId, setUserId] = useState('');
     const [results, setResults] = useState([]);
-    const [selected, setSelected] = useState('');
     const [errors, setErrors] = useState([])
     const [query, setQuery] = useState(' ');
 
@@ -16,7 +15,7 @@ function AddMembersModal({ workspace, members, users, setShowModal }) {
 
     useEffect (() => {
         setResults(find);
-    },[query]);
+    },[query, find]);
 
     const selectMember = (user) => {
         setUserId(user.id);
@@ -39,7 +38,7 @@ function AddMembersModal({ workspace, members, users, setShowModal }) {
         <div id='add-members-modal'>
             <h3>{`Add members to ${workspace.name}`}</h3>
             <form onSubmit={addMember}>
-                <input type='text' placeholder={selected} value={query} onChange={e => setQuery(e.target.value)} onClick={() => setQuery('')}></input>
+                <input type='text' placeholder={query} value={query} onChange={e => setQuery(e.target.value)} onClick={() => setQuery('')}></input>
                 <div>
                     {errors?.map(error => (
                         <div key={error} style={{color: 'red'}}>{error}</div>
