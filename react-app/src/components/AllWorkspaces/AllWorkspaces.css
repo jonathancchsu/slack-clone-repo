@@ -1,11 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
-
 .main-head {
   display: flex;
   align-items: center;
   color: white;
   justify-content: flex-start;
-  font-family: 'Open Sans';
   margin-left: 40px;
 }
 
