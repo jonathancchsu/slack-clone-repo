@@ -11,11 +11,11 @@ function AddMembersModal({ workspace, members, users, setShowModal }) {
     const [errors, setErrors] = useState([])
     const [query, setQuery] = useState(' ');
 
-    let find = users.filter(user => user.username.toLowerCase().includes(query.toLowerCase()))
 
-    useEffect (() => {
+    useEffect(() => {
+        let find = users.filter(user => user.username.toLowerCase().includes(query.toLowerCase()))
         setResults(find);
-    },[query, find]);
+    }, [query]);
 
     const selectMember = (user) => {
         setUserId(user.id);
@@ -38,10 +38,10 @@ function AddMembersModal({ workspace, members, users, setShowModal }) {
         <div id='add-members-modal'>
             <h3>{`Add members to ${workspace.name}`}</h3>
             <form onSubmit={addMember}>
-                <input type='text' placeholder={query} value={query} onChange={e => setQuery(e.target.value)} onClick={() => setQuery('')}></input>
+                <input type='text' placeholder='username' value={query} onChange={e => setQuery(e.target.value)} onClick={() => setQuery('')}></input>
                 <div>
                     {errors?.map(error => (
-                        <div key={error} style={{color: 'red'}}>{error}</div>
+                        <div key={error} style={{ color: 'red' }}>{error}</div>
                     ))}
                     {results?.map(user => (
                         <div className='results-map' key={`user:${user.id}`} onClick={() => selectMember(user)}>{user.username}</div>
