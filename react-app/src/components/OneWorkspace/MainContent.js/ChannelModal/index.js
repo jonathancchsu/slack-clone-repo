@@ -5,35 +5,40 @@ import { addNewChannelMember } from "../../../../store/channel";
 
 import "./ChannelModal.css";
 
-const ChannelModal = ({ setShowModal }) => {
-  const dispatch = useDispatch()
-  const { channelId } = window.location.href.split('/')[7]
-
+const ChannelModal = ({ setShowModal, channel }) => {
+  const dispatch = useDispatch();
+  const channelOwner = useSelector((state) => state.session.user.username);
   const [newMember, setNewMember] = useState("");
+  const [errors, setErrors] = useState([]);
 
   const handleAddMember = (e, id) => {
     e.preventDefault();
-    dispatch(addNewChannelMember(id, newMember))
+    if (newMember.length >= 1) {
+      const data = dispatch(addNewChannelMember(id, newMember));
+      if (data) {
+        setErrors(data);
+      }
+    }
     setNewMember("");
+    setShowModal(false);
   }
 
   return (
       <div className="channel-modal-container">
-        <h1>{channelName}</h1>
         <div className="sub-container">
           <b>Topic</b>
-          <p>{channelTopic}</p>
+          <p>{channel.topic}</p>
         </div>
         <div className="sub-container">
           <b>Description</b>
-          <p>{channelDescription}</p>
+          <p>{channel.description}</p>
         </div>
         <div className="subcontainer">
           <b>Created By</b>
-          <p>{channelOwner} on {createdAt}</p>
+          <p>{channelOwner} on {channel.createdAt}</p>
         </div>
         <div className="subcontainer">
-          <form onSubmit={(e) => handleAddMember(e, channelId)}>
+          <form onSubmit={(e) => handleAddMember(e, channel.id)}>
             <input
               type='text'
               value={newMember}
