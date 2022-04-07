@@ -28,6 +28,7 @@ const MainContent = () => {
   const [messages, setMessages] = useState([]);
   const [edit, setEdit] = useState(null);
   const [editContent, setEditContent] = useState("");
+  const [socketChat, setSocketChat] = useState();
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView.main_content);
 
@@ -49,15 +50,19 @@ const MainContent = () => {
     socket = io();
     socket.on("chat", (chat) => {
       if (chat.edit) {
-        setMessages((messages) =>
-          messages.map((message) => (chat.id === message.id ? chat : message))
+        setSocketChat((socketChat) =>
+          socketChat.messages.map((message) =>
+            chat.id === message.id ? chat : message
+          )
         );
       } else if (chat.delete) {
-        setMessages((messages) =>
-          messages.filter((message) => chat.id !== message.id)
+        setSocketChat((socketChat) =>
+          socketChat.messages.filter((message) => chat.id !== message.id)
         );
       } else {
-        setMessages((messages) => [...messages, chat]);
+        setSocketChat(
+          (socketChat) => (socketChat.messages = [...socketChat.messages, chat])
+        );
       }
     });
 
@@ -69,8 +74,14 @@ const MainContent = () => {
 
   useEffect(() => {
     setMessages(view.messages);
+    if (dmRoom) {
+      setSocketChat({ dm_room_id: view.id, messages: view.messages });
+    }
+    if (channelRoom) {
+      setSocketChat({ channel_id: view.id, messages: view.messages });
+    }
     setloaded(true);
-  }, [view.messages]);
+  }, [view, dmRoom, channelRoom]);
 
   const sendChat = async (e) => {
     e.preventDefault();
@@ -187,10 +198,13 @@ const MainContent = () => {
           {messages?.map((message, idx) =>
             // TO EDIT
             edit === message.id ? (
-              <div key={message.id} className='edit-message'>
-                <img src={message.sender_profile_picture} alt=''></img>
-                <div className='editor'>
-                  <CKEditor editor={ClassicEditor} onChange={updateMessageContent} data={message.content}
+              <div key={message.id} className="edit-message">
+                <img src={message.sender_profile_picture} alt=""></img>
+                <div className="editor">
+                  <CKEditor
+                    editor={ClassicEditor}
+                    onChange={updateMessageContent}
+                    data={message.content}
                     config={{
                       toolbar: [
                         "heading",
@@ -209,12 +223,15 @@ const MainContent = () => {
                         "insertTable",
                         "undo",
                         "redo",
-                      ]
-                  }} />
+                      ],
+                    }}
+                  />
                 </div>
                 <span className="edit-box">
                   <button onClick={handleCancel}>Cancel</button>
-                  <button onClick={(e) => handleEditMessage(e, message)}>Save</button>
+                  <button onClick={(e) => handleEditMessage(e, message)}>
+                    Save
+                  </button>
                 </span>
               </div>
             ) : (
@@ -224,12 +241,14 @@ const MainContent = () => {
                 onMouseEnter={() => setShowButtons(idx)}
               >
                 <div className="sender-pic">
-                  <img src={message.sender_profile_picture} alt='profile'/>
+                  <img src={message.sender_profile_picture} alt="profile" />
                 </div>
                 <div className="sender-content">
                   <div className="sender-name">
                     <h4>{message.sender_username}</h4>
-                    <p style={{ fontSize: 10, marginLeft: 5 }}>{message.created_at.split(' ')[4].slice(0, 5)} PM</p>
+                    <p style={{ fontSize: 10, marginLeft: 5 }}>
+                      {message.created_at.split(" ")[4].slice(0, 5)} PM
+                    </p>
                   </div>
                   <div className="sender-msg">
                     {ReactHtmlParser(message.content)}
@@ -242,11 +261,12 @@ const MainContent = () => {
                         e.preventDefault();
                         setEditContent(message.content);
                         setEdit(message.id);
-                      }}>
+                      }}
+                    >
                       <i className="far fa-edit"></i>
                     </button>
                     <button onClick={(e) => handleDeleteMessage(e, message)}>
-                    <i className="far fa-trash-alt"></i>
+                      <i className="far fa-trash-alt"></i>
                     </button>
                   </span>
                 )}
@@ -256,7 +276,10 @@ const MainContent = () => {
         </div>
         <div className="chat-box">
           <form onSubmit={sendChat}>
-            <CKEditor editor={ClassicEditor} onChange={updateChatInput} data={chatInput}
+            <CKEditor
+              editor={ClassicEditor}
+              onChange={updateChatInput}
+              data={chatInput}
               config={{
                 toolbar: [
                   "heading",
@@ -275,9 +298,16 @@ const MainContent = () => {
                   "insertTable",
                   "undo",
                   "redo",
-                ]
-                }} />
-            <button className={`send-btn ${!chatInput.length}`} type="submit" disabled={!chatInput.length}><i className="fas fa-paper-plane"></i></button>
+                ],
+              }}
+            />
+            <button
+              className={`send-btn ${!chatInput.length}`}
+              type="submit"
+              disabled={!chatInput.length}
+            >
+              <i className="fas fa-paper-plane"></i>
+            </button>
           </form>
         </div>
       </div>
