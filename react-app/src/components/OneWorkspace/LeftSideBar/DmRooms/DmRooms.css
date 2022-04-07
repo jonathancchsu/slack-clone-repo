@@ -12,3 +12,9 @@ span#dm-rooms-list-child {
   display: flex;
   flex-direction: row;
 }
+
+span#dm-rooms-list-child > button {
+    background-color: transparent;
+    border: none;
+    color: white;
+}

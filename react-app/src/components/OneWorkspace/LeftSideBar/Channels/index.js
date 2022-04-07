@@ -57,7 +57,7 @@ const Channels = ({ workspace }) => {
       <div id='channels-tab-main'>
         <span id='channels-tab-child'>
           <button onClick={() => setShowChannels(!showChannels)}><i className="fas fa-caret-right"></i></button>
-          <h3>Channels</h3>
+          <p>Channels</p>
           <CreateChannelModal></CreateChannelModal>
         </span>
         { showChannels && userChannels.map((channel) => (

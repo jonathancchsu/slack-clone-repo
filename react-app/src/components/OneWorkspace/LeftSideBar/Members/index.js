@@ -11,9 +11,9 @@ function Members({ workspace, user, members }) {
     return (
         <div id='members-main'>
           <span id='members-tab'>
-            <button onClick={() => setShowMembers(!showMembers)}>{'>'}</button>
-            <h6>Members:</h6>
-            <button onClick={() => setShowModal(true)}>+</button>
+            <button onClick={() => setShowMembers(!showMembers)}><i className="fas fa-caret-right"></i></button>
+            <p>Members</p>
+            <button onClick={() => setShowModal(true)}><i className="fas fa-plus"></i></button>
           </span>
           <div id='members-list'>
             {showMembers && workspace.members.map((member) => (

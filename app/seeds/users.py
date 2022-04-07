@@ -4,11 +4,11 @@ from app.models import db, User
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@demo.com', password='password', profile_picture='https://cdn-icons-png.flaticon.com/512/3135/3135715.png')
+        username='Demo', email='demo@demo.com', password='password', profile_picture='https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png')
     demo2 = User(
-        username='Demo2', email='demo2@demo.com', password='password', profile_picture='https://cdn-icons-png.flaticon.com/512/3135/3135715.png')
+        username='Demo2', email='demo2@demo.com', password='password', profile_picture='https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png')
     demo3 = User(
-        username='Demo3', email='demo3@demo.com', password='password', profile_picture='https://cdn-icons-png.flaticon.com/512/3135/3135715.png')
+        username='Demo3', email='demo3@demo.com', password='password', profile_picture='https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png')
 
     db.session.add(demo)
     db.session.add(demo2)
