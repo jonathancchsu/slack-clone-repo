@@ -29,14 +29,14 @@ const NavBar = () => {
         <ul>
           <li>
             <NavLink to='/' exact={true} activeClassName='active' className='nav-logo'>
-              <img src="../static/icon.png" alt="logo" style={{ height: 30 }} />
+              <img src="/static/icon.png" alt="logo" style={{ height: 30 }} />
               slack
             </NavLink>
           </li>
         </ul>
         <div className='search' onClick={() => alert('UNDER CONSTRUCTION!')}>
           <p style={{ fontSize: 10 }}>Search Workspace</p>
-          <img src='../static/search.png' alt='search' className='search-btn' />
+          <img src='/static/search.png' alt='search' className='search-btn' />
         </div>
         <div className='nav-profile' onClick={() => setuserMenu(!userMenu)}>
           {user.profile_picture ? <div><img src={user.profile_picture} alt='profile' />🟢</div> : <div style={{ color: 'white' }}>{user.username}🟢</div>}

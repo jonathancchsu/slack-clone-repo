@@ -82,7 +82,7 @@ const Workspaces = ({ userId }) => {
       <div className="workspaces-container">
         <div className="main-nav">
           <div className="main-logo">
-            <img src="./static/icon.png" alt="logo" style={{ height: 30 }} />
+            <img src="/static/icon.png" alt="logo" style={{ height: 30 }} />
             slack
           </div>
           <div className="create-workspace">
@@ -94,7 +94,7 @@ const Workspaces = ({ userId }) => {
         <div className="workspaces">
           <div className="main-head">
             <img
-              src="./static/waving-hand.gif"
+              src="/static/waving-hand.gif"
               alt="wave"
               style={{ height: 40 }}
             />
@@ -107,7 +107,7 @@ const Workspaces = ({ userId }) => {
                 <div className="workspace-name">
                   <div className="team">
                     <img
-                      src="./static/icon.png"
+                      src="/static/icon.png"
                       alt="icon"
                       style={{ height: 40, marginLeft: 10 }}
                     />
