@@ -33,10 +33,6 @@ const MainContent = () => {
 
   const [showButtons, setShowButtons] = useState(null);
 
-  console.log('current view', view)
-  console.log('user', user)
-  console.log('messages', messages)
-
   useEffect(() => {
     setloaded(false);
     let id = url.split("/")[7] * 1;
@@ -53,9 +49,13 @@ const MainContent = () => {
     socket = io();
     socket.on("chat", (chat) => {
       if (chat.edit) {
-        setMessages((messages) => messages.map(message => chat.id === message.id ? chat : message));
+        setMessages((messages) =>
+          messages.map((message) => (chat.id === message.id ? chat : message))
+        );
       } else if (chat.delete) {
-        setMessages((messages) => messages.filter(message => chat.id !== message.id));
+        setMessages((messages) =>
+          messages.filter((message) => chat.id !== message.id)
+        );
       } else {
         setMessages((messages) => [...messages, chat]);
       }
@@ -77,41 +77,41 @@ const MainContent = () => {
 
     dmRoom
       ? await dispatch(
-        postDirectMessage({
-          room_id: view.id,
-          sender_id: user.id,
-          content: chatInput,
-        })
-      ).then((message) =>
-        socket.emit("chat", {
-          id: message.id,
-          room_id: view.id,
-          sender_id: user.id,
-          content: chatInput,
-          sender_username: user.username,
-          sender_profile_picture: user.profile_picture,
-          created_at: message.created_at,
-          socket: true,
-        })
-      )
+          postDirectMessage({
+            room_id: view.id,
+            sender_id: user.id,
+            content: chatInput,
+          })
+        ).then((message) =>
+          socket.emit("chat", {
+            id: message.id,
+            room_id: view.id,
+            sender_id: user.id,
+            content: chatInput,
+            sender_username: user.username,
+            sender_profile_picture: user.profile_picture,
+            created_at: message.created_at,
+            socket: true,
+          })
+        )
       : await dispatch(
-        postChannelMessage({
-          channel_id: view.id,
-          sender_id: user.id,
-          content: chatInput,
-        })
-      ).then((message) =>
-        socket.emit("chat", {
-          id: message.id,
-          channel_id: view.id,
-          sender_id: user.id,
-          content: chatInput,
-          sender_username: user.username,
-          sender_profile_picture: user.profile_picture,
-          created_at: message.created_at,
-          socket: true,
-        })
-      );
+          postChannelMessage({
+            channel_id: view.id,
+            sender_id: user.id,
+            content: chatInput,
+          })
+        ).then((message) =>
+          socket.emit("chat", {
+            id: message.id,
+            channel_id: view.id,
+            sender_id: user.id,
+            content: chatInput,
+            sender_username: user.username,
+            sender_profile_picture: user.profile_picture,
+            created_at: message.created_at,
+            socket: true,
+          })
+        );
     setChatInput("");
   };
 
@@ -123,7 +123,7 @@ const MainContent = () => {
   const updateMessageContent = (e, editor) => {
     const richText = editor.getData();
     setEditContent(richText);
-  }
+  };
 
   const handleEditMessage = async (e, message) => {
     e.preventDefault();
@@ -137,7 +137,7 @@ const MainContent = () => {
       sender_profile_picture: user.profile_picture,
       created_at: message.created_at,
       socket: message.socket,
-      edit: true
+      edit: true,
     });
     await dispatch(putMessage(message));
     setEdit(null);
@@ -154,7 +154,7 @@ const MainContent = () => {
       sender_username: user.username,
       sender_profile_picture: user.profile_picture,
       created_at: message.created_at,
-      delete: true
+      delete: true,
     });
     await dispatch(deleteMessage(message));
   };
@@ -167,11 +167,15 @@ const MainContent = () => {
 
   return (
     loaded && (
-      <div id='main-content'>
+      <div id="main-content">
         <div>
-          <div id='main-header'>
-            <div style={{ marginLeft: 5 }}>{channelRoom && <h2>#{view?.name}</h2>}</div>
-            <div className="main-header-members">members:{view.members?.length}</div>
+          <div id="main-header">
+            <div style={{ marginLeft: 5 }}>
+              {channelRoom && <h2>#{view?.name}</h2>}
+            </div>
+            <div className="main-header-members">
+              members:{view.members?.length}
+            </div>
           </div>
           <div>
             {dmRoom && (
@@ -179,14 +183,34 @@ const MainContent = () => {
             )}
           </div>
         </div>
-        <div id='chat-container'>
+        <div id="chat-container">
           {messages?.map((message, idx) =>
             // TO EDIT
             edit === message.id ? (
               <div key={message.id} className='edit-message'>
                 <img src={message.sender_profile_picture} alt=''></img>
                 <div className='editor'>
-                  <CKEditor data={message.content} editor={ClassicEditor} onChange={updateMessageContent} />
+                  <CKEditor editor={ClassicEditor} onChange={updateMessageContent} data={message.content}
+                    config={{
+                      toolbar: [
+                        "heading",
+                        "|",
+                        "bold",
+                        "italic",
+                        "link",
+                        "bulletedList",
+                        "numberedList",
+                        "|",
+                        "indent",
+                        "outdent",
+                        "|",
+                        "codeBlock",
+                        "blockQuote",
+                        "insertTable",
+                        "undo",
+                        "redo",
+                      ]
+                  }} />
                 </div>
                 <span className="edit-box">
                   <button onClick={handleCancel}>Cancel</button>
@@ -194,7 +218,11 @@ const MainContent = () => {
                 </span>
               </div>
             ) : (
-              <div className="single-msg" key={message.id} onMouseEnter={() => setShowButtons(idx)} >
+              <div
+                className="single-msg"
+                key={message.id}
+                onMouseEnter={() => setShowButtons(idx)}
+              >
                 <div className="sender-pic">
                   <img src={message.sender_profile_picture} alt='profile'/>
                 </div>
