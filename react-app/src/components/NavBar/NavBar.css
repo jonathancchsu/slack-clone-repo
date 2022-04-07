@@ -83,6 +83,7 @@
   border-radius: 5px;
   box-shadow: 0 0 2px gray;
   width: 200px;
+  z-index: 1;
 }
 
 .user-info {
