@@ -11,8 +11,6 @@ import json
 
 bp = Blueprint('workspaces', __name__, url_prefix='workspaces')
 
-
-
 @bp.route('/<int:workspace_id>')
 def get_one_workspace(workspace_id):
     workspace = Workspace.query.get(workspace_id)
@@ -22,7 +20,6 @@ def get_one_workspace(workspace_id):
 def get_one_dm_group(dm_id):
     dm_room = DirectMessageRoom.query.get(dm_id)
     return dm_room.to_dict()
-
 
 # @bp.route('/channels/new', methods=['POST'])
 # def channel_create():
@@ -95,7 +92,6 @@ def add_channel_member(channel_id, user_id):
 def workspace_create():
     # print("current user here ___________________",current_user)
     data = request.json
-    print('hereeeeeeeeeeeeeeeeeeeeeeeeee', data)
     form = WorkspaceForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -133,15 +129,14 @@ def workspace_edit_delete(workspace_id):
         db.session.commit()
         return {'workspace_id': workspace_id}
 
-@bp.route('users/<int:workspace_id>/<int:user_id>', methods=['POST'])
+@bp.route('/users/<int:workspace_id>/<int:user_id>', methods=['POST'])
 def add_workspace_member(workspace_id, user_id):
-    data = request.json
-    print(data, 'does it reach here!!!!!!!!!!!!!!!!!!')
-    print(user_id, '...........................', workspace_id)
+    # data = request.json
+    user = User.query.get(user_id);
     member = WorkspaceMember(
         workspace_id = workspace_id,
         user_id = user_id,
     )
     db.session.add(member)
     db.session.commit()
-    return 'member'
+    return { "id": member.id, "user_id": user_id, "username": user.username, "workspace_id": workspace_id }

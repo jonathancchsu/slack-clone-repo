@@ -27,7 +27,6 @@ class Workspace(db.Model):
 
 
     def to_dict(self):
-        # print('hereeeeeeeeeeeeeeeeeeeeeeeeeeeeee',self.channels)
         return {
             'id': self.id,
             'owner': {'id':self.owner.id, 'username': self.owner.username},

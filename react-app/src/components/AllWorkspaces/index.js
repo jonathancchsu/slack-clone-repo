@@ -6,6 +6,7 @@ import { getUser } from "../../store/session";
 import { useDispatch } from "react-redux";
 import { deleteEvent, putWorkspace } from "../../store/workspace";
 import { setUserWorkspaces } from "../../store/workspace";
+import { logout } from "../../store/session";
 
 const Workspaces = ({ userId }) => {
   const [loaded, setLoaded] = useState(false);
@@ -13,13 +14,15 @@ const Workspaces = ({ userId }) => {
   const [seeMore, setSeeMore] = useState(false);
   const [show, setShow] = useState("");
   const [workspaceName, setWorkspaceName] = useState("");
-  console.log(workspaceName);
   let history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
   const workspace = useSelector((state) => state.workspace);
   const workspacesObj = workspace.userWorkspaces;
   const workspaces = Object.values(workspacesObj);
+
+  console.log(workspacesObj, 'user workspaces')
+  console.log(workspace, 'workspace stateeeeeeeeeeeeeeeeee')
 
   useEffect(() => {
     dispatch(getUser(userId));
@@ -53,10 +56,10 @@ const Workspaces = ({ userId }) => {
   const handleEdit = async (e, workspace, workspaceName) => {
     e.preventDefault();
     workspace.name = workspaceName;
-    console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeee", workspace);
     await dispatch(putWorkspace(workspace))
       .then(() => setEdit(""))
-      .then(() => setWorkspaceName(""));
+      .then(() => setWorkspaceName(""))
+      .then(() => setSeeMore(!seeMore));
   };
 
   const handleSeeMore = (e, workspaceId) => {
@@ -67,8 +70,11 @@ const Workspaces = ({ userId }) => {
   };
 
   const deleteWorkspace = (id) => {
-    console.log("idddddddddddddddddddddddd", id);
     dispatch(deleteEvent(id));
+  };
+
+  const onLogout = async (e) => {
+    await dispatch(logout());
   };
 
   return (
@@ -94,87 +100,98 @@ const Workspaces = ({ userId }) => {
             />
             <h1>Welcome back</h1>
           </div>
-          {workspaces.map((workspace) => (
-            <div key={workspace.id} className="workspace-box">
-              <div className="main-user">Workspaces for {user.email}</div>
-              <div className="workspace-name">
-                <div className="team">
-                  <img
-                    src="./static/icon.png"
-                    alt="icon"
-                    style={{ height: 40, marginLeft: 10 }}
-                  />
-                  <div className="workspace-info">
-                    <h2>{workspace.name}</h2>
-                    <p>{workspace.members_length} members</p>
+          <div key={workspace.id} className="workspace-box">
+            <div className="main-user">Workspaces for {user.email}</div>
+            {workspaces.map((workspace) => (
+              <div key={workspace.id} className="workspace-content">
+                <div className="workspace-name">
+                  <div className="team">
+                    <img
+                      src="./static/icon.png"
+                      alt="icon"
+                      style={{ height: 40, marginLeft: 10 }}
+                    />
+                    <div className="workspace-info">
+                      <h2>{workspace.name}</h2>
+                      <p>{workspace.members_length} members</p>
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      className="launch-workspace"
+                      onClick={(e) => redirect(workspace.id)}
+                    >
+                      LAUNCH SLACK
+                    </button>
                   </div>
                 </div>
                 <div>
-                  <button
-                    className="launch-workspace"
-                    onClick={(e) => redirect(workspace.id)}
-                  >
-                    LAUNCH SLACK
-                  </button>
-                </div>
-              </div>
-              <div className="see-more">
-                <p onClick={(e) => handleSeeMore(e, workspace.id)}>
-                  See more v
-                </p>
-              </div>
-              <div className={`main-buttons ${show}`}>
-                <div>
                   {user.workspaces_owned.includes(workspace.id) ? (
-                    <div className={`main-buttons ${show}`}>
-                      <button
-                        className="main-delete-btn"
-                        onClick={() => deleteWorkspace(workspace.id)}
-                      >
-                        DELETE
-                      </button>
-                      <button
-                        className="main-edit-btn"
-                        onClick={(e) => handleEditing(e, workspace.id)}
-                      >
-                        EDIT
-                      </button>
-                      {edit === workspace.id ? (
+                    <div>
+                      <div className="see-more">
+                        <p onClick={(e) => handleSeeMore(e, workspace.id)}>
+                          See more v
+                        </p>
+                      </div>
+                      <div className={`main-buttons ${show}`}>
                         <div>
-                          <input
-                            type="text"
-                            value={workspaceName}
-                            onChange={(e) => setWorkspaceName(e.target.value)}
-                            className="main-edit-field"
-                          ></input>
-                          <div className="edit-btns">
+                          <div className={`main-buttons ${show}`}>
                             <button
-                              className="main-save-btn"
-                              onClick={(e) =>
-                                handleEdit(e, workspace, workspaceName)
-                              }
+                              className="main-delete-btn"
+                              onClick={() => deleteWorkspace(workspace.id)}
                             >
-                              Save
+                              DELETE
                             </button>
                             <button
-                              className="main-cancel-btn"
-                              onClick={(e) => setEdit("")}
+                              className="main-edit-btn"
+                              onClick={(e) => handleEditing(e, workspace.id)}
                             >
-                              Cancel
+                              EDIT
                             </button>
+                            {edit === workspace.id ? (
+                              <div>
+                                <input
+                                  type="text"
+                                  value={workspaceName}
+                                  onChange={(e) => setWorkspaceName(e.target.value)}
+                                  className="main-edit-field"
+                                ></input>
+                                <div className="edit-btns">
+                                  <button
+                                    className="main-save-btn"
+                                    onClick={(e) =>
+                                      handleEdit(e, workspace, workspaceName)
+                                    }
+                                  >
+                                    Save
+                                  </button>
+                                  <button
+                                    className="main-cancel-btn"
+                                    onClick={(e) => setEdit("")}
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              </div>
+                            ) : (
+                              <></>
+                            )}
                           </div>
                         </div>
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                  ) : (
-                    <></>
-                  )}
+                      </div>
+                    </div>):<></>}
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div className="create-wmn-ws">
+            <img src='/static/create-ws.png' alt='wmn'/>
+            <h4>Want to use Slack with a different team?</h4>
+            <button className="create-wmn-btn" onClick={(e) => createForm()}>
+              CREATE A NEW WORKSPACE
+            </button>
+          </div>
+          <div className="not-seeing-ws">Not seeing your workspace?<button onClick={onLogout} className="diff-email-btn">Try using a different email</button></div>
         </div>
       </div>
     )

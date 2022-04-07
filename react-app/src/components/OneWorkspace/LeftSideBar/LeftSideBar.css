@@ -1,0 +1,12 @@
+div#left-sb-main {
+    color: #CFC3CF;
+    background-color: #3F0E40;
+    padding-left: 15px;
+}
+
+div#members-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+}

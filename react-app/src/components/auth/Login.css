@@ -56,3 +56,16 @@
     font-size: 40px;
     font-weight: 700;
 }
+
+.demo-btn {
+    background-color: white;
+    border: none;
+    font-family: 'Open Sans';
+    color: rgb(65, 199, 253);
+    font-size: 15px;
+}
+
+.demo-btn:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

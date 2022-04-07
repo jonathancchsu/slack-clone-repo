@@ -34,7 +34,6 @@ const MainContent = () => {
   useEffect(() => {
     setloaded(false);
     let id = url.split("/")[7] * 1;
-    console.log(url.includes("channels"));
     if (url.includes("channels")) {
       setDmRoom(false);
       setChannelRoom(true);
@@ -47,7 +46,6 @@ const MainContent = () => {
 
     socket = io();
     socket.on("chat", (chat) => {
-      console.log(chat);
       if (chat.edit) {
         setMessages((messages) => messages.map(message => chat.id === message.id ? chat : message));
       } else if (chat.delete) {
@@ -159,7 +157,7 @@ const MainContent = () => {
 
   return (
     loaded && (
-      <div>
+      <div id='main-content'>
         <div>
           <div>{channelRoom && <h2>{view?.topic}</h2>}</div>
           <div>

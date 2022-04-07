@@ -13,16 +13,13 @@ def get_one_channel(channel_id):
 
 @bp.route('/channels/<int:channel_id>', methods=['GET', 'POST'])
 def channel_messages(channel_id):
-    print('before ifssssssssssssssssssssssssssssssss')
     if request.method == 'GET':
 
         messages = Message.query.filter(Message.channel_id == channel_id).all()
-        print('hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',messages)
 
         return {"messages":[message.to_dict() for message in messages]}
     if request.method == 'POST':
         data = request.json
-        print('hereeeeeeeeeeeeeeeeeeeeeeeeeee',data)
         message = Message(
             channel_id=data['channel_id'],
             sender_id=data['sender_id'],
