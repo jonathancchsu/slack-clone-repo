@@ -3,21 +3,19 @@ import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import LogoutButton from '../auth/LogoutButton';
+import SearchBox from './SearchBox';
 
 import './NavBar.css'
-
 
 const NavBar = () => {
   const [userMenu, setuserMenu] = useState(false)
   const [userShowMenu, setUserShowMenu] = useState('')
+  const [showSearchBox, setShowSearchBox] = useState(false);
   const user = useSelector(state => state.session.user)
-  // console.log(user, 'current user')
 
   useEffect(() => {
     if (userMenu) {
       setUserShowMenu('show-user-info')
-      // console.log('show')
-      // console.log(userShowMenu)
     } else {
       setUserShowMenu('')
     }
@@ -34,10 +32,15 @@ const NavBar = () => {
             </NavLink>
           </li>
         </ul>
-        <div className='search' onClick={() => alert('UNDER CONSTRUCTION!')}>
-          <p style={{ fontSize: 10 }}>Search Workspace</p>
-          <img src='../static/search.png' alt='search' className='search-btn' />
-        </div>
+        {
+          showSearchBox ?
+          <SearchBox setShowSearchBox={setShowSearchBox}/>
+          :
+          <div className='search' onClick={() => setShowSearchBox(true)}>
+            <p style={{ fontSize: 10 }}>Search Workspace</p>
+            <img src='../static/search.png' alt='search' className='search-btn' />
+          </div>
+        }
         <div className='nav-profile' onClick={() => setuserMenu(!userMenu)}>
           {user.profile_picture ? <div><img src={user.profile_picture} alt='profile' />🟢</div> : <div style={{ color: 'white' }}>{user.username}🟢</div>}
           <div className={`user-menu ${userShowMenu}`}>

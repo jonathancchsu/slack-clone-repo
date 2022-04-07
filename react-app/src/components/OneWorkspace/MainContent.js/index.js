@@ -204,7 +204,6 @@ const MainContent = () => {
                         "indent",
                         "outdent",
                         "|",
-                        "codeBlock",
                         "blockQuote",
                         "insertTable",
                         "undo",
@@ -221,8 +220,7 @@ const MainContent = () => {
               <div
                 className="single-msg"
                 key={message.id}
-                onMouseEnter={() => setShowButtons(idx)}
-              >
+                onMouseEnter={() => setShowButtons(idx)}>
                 <div className="sender-pic">
                   <img src={message.sender_profile_picture} alt='profile'/>
                 </div>
@@ -270,7 +268,6 @@ const MainContent = () => {
                   "indent",
                   "outdent",
                   "|",
-                  "codeBlock",
                   "blockQuote",
                   "insertTable",
                   "undo",

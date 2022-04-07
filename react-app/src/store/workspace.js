@@ -109,6 +109,15 @@ export const deleteEvent = (workspaceId) => async (dispatch) => {
 
   dispatch(removeEvent(workspaceNum));
 };
+
+//---------------------------------------------search----------------------------
+
+export const searchInWorkspace = data => async () => {
+  const response = await fetch(`/api/workspaces/${data.workspace_id}/search/${data.parameters.length ? data.parameters : 'nothing'}/${data.keyword}`);
+  const result = await response.json();
+  return result;
+}
+
 //---------------------------------------------reducer----------------------------
 
 const workspaceReducer = (

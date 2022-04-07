@@ -25,6 +25,7 @@ div#chat-container {
     position: fixed;
     top: 45px;
     background-color: white;
+    z-index: -1;
 }
 
 .main-header-members {
@@ -82,25 +83,23 @@ div#chat-container {
 }
 
 .chat-box {
-    position: fixed;
-    bottom: 0;
+    position: relative;
+    top: 600px;
     display: flex;
     padding: 20px;
-    background-color: white;
-    width: 100%;
+    height: 150px;
+    width: 95%;
 }
 
 .chat-box > form {
-    width: 75%;
-    position: fixed;
-    bottom: 25px;
-    right: 15px;
+    height: 100%;
+    width: 100%;
 }
 
 .send-btn {
     position: fixed;
-    bottom: 30px;
-    right: 25px;
+    bottom: 50px;
+    right: 90px;
     background-color: transparent;
     border: none;
     cursor: default;
