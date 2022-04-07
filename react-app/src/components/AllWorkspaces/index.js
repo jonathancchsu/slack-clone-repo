@@ -126,6 +126,16 @@ const Workspaces = ({ userId }) => {
                             </button>
                             {edit === workspace.id ? (
                               <div>
+
+                                <input
+                                  type="text"
+                                  value={workspaceName}
+                                  onChange={(e) =>
+                                    setWorkspaceName(e.target.value)
+                                  }
+                                  className="main-edit-field"
+                                ></input>
+
                                 <div className="edit-btns">
                                   <button
                                     className="main-save-btn"
@@ -156,18 +166,25 @@ const Workspaces = ({ userId }) => {
                         </div>
                       </div>
                     </div>) : <></>}
+
                 </div>
               </div>
             ))}
           </div>
           <div className="create-wmn-ws">
             <img src='/static/create-ws.png' alt='wmn' />
+
             <h4>Want to use Slack with a different team?</h4>
             <button className="create-wmn-btn" onClick={(e) => createForm()}>
               CREATE A NEW WORKSPACE
             </button>
           </div>
-          <div className="not-seeing-ws">Not seeing your workspace?<button onClick={onLogout} className="diff-email-btn">Try using a different email</button></div>
+          <div className="not-seeing-ws">
+            Not seeing your workspace?
+            <button onClick={onLogout} className="diff-email-btn">
+              Try using a different email
+            </button>
+          </div>
         </div>
       </div>
     )

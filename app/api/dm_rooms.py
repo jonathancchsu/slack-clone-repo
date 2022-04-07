@@ -38,22 +38,22 @@ def dm_create():
 
 
 @bp.route('/<int:dm_room_id>', methods=['GET', 'PUT', 'DELETE'])
-def dm(channel_id):
+def dm(dm_room_id):
     if request.method == 'GET':
-        channel = Channel.query.get(channel_id)
-        return channel.to_dict()
+        dm_room = DirectMessageRoom.query.get(dm_room_id)
+        return dm_room.to_dict()
 
     if request.method == 'PUT':
-        channel = Channel.query.get(channel_id)
+        dm_room = DirectMessageRoom.query.get(dm_room_id)
         data = request.json
-        channel.name = data['name']
-        channel.topic = data['topic']
-        channel.description = data['description']
+        dm_room.name = data['name']
+        dm_room.topic = data['topic']
+        dm_room.description = data['description']
         db.session.commit()
-        return channel.to_dict()
+        return dm_room.to_dict()
 
     if request.method == 'DELETE':
-        channel = db.session.query(Channel).filter(Channel.id == channel_id).first()
-        db.session.delete(channel)
+        dm_room = DirectMessageRoom.query.get(dm_room_id)
+        db.session.delete(dm_room)
         db.session.commit()
-        return {'channel_id': channel_id}
+        return {'dm_room_id': dm_room_id}
