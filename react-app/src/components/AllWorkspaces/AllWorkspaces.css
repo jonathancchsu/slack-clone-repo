@@ -148,7 +148,7 @@
 .main-buttons {
   display: flex;
   opacity: 0;
-  height: 20px;
+  height: 10px;
   transition-duration: 1s;
 }
 
@@ -247,8 +247,6 @@
 .edit-btns {
   display: flex;
   flex-direction: row;
-  height: 110px;
-  margin-bottom: 9px;
 }
 
 .create-wmn-ws {
@@ -307,4 +305,16 @@
 .diff-email-btn:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.view-more {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.view-more > p {
+  font-size: 8px;
+  margin-bottom: 5px;
 }

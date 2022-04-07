@@ -129,7 +129,9 @@ const Workspaces = ({ userId }) => {
                   {user.workspaces_owned.includes(workspace.id) ? (
                     <div>
                       <div>
-                        <div>
+                        <div className="view-more">
+                          <p>view more</p>
+                          <i className="fas fa-chevron-down" />
                           <div className={`main-buttons`}>
                             <button
                               className="main-delete-btn"
@@ -145,12 +147,6 @@ const Workspaces = ({ userId }) => {
                             </button>
                             {edit === workspace.id ? (
                               <div>
-                                <input
-                                  type="text"
-                                  value={workspaceName}
-                                  onChange={(e) => setWorkspaceName(e.target.value)}
-                                  className="main-edit-field"
-                                ></input>
                                 <div className="edit-btns">
                                   <button
                                     className="main-save-btn"
@@ -166,6 +162,12 @@ const Workspaces = ({ userId }) => {
                                   >
                                     Cancel
                                   </button>
+                                  <input
+                                    type="text"
+                                    value={workspaceName}
+                                    onChange={(e) => setWorkspaceName(e.target.value)}
+                                    className="main-edit-field"
+                                  ></input>
                                 </div>
                               </div>
                             ) : (
@@ -174,13 +176,13 @@ const Workspaces = ({ userId }) => {
                           </div>
                         </div>
                       </div>
-                    </div>):<></>}
+                    </div>) : <></>}
                 </div>
               </div>
             ))}
           </div>
           <div className="create-wmn-ws">
-            <img src='/static/create-ws.png' alt='wmn'/>
+            <img src='/static/create-ws.png' alt='wmn' />
             <h4>Want to use Slack with a different team?</h4>
             <button className="create-wmn-btn" onClick={(e) => createForm()}>
               CREATE A NEW WORKSPACE
