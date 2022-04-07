@@ -1,0 +1,23 @@
+div#main-content {
+    overflow-y: scroll;
+}
+
+div#main-content::-webkit-scrollbar {
+    display: none;
+}
+
+div#chat-container {
+    padding-bottom: 100px;
+}
+
+div#main-content > form {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+}
+
+div#main-content > form > button {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}

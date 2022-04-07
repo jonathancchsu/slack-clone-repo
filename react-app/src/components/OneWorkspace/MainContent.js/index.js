@@ -31,6 +31,8 @@ const MainContent = () => {
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView.main_content);
 
+  const [showButtons, setShowButtons] = useState(null);
+
   useEffect(() => {
     setloaded(false);
     let id = url.split("/")[7] * 1;
@@ -167,39 +169,42 @@ const MainContent = () => {
           </div>
           <div>insert member icon {view.members?.length}</div>
         </div>
-        {messages?.map((message) =>
-          edit === message.id ? (
-            <div key={message.id}>
-              {message.sender_username}
-              <CKEditor data={message.content} editor={ClassicEditor} onChange={updateMessageContent}/>
-              <button onClick={(e) => handleEditMessage(e, message)}>
-                Submit
-              </button>
-              <button onClick={handleCancel}>Cancel</button>
-            </div>
-          ) : (
-            <div key={message.id}>
-              {message.sender_username}:{ReactHtmlParser(message.content)}
-              {message.created_at}
-              {user.id === message.sender_id && (
-                <span>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setEditContent(message.content);
-                      setEdit(message.id);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button onClick={(e) => handleDeleteMessage(e, message)}>
-                    Delete
-                  </button>
-                </span>
-              )}
-            </div>
-          )
-        )}
+        <div id='chat-container'>
+          {messages?.map((message, idx) =>
+          // TO EDIT
+            edit === message.id ? (
+              <div key={message.id}>
+                {message.sender_username}
+                <CKEditor data={message.content} editor={ClassicEditor} onChange={updateMessageContent}/>
+                <button onClick={(e) => handleEditMessage(e, message)}>
+                  Submit
+                </button>
+                <button onClick={handleCancel}>Cancel</button>
+              </div>
+            ) : (
+              <div className="single-msg" key={message.id} onMouseEnter={() => setShowButtons(idx)} >
+                {message.sender_username}:{ReactHtmlParser(message.content)}
+                {message.created_at}
+                {user.id === message.sender_id && showButtons === idx && (
+                  <span>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setEditContent(message.content);
+                        setEdit(message.id);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button onClick={(e) => handleDeleteMessage(e, message)}>
+                      Delete
+                    </button>
+                  </span>
+                )}
+              </div>
+            )
+          )}
+        </div>
         <form onSubmit={sendChat}>
           <CKEditor editor={ClassicEditor} onChange={updateChatInput} data={chatInput}/>
           <button type="submit">Send</button>
