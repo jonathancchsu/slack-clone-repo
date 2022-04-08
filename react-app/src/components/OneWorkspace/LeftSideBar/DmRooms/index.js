@@ -28,7 +28,7 @@ const DmRooms = ({ workspace }) => {
     }
   };
 
-  console.log("rooms", dmRooms);
+
   useEffect(() => {
     setLoaded(false);
     setLoaded(true);
