@@ -11,7 +11,7 @@ else:
     origins = "*"
 
 # initialize your socket instance
-socketio = SocketIO(cors_allowed_origins=origins)
+socketio = SocketIO(cors_allowed_origins=origins, logger=True, engineio_logger=True)
 
 # handle chat messages
 @socketio.on('connect')
@@ -48,8 +48,8 @@ def leave(data):
     print('leaving hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', data)
     leave_room(data['room'])
 
-@socketio.on('chat')
+@socketio.on('message')
 def on_chat_sent(data):
-    print('hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', data)
+    print('data issssss hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', data)
     room = data['room']
-    send('message_sent', data, room=room)
+    send({'id':data['id'],'dm_room_id': data['dm_room_id'] , 'channel_id':data['channel_id'], 'content': data['content'], 'created_at': data['created_at'], 'room':data['room'], 'sender_username': data['sender_username'], 'sender_profile_picture': data['sender_profile_picture'] }, room=data['room'],)

@@ -54,9 +54,23 @@ const MainContent = () => {
 
   useEffect(() => {
     socket = io();
-    socket.on("chat", (chat) => {
-      setMessages((messages) => [...messages, chat]);
+    socket.on("message", (data) => {
+      console.log("hereeeeeeeeeeeeeeeeeeee", data);
+      setMessages((messages) => [...messages, data]);
     });
+    // socket.on("chat", (chat) => {
+    //   if (chat.edit) {
+    //     setMessages((messages) =>
+    //       messages.map((message) => (chat.id === message.id ? chat : message))
+    //     );
+    //   } else if (chat.delete) {
+    //     setMessages((messages) =>
+    //       messages.filter((message) => chat.id !== message.id)
+    //     );
+    //   } else {
+    //     setMessages((messages) => [...messages, chat]);
+    //   }
+    // });
     return () => {
       socket.disconnect();
     };
@@ -69,19 +83,19 @@ const MainContent = () => {
   }, [prevRoom, socketRoom]);
 
   // useEffect(() => {
-  // // socket.on("chat", (chat) => {
-  // //   if (chat.edit) {
-  // //     setMessages((messages) =>
-  // //       messages.map((message) => (chat.id === message.id ? chat : message))
-  // //     );
-  // //   } else if (chat.delete) {
-  // //     setMessages((messages) =>
-  // //       messages.filter((message) => chat.id !== message.id)
-  // //     );
-  // //   } else {
-  // //     setMessages((messages) => [...messages, chat]);
-  // //   }
-  // // });
+  // socket.on("chat", (chat) => {
+  //   if (chat.edit) {
+  //     setMessages((messages) =>
+  //       messages.map((message) => (chat.id === message.id ? chat : message))
+  //     );
+  //   } else if (chat.delete) {
+  //     setMessages((messages) =>
+  //       messages.filter((message) => chat.id !== message.id)
+  //     );
+  //   } else {
+  //     setMessages((messages) => [...messages, chat]);
+  //   }
+  // });
 
   // // when component unmounts, disconnect
   // //   return () => {
@@ -140,29 +154,35 @@ const MainContent = () => {
   //   setChatInput("");
   // };
 
-  const sendChat = async () => {
+  const sendChat = async (e) => {
+    e.preventDefault();
     if (dmRoomId) {
-      let message = await dispatch(
+      await dispatch(
         postDirectMessage({
           room_id: dmRoomId,
+          channel_id: null,
           sender_id: user.id,
           content: chatInput,
+          room: socketRoom,
+          sender_username: user.username,
+          sender_profile_picture: user.profile_picture,
         })
-      );
-      message["room"] = socketRoom;
-      socket.send(message);
+      ).then((message) => socket.send(message));
     }
     if (channelId) {
-      let message = await dispatch(
+      await dispatch(
         postChannelMessage({
           channel_id: view.id,
+          room_id: null,
           sender_id: user.id,
           content: chatInput,
+          room: socketRoom,
+          sender_username: user.username,
+          sender_profile_picture: user.profile_picture,
         })
-      );
-      message["room"] = socketRoom;
-      socket.send(message);
+      ).then((message) => socket.send(message));
     }
+    setChatInput("");
   };
 
   const updateChatInput = (e, editor) => {
@@ -197,7 +217,7 @@ const MainContent = () => {
 
   const handleDeleteMessage = async (e, message) => {
     e.preventDefault();
-    socket.send({
+    socket.on("chat", {
       id: message.id,
       channel_id: view.id,
       sender_id: user.id,

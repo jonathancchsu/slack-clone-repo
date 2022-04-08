@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../../../store/session";
 
-import './LeftSideBar.css';
+import "./LeftSideBar.css";
 
 const LeftSideBar = () => {
   const dispatch = useDispatch();
@@ -17,28 +17,23 @@ const LeftSideBar = () => {
   const members = useSelector(
     (state) => state.workspace.currentWorkspace.members
   );
-  const workspace = useSelector(
-    (state) => state.workspace.currentWorkspace
-  );
+  const workspace = useSelector((state) => state.workspace.currentWorkspace);
 
   useEffect(() => {
     dispatch(getAllUsers());
-    setLoaded(true);
   }, [dispatch, user, workspace]);
 
   return (
-    loaded && (
-      <div id='left-sb-main'>
-        <div className="left-sb-ws-name">
-          <h2>{workspace.name}</h2>
-        </div>
-        <div className="left-sb-container">
-          <Members workspace={workspace} user={user} members={members} />
-          <Channels workspace={workspace} />
-          <DmRooms workspace={workspace} />
-        </div>
+    <div id="left-sb-main">
+      <div className="left-sb-ws-name">
+        <h2>{workspace.name}</h2>
       </div>
-    )
+      <div className="left-sb-container">
+        <Members workspace={workspace} user={user} members={members} />
+        <Channels workspace={workspace} />
+        <DmRooms workspace={workspace} />
+      </div>
+    </div>
   );
 };
 

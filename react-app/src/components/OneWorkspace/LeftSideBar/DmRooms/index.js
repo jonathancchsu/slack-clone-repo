@@ -29,48 +29,42 @@ const DmRooms = ({ workspace }) => {
     }
   };
 
-  useEffect(() => {
-    setLoaded(false);
-    setLoaded(true);
-  }, [user, workspace]);
   const dmRoom = async (e, id) => {
     e.preventDefault();
     history.push(`/workspaces/${workspace.id}/dm_rooms/${id}`);
   };
   return (
-    loaded && (
-      <div id="dm-rooms-list-main">
-        <span id="dm-rooms-list-child">
-          <button onClick={() => setShowDmRooms(!showDmRooms)}>
-            <i className="fas fa-caret-right"></i>
-          </button>
-          <p>Direct Messages</p>
-          <CreateDmModal />
-        </span>
-        {showDmRooms &&
-          dmRooms.map((room) => (
-            <div
-              key={room.dm_room_id}
-              onClick={(e) => dmRoom(e, room.dm_room_id)}
-              id={room.id}
-              className="single_dm_room"
-            >
-              <div className="single_dm_room_child">
-                {room.neighbors.members.map((member) => (
-                  <div className="single_dm_room_child" key={member.id}>
-                    {member.username}
-                  </div>
-                ))}
-                {user.id === room.user_id && (
-                  <button onClick={(e) => handleDelete(e, room.dm_room_id)}>
-                    ❌
-                  </button>
-                )}
-              </div>
+    <div id="dm-rooms-list-main">
+      <span id="dm-rooms-list-child">
+        <button onClick={() => setShowDmRooms(!showDmRooms)}>
+          <i className="fas fa-caret-right"></i>
+        </button>
+        <p>Direct Messages</p>
+        <CreateDmModal />
+      </span>
+      {showDmRooms &&
+        dmRooms.map((room) => (
+          <div
+            key={room.dm_room_id}
+            onClick={(e) => dmRoom(e, room.dm_room_id)}
+            id={room.id}
+            className="single_dm_room"
+          >
+            <div className="single_dm_room_child">
+              {room.neighbors.members.map((member) => (
+                <div className="single_dm_room_child" key={member.id}>
+                  {member.username}
+                </div>
+              ))}
+              {user.id === room.user_id && (
+                <button onClick={(e) => handleDelete(e, room.dm_room_id)}>
+                  ❌
+                </button>
+              )}
             </div>
-          ))}
-      </div>
-    )
+          </div>
+        ))}
+    </div>
   );
 };
 
