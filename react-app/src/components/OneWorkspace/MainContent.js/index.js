@@ -115,6 +115,7 @@ const MainContent = () => {
     setChatInput("");
     let audio = new Audio("/static/knock_brush.mp3");
     audio.play();
+    dispatch(getCurrentChannel(channelId))
   };
 
   const updateChatInput = (e, editor) => {
