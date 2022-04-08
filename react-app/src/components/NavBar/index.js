@@ -38,7 +38,7 @@ const NavBar = () => {
           :
           <div className='search' onClick={() => setShowSearchBox(true)}>
             <p style={{ fontSize: 10 }}>Search Workspace</p>
-            <img src='../static/search.png' alt='search' className='search-btn' />
+            <i className="fas fa-search" style={{color:'white', marginRight: 5}}></i>
           </div>
         }
         <div className='nav-profile' onClick={() => setuserMenu(!userMenu)}>

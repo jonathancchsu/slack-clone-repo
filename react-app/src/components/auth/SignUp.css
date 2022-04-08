@@ -21,6 +21,7 @@
     margin-bottom: 15px;
     border-radius: 5px;
     border: 1px solid lightgray;
+    display: flex;
 }
 
 .sign-up-form input:focus {
@@ -53,4 +54,18 @@
     margin-bottom: 0;
     font-size: 40px;
     font-weight: 700;
+}
+
+.pic-button {
+    opacity: 0;
+}
+
+
+
+.aws:hover {
+cursor: pointer;
+}
+
+.aws-box {
+    height: 50px;
 }

@@ -44,3 +44,14 @@ span#members-tab>button {
 .results-map:hover {
     cursor: pointer;
 }
+
+#members-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 20px;
+}
+
+#members-list > p {
+    margin: 0;
+}

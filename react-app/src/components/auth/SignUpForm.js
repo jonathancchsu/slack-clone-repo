@@ -49,7 +49,7 @@ const SignUpForm = () => {
 
   return (
     <div className='sign-up-container'>
-      <img src='/static/logo.svg' className='slack-logo' style={{height:50}} alt="logo"></img>
+      <img src='/static/logo.svg' className='slack-logo' style={{ height: 50 }} alt="logo"></img>
       <h1>First, enter your information</h1>
       <h4>We suggest you using the email address you use at work.</h4>
       <form onSubmit={onSignUp} className='sign-up-form'>
@@ -78,16 +78,6 @@ const SignUpForm = () => {
         </div>
         <div>
           <input
-            type='file'
-            accept='image/*'
-            name='profile_img'
-            onChange={updateProfile}
-            defaultValue={profile_picture}
-            placeholder='  profile picture(optional)'
-            />
-        </div>
-        <div>
-          <input
             type='password'
             name='password'
             onChange={updatePassword}
@@ -105,6 +95,20 @@ const SignUpForm = () => {
             placeholder='  confirm password'
           ></input>
         </div>
+        <label className='aws-box'>
+          <div className='aws'>
+            <i className='fas fa-image'>upload profile picture</i>
+          </div>
+          <input
+            className='pic-button'
+            type='file'
+            accept='image/*'
+            name='profile_img'
+            onChange={updateProfile}
+            defaultValue={profile_picture}
+            placeholder='  profile picture(optional)'
+          />
+        </label>
         <button type='submit' className='sign-up-btn'>Sign Up</button>
       </form>
     </div>
