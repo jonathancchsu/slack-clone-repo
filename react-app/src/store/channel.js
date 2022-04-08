@@ -102,7 +102,12 @@ const channelReducer = (
       return newState;
     }
     case ADD_CHANNEL_MEMBER: {
-      newState.userChannels[action.payload.channel_id].channel_data.members = [...newState.userChannels[action.payload.channel_id].channel_data.members, action.payload];
+      console.log(action.payload);
+      if (newState.userChannels[action.payload.channel_id]) {
+        newState.userChannels[action.payload.channel_id].channel_data.members = [...newState.userChannels[action.payload.channel_id].channel_data.members, action.payload];
+      } else {
+        newState.userChannels[action.payload.channel_id] = action.payload;
+      }
       return newState;
     }
     default:

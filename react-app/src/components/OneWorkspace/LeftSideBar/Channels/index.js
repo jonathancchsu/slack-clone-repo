@@ -36,13 +36,13 @@ const Channels = () => {
           <p>Channels</p>
         </span>
         {showChannels &&
-          userChannels.map((channel) => (
+          userChannels.map((channel) => channel.channel_data ? (
             <div key={channel.channel_id}>
               <div className='channel-name' onClick={() => channelRoom(channel.channel_id)}>
                 # <div style={{marginLeft: 10}}>{channel.channel_data.name}</div>
               </div>
             </div>
-          ))}
+          ) : null)}
         <div className="add-channel-btn">
           <CreateChannelModal></CreateChannelModal>
           Add channels
