@@ -33,7 +33,7 @@ const Channels = () => {
   const [showChannels, setShowChannels] = useState(false);
   const [newMember, setNewMember] = useState("");
   const channelRoom = (id) => {
-    history.push(`/workspaces/${workspace.id}/messages/channels/${id}`);
+    history.push(`/workspaces/${workspace.id}/channels/${id}`);
   };
 
   const handleEdit = (e) => {

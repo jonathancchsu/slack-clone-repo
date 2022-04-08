@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { deleteDmRoom } from "../../../../store/dmRooms";
 
-import './DmRooms.css';
+import "./DmRooms.css";
 
 import CreateDmModal from "./DmForm/DmFormModal";
 const DmRooms = ({ workspace }) => {
@@ -35,13 +35,15 @@ const DmRooms = ({ workspace }) => {
   }, [user, workspace]);
   const dmRoom = async (e, id) => {
     e.preventDefault();
-    history.push(`/workspaces/${workspace.id}/messages/dm_rooms/${id}`);
+    history.push(`/workspaces/${workspace.id}/dm_rooms/${id}`);
   };
   return (
     loaded && (
-      <div id='dm-rooms-list-main'>
-        <span id='dm-rooms-list-child'>
-          <button onClick={() => setShowDmRooms(!showDmRooms)}><i className="fas fa-caret-right"></i></button>
+      <div id="dm-rooms-list-main">
+        <span id="dm-rooms-list-child">
+          <button onClick={() => setShowDmRooms(!showDmRooms)}>
+            <i className="fas fa-caret-right"></i>
+          </button>
           <p>Direct Messages</p>
           <CreateDmModal />
         </span>
