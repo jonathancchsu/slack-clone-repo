@@ -169,7 +169,6 @@ const MainContent = () => {
     view.workspace_id === workspaceId * 1 && (
       <div id="main-content">
         <div>
-<<<<<<< HEAD
           <div id="main-header">
             <div style={{ marginLeft: 20 }}>
               {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
@@ -180,12 +179,6 @@ const MainContent = () => {
               });
             }}>Join Channel</button>}
             <div></div>
-=======
-          <div style={{ marginLeft: 20 }}>
-            {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
-          </div>
-          <div id="main-header">
->>>>>>> main
             <div className="main-header-members">
               {view.members?.map((member, idx) => {
                 return (

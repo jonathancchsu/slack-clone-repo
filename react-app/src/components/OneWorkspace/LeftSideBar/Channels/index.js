@@ -37,15 +37,6 @@ const Channels = () => {
           <p>Channels</p>
         </span>
         {showChannels &&
-// <<<<<<< HEAD
-//           userChannels.map((channel) => channel.channel_data ? (
-//             <div key={channel.channel_id}>
-//               <div className='channel-name' onClick={() => channelRoom(channel.channel_id)}>
-//                 # <div style={{marginLeft: 10}}>{channel.channel_data.name}</div>
-//               </div>
-//             </div>
-//           ) : null)}
-// =======
           userChannels.map(
             (channel) => channel.channel_data ?
               (channel.workspace_id === workspaceId * 1 && (
