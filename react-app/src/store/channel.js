@@ -21,6 +21,8 @@ export const postChannel = (channel) => async (dispatch) => {
   const new_channel = await res.json();
 
   dispatch(addChannel(new_channel));
+
+  return new_channel;
 };
 
 //------------------------------------edit channel---------------------------------
