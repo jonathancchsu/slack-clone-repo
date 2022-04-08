@@ -8,18 +8,26 @@ import "./ChannelModal.css";
 const ChannelModal = ({ setShowModal, channel }) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [dispatch]);
-
-  const allUsers = useSelector ((state) => state.session.users)
+  const user = useSelector((state) => state.session.user);
+  const allUsers = useSelector ((state) => state.session.users);
+  const [loaded, setLoaded] = useState(false);
   const [newMember, setNewMember] = useState("");
-  const [edit, setEdit] = useState("");
+  const [editName, setEditName] = useState("");
+  const [editTopic, setEditTopic] = useState("");
+  const [editDescription, setEditDescription] = useState("");
   const [channelName, setChannelName] = useState(channel.name);
   const [channelTopic, setChannelTopic] = useState(channel.topic);
   const [channelDescription, setChannelDescription] = useState(channel.description);
 
   const ownername = allUsers.filter(user => user.id === channel.owner_id)[0].username
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, [dispatch, user, allUsers, channel]);
 
   const handleAddMember = (e, id) => {
     e.preventDefault();
@@ -28,12 +36,24 @@ const ChannelModal = ({ setShowModal, channel }) => {
     setShowModal(false);
   }
 
-  const handleEdit = e => {
+  const handleEditName = e => {
     e.preventDefault();
-    dispatch(putChannel({ id: edit, description: channelDescription, topic: channelTopic, name: channelName }));
-    setEdit("");
+    dispatch(putChannel({ id: editName, description: channelDescription, topic: channelTopic, name: channelName }));
+    setEditName("");
     setChannelName("");
+  };
+
+  const handleEditTopic = e => {
+    e.preventDefault();
+    dispatch(putChannel({ id: editTopic, description: channelDescription, topic: channelTopic, name: channelName }));
+    setEditTopic("");
     setChannelTopic("");
+  };
+
+  const handleEditDescription = e => {
+    e.preventDefault();
+    dispatch(putChannel({ id: editDescription, description: channelDescription, topic: channelTopic, name: channelName }));
+    setEditDescription("");
     setChannelDescription("");
   };
 
@@ -43,14 +63,77 @@ const ChannelModal = ({ setShowModal, channel }) => {
   };
 
   return (
+    loaded && (
       <div className="channel-modal-container">
         <div className="sub-container">
+          {editName === channel.channel_id ? (
+            <div>
+              <input
+                type="text"
+                value={channelName}
+                onChange={(e) => setChannelName(e.target.value)}
+                ></input>
+              <button onClick={handleEditName}>Save</button>
+              <button onClick={() => setEditName("")}>Cancel</button>
+            </div>
+          ) : (
+            <>
+              <b>#{channel.name}</b>
+              {user.id === channel.owner_id &&
+                <button onClick={(e) => setEditName(channel.id)}>
+                  edit channel name
+                </button>
+              }
+            </>
+          )}
+
+        </div>
+        <div className="sub-container">
           <b>Topic</b>
-          <p>{channel.topic}</p>
+          {editTopic === channel.channel_id ? (
+            <div>
+              <input
+                type="text"
+                value={channelTopic}
+                onChange={(e) => setChannelTopic(e.target.value)}
+                ></input>
+              <button onClick={handleEditTopic}>Save</button>
+              <button onClick={() => setEditTopic("")}>Cancel</button>
+            </div>
+          ) : (
+            <>
+              <p>{channel.topic}</p>
+              {user.id === channel.owner_id &&
+                <button onClick={(e) => setEditTopic(channel.id)}>
+                  edit channel topic
+                </button>
+              }
+            </>
+          )}
+
         </div>
         <div className="sub-container">
           <b>Description</b>
-          <p>{channel.description}</p>
+          {editDescription === channel.channel_id ? (
+            <div>
+              <input
+                type="text"
+                value={channelDescription}
+                onChange={(e) => setChannelDescription(e.target.value)}
+                ></input>
+              <button onClick={handleEditDescription}>Save</button>
+              <button onClick={() => setEditDescription("")}>Cancel</button>
+            </div>
+          ) : (
+            <>
+              <p>{channel.description}</p>
+              {user.id === channel.owner_id &&
+                <button onClick={(e) => setEditDescription(channel.id)}>
+                  edit channel description
+                </button>
+              }
+            </>
+          )}
         </div>
         <div className="subcontainer">
           <b>Created By</b>
@@ -66,7 +149,13 @@ const ChannelModal = ({ setShowModal, channel }) => {
             <button>add member</button>
           </form>
         </div>
+        {user.id === channel.owner_id &&
+          <button onClick={(e) => deleteEvent(e, channel.id)}>
+            delete channel
+          </button>
+        }
       </div>
+    )
   )
 }
 
