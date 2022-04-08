@@ -28,13 +28,12 @@ const DmRoomForm = ({ setShowModal }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(members)
-
-    dispatch(postDmRoom({ owner_id, workspace_id, members: members })).then(result => {
-      history.push(`/workspaces/${workspace_id}/dm_rooms/${result}`);
-      setShowModal(false);
-    });
-
+    dispatch(postDmRoom({ owner_id, workspace_id, members: members })).then(
+      (result) => {
+        history.push(`/workspaces/${workspace_id}/dm_rooms/${result}`);
+        setShowModal(false);
+      }
+    );
   };
 
   const handleKeyPress = (e) => {

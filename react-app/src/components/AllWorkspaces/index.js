@@ -18,7 +18,6 @@ const Workspaces = ({ userId }) => {
   const workspace = useSelector((state) => state.workspace);
   const workspacesObj = workspace.userWorkspaces;
   const workspaces = Object.values(workspacesObj);
-  console.log("workspaces hereeeeeeeeeeeeeeeee", workspace);
 
   useEffect(() => {
     dispatch(getUser(userId));
