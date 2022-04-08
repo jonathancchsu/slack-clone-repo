@@ -62,11 +62,13 @@ const DmRooms = ({ workspace }) => {
                 >
                 <div className="single_dm_room_child">
                   <i className="fas fa-user" />
-                  {room.neighbors.members.map((member) => (
-                    <div className="single_dm_room_child" key={member.id}>
+                  <div className="dm-rooms-names">
+                    {room.neighbors.members.map((member) => (
+                      <div className="single_dm_room_child" key={member.id}>
                       {member.username},
-                    </div>
-                  ))}
+                      </div>
+                    ))}
+                  </div>
                   {user.id === room.user_id && (
                     <button onClick={(e) => handleDelete(e, room.dm_room_id)}>
                       <i className="fas fa-trash-alt" />
