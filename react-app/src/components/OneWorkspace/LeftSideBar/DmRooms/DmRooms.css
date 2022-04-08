@@ -7,10 +7,16 @@ span#dm-rooms-list-child {
 .single_dm_room {
   display: flex;
   flex-direction: row;
+  margin-left: 15px;
 }
 .single_dm_room_child {
   display: flex;
   flex-direction: row;
+  font-size: 12px;
+}
+
+.single_dm_room_child:hover {
+  cursor: pointer;
 }
 
 span#dm-rooms-list-child > button {

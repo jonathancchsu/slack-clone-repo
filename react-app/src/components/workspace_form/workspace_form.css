@@ -69,6 +69,7 @@
   align-items: center;
   font-family: 'Open Sans';
   color: #4a154b;
+  font-size: 13px;
 }
 
 .create-ws-cancel-btn > a {

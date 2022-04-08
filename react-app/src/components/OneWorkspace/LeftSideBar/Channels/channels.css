@@ -9,3 +9,14 @@ span#channels-tab-child > button {
     border: none;
     color: white;
 }
+
+#channels-tab-main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.channel-tab {
+    margin-left: 15px;
+}
