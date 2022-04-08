@@ -49,8 +49,8 @@ const Channels = () => {
         </span>
         {showChannels &&
           userChannels.map(
-            (channel) =>
-              channel.workspace_id === workspaceId * 1 && (
+            (channel) => channel.channel_data ?
+              (channel.workspace_id === workspaceId * 1 && (
                 <div key={channel.channel_id}>
                   <div
                     className="channel-name"
@@ -62,7 +62,7 @@ const Channels = () => {
                     </div>
                   </div>
                 </div>
-              )
+              )) : null
           )}
       </div>
     )

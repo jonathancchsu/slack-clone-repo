@@ -16,6 +16,7 @@ import {
   putMessage,
   deleteMessage,
 } from "../../../store/currentView";
+import { addNewChannelMember } from "../../../store/channel";
 import { io } from "socket.io-client";
 import ChannelModalMain from "./ChannelModal/ChannelModalMain";
 let socket;
@@ -34,6 +35,7 @@ const MainContent = () => {
 
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView.main_content);
+  const userChannels = useSelector(state => state.channels.userChannels);
   const [showButtons, setShowButtons] = useState(null);
   const messagesEnd = useRef(null);
 
@@ -173,10 +175,16 @@ const MainContent = () => {
     view.workspace_id === workspaceId * 1 && (
       <div id="main-content">
         <div>
-          <div style={{ marginLeft: 20 }}>
-            {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
-          </div>
           <div id="main-header">
+            <div style={{ marginLeft: 20 }}>
+              {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
+            </div>
+            { userChannels[view.id] && view.channel_id ? null : <button id='join-channel' onClick={() => {
+              dispatch(addNewChannelMember(channelId, user.username)).then(() => {
+                dispatch(getCurrentChannel(channelId));
+              });
+            }}>Join Channel</button>}
+            <div></div>
             <div className="main-header-members">
               {view.members?.map((member, idx) => {
                 return (

@@ -45,6 +45,19 @@ div#chat-container {
     z-index: -1;
 }
 
+#join-channel {
+    background-color: #007A5A;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#join-channel:hover {
+    background-color: #007a59ec;
+}
+
 .main-header-members {
     position: fixed;
     right: 0;

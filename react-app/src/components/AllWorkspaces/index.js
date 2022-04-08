@@ -32,7 +32,7 @@ const Workspaces = ({ userId }) => {
     const channel = user.channel_member.find(
       (channel) => channel.workspace_id === workspaceId
     );
-    history.push(`/workspaces/${workspaceId}/channels/${channel.channel_id}`);
+    history.push(`/workspaces/${workspaceId}/channels/${channel?.channel_id}`);
   };
 
   const createForm = () => {
