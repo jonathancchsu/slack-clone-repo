@@ -256,7 +256,7 @@ const MainContent = () => {
         </div>
         <div>
           {dmRoomId && (
-            <h2>{view.members?.map((member) => member.username)}</h2>
+            <div className="dm-members">{view.members?.map((member) => (<div style={{marginRight: 5}}>{member.username},</div>))}</div>
           )}
         </div>
       </div>

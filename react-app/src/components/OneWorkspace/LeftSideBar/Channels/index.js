@@ -17,7 +17,7 @@ const Channels = ({ workspace }) => {
   }, [dispatch, channelsObj, user]);
 
   const [loaded, setLoaded] = useState(false);
-  const [showChannels, setShowChannels] = useState(false);
+  const [showChannels, setShowChannels] = useState(true);
   const channelRoom = (id) => {
     history.push(`/workspaces/${workspace.id}/channels/${id}`);
   };
@@ -27,7 +27,9 @@ const Channels = ({ workspace }) => {
       <div id="channels-tab-main">
         <span id="channels-tab-child">
           <button onClick={() => setShowChannels(!showChannels)}>
-            <i className="fas fa-caret-right"></i>
+            {userChannels? <i className="fas fa-caret-down"></i>
+            :  <i className="fas fa-caret-right"></i>
+          }
           </button>
           <p>Channels</p>
           <CreateChannelModal></CreateChannelModal>
@@ -35,7 +37,7 @@ const Channels = ({ workspace }) => {
         {showChannels &&
           userChannels.map((channel) => (
             <div key={channel.channel_id}>
-              <div onClick={() => channelRoom(channel.channel_id)}>
+              <div className='channel-name' onClick={() => channelRoom(channel.channel_id)}>
                 # {channel.channel_data.name}
               </div>
             </div>
