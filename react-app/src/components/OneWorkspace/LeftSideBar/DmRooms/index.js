@@ -16,7 +16,7 @@ const DmRooms = ({ workspace }) => {
   const dmRoomsObj = useSelector((state) => state.dmRooms);
   const dmRooms = Object.values(dmRoomsObj.userDmRooms);
 
-  const [showDmRooms, setShowDmRooms] = useState(false);
+  const [showDmRooms, setShowDmRooms] = useState(true);
 
   const handleDelete = async (e, roomId) => {
     e.preventDefault();
@@ -60,28 +60,21 @@ const DmRooms = ({ workspace }) => {
                   id={room.id}
                   className="single_dm_room"
                 >
-                  <div className="single_dm_room_child">
-                    <i className="fas fa-user" />
-                    {room.neighbors.members.map((member) => (
-                      <div className="single_dm_room_child" key={member.id}>
-                        {member.username},
-                      </div>
-                    ))}
-                    {user.id === room.user_id && (
-                      <button onClick={(e) => handleDelete(e, room.dm_room_id)}>
-                        <i className="fas fa-trash-alt" />
-                      </button>
-                    )}
-                  </div>
-                ))}
-                {user.id === room.user_id && (
-                  <button onClick={(e) => handleDelete(e, room.dm_room_id)}>
-                    <i className="fas fa-trash-alt" />
-                  </button>
-                )}
-              </div>
-            </div>
-          ))}
+                <div className="single_dm_room_child">
+                  <i className="fas fa-user" />
+                  {room.neighbors.members.map((member) => (
+                    <div className="single_dm_room_child" key={member.id}>
+                      {member.username},
+                    </div>
+                  ))}
+                  {user.id === room.user_id && (
+                    <button onClick={(e) => handleDelete(e, room.dm_room_id)}>
+                      <i className="fas fa-trash-alt" />
+                    </button>
+                  )}
+                </div>
+                </div>
+              ))}
         <div className="add-dm-room">
           <CreateDmModal />
           Add teammates
