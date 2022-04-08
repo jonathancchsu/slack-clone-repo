@@ -115,6 +115,8 @@ const MainContent = () => {
         })
       );
     setChatInput("");
+    let audio = new Audio('/static/knock_brush.mp3')
+    audio.play()
   };
 
   const updateChatInput = (e, editor) => {
