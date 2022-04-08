@@ -21,7 +21,7 @@ import ChannelModalMain from "./ChannelModal/ChannelModalMain";
 let socket;
 
 const MainContent = () => {
-  const { workspaceId, channelId, dmRoomId } = useParams();
+  const { channelId, dmRoomId } = useParams();
   const [prevRoom, setPrevRoom] = useState(
     channelId ? `channel${channelId}` : `dmroom${dmRoomId}`
   );

@@ -12,7 +12,7 @@ const LeftSideBar = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.session.user);
 
-  const [loaded, setLoaded] = useState(false);
+  // const [loaded, setLoaded] = useState(false);
 
   const members = useSelector(
     (state) => state.workspace.currentWorkspace.members
