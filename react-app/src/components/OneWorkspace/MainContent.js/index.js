@@ -37,7 +37,6 @@ const MainContent = () => {
   const [showButtons, setShowButtons] = useState(null);
   useEffect(() => {
     if (channelId) {
-      console.log("idddddddd", channelId);
       dispatch(getCurrentChannel(channelId));
       setSocketRoom(`channel${channelId}`);
     }
@@ -55,7 +54,6 @@ const MainContent = () => {
   useEffect(() => {
     socket = io();
     socket.on("message", (data) => {
-      console.log("hereeeeeeeeeeeeeeeeeeee", data);
       setMessages((messages) => [...messages, data]);
     });
 
@@ -163,16 +161,14 @@ const MainContent = () => {
     setEditContent("");
   };
 
-  console.log(view);
-
   return (
     view.workspace_id === workspaceId * 1 && (
       <div id="main-content">
         <div>
-          <div id="main-header">
           <div style={{ marginLeft: 20 }}>
-            {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
+            {channelId && <ChannelModalMain></ChannelModalMain>}
           </div>
+          <div id="main-header">
             <div className="main-header-members">
               {view.members?.map((member, idx) => {
                 return (idx < 3 && (
