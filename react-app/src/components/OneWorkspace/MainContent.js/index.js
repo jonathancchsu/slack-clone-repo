@@ -21,7 +21,7 @@ import ChannelModalMain from "./ChannelModal/ChannelModalMain";
 let socket;
 
 const MainContent = () => {
-  const { channelId, dmRoomId } = useParams();
+  const { channelId, dmRoomId, workspaceId } = useParams();
   const [prevRoom, setPrevRoom] = useState(
     channelId ? `channel${channelId}` : `dmroom${dmRoomId}`
   );
@@ -31,7 +31,7 @@ const MainContent = () => {
   const [messages, setMessages] = useState([]);
   const [edit, setEdit] = useState(null);
   const [editContent, setEditContent] = useState("");
-  // const [showChannelModal, setShowChannelModal] = useState(false);
+
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView.main_content);
   const [showButtons, setShowButtons] = useState(null);
@@ -58,19 +58,7 @@ const MainContent = () => {
       console.log("hereeeeeeeeeeeeeeeeeeee", data);
       setMessages((messages) => [...messages, data]);
     });
-    // socket.on("chat", (chat) => {
-    //   if (chat.edit) {
-    //     setMessages((messages) =>
-    //       messages.map((message) => (chat.id === message.id ? chat : message))
-    //     );
-    //   } else if (chat.delete) {
-    //     setMessages((messages) =>
-    //       messages.filter((message) => chat.id !== message.id)
-    //     );
-    //   } else {
-    //     setMessages((messages) => [...messages, chat]);
-    //   }
-    // });
+
     return () => {
       socket.disconnect();
     };
@@ -82,26 +70,6 @@ const MainContent = () => {
     setPrevRoom(socketRoom);
   }, [prevRoom, socketRoom]);
 
-  // useEffect(() => {
-  // socket.on("chat", (chat) => {
-  //   if (chat.edit) {
-  //     setMessages((messages) =>
-  //       messages.map((message) => (chat.id === message.id ? chat : message))
-  //     );
-  //   } else if (chat.delete) {
-  //     setMessages((messages) =>
-  //       messages.filter((message) => chat.id !== message.id)
-  //     );
-  //   } else {
-  //     setMessages((messages) => [...messages, chat]);
-  //   }
-  // });
-
-  // // when component unmounts, disconnect
-  // //   return () => {
-  // //     socket.disconnect();
-  // //   };
-  // // }, [dispatch, dmRoomId, channelId]);
   const leaveRoom = (oldRoom) => {
     socket.emit("leave_room", { room: oldRoom });
   };
@@ -109,50 +77,6 @@ const MainContent = () => {
   const joinRoom = (newRoom) => {
     socket.emit("join_room", { room: newRoom });
   };
-
-  // const sendChat = async (e) => {
-  //   e.preventDefault();
-  //   dmRoomId
-  //     ? await dispatch(
-  //         postDirectMessage({
-  //           room_id: view.id,
-  //           sender_id: user.id,
-  //           content: chatInput,
-  //         })
-  //       ).then((message) =>
-  //         socket.send({
-  //           id: message.id,
-  //           room_id: view.id,
-  //           sender_id: user.id,
-  //           content: chatInput,
-  //           sender_username: user.username,
-  //           sender_profile_picture: user.profile_picture,
-  //           created_at: message.created_at,
-  //           socket: true,
-  //           room: socketRoom,
-  //         })
-  //       )
-  //     : await dispatch(
-  //         postChannelMessage({
-  //           channel_id: view.id,
-  //           sender_id: user.id,
-  //           content: chatInput,
-  //         })
-  //       ).then((message) =>
-  //         socket.send({
-  //           id: message.id,
-  //           channel_id: view.id,
-  //           sender_id: user.id,
-  //           content: chatInput,
-  //           sender_username: user.username,
-  //           sender_profile_picture: user.profile_picture,
-  //           created_at: message.created_at,
-  //           room: socketRoom,
-  //           socket: true,
-  //         })
-  //       );
-  //   setChatInput("");
-  // };
 
   const sendChat = async (e) => {
     e.preventDefault();
@@ -183,8 +107,8 @@ const MainContent = () => {
       ).then((message) => socket.send(message));
     }
     setChatInput("");
-    let audio = new Audio('/static/knock_brush.mp3')
-    audio.play()
+    let audio = new Audio("/static/knock_brush.mp3");
+    audio.play();
   };
 
   const updateChatInput = (e, editor) => {
@@ -242,141 +166,141 @@ const MainContent = () => {
   console.log(view);
 
   return (
-
-    <div id="main-content">
-      <div>
-        <div style={{ marginLeft: 5 }}>
-          {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
-        </div>
-        <div id="main-header">
-          <div className="main-header-members">
-            <i className="fas fa-users" />:{view.members?.length}
-
+    view.workspace_id === workspaceId * 1 && (
+      <div id="main-content">
+        <div>
+          <div style={{ marginLeft: 5 }}>
+            {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
+          </div>
+          <div id="main-header">
+            <div className="main-header-members">
+              <i className="fas fa-users" />:{view.members?.length}
+            </div>
+          </div>
+          <div>
+            {dmRoomId && (
+              <h2>{view.members?.map((member) => member.username)}</h2>
+            )}
           </div>
         </div>
-        <div>
-          {dmRoomId && (
-            <div className="dm-members">{view.members?.map((member) => (<div style={{marginRight: 5}}>{member.username},</div>))}</div>
-          )}
-        </div>
-      </div>
-      <div id="chat-container">
-        {messages?.map((message, idx) =>
-          // TO EDIT
+        <div id="chat-container">
+          {messages?.map((message, idx) =>
+            // TO EDIT
 
-          edit === message.id ? (
-            <div key={message.id} className="edit-message">
-              <img src={message.sender_profile_picture} alt=""></img>
-              <div className="editor">
-                <CKEditor
-                  editor={ClassicEditor}
-                  onChange={updateMessageContent}
-                  data={message.content}
-                  config={{
-                    toolbar: [
-                      "heading",
-                      "|",
-                      "bold",
-                      "italic",
-                      "link",
-                      "bulletedList",
-                      "numberedList",
-                      "|",
-                      "indent",
-                      "outdent",
-                      "|",
-                      "codeBlock",
-                      "blockQuote",
-                      "insertTable",
-                      "undo",
-                      "redo",
-                    ],
-                  }}
-                />
-              </div>
-              <span className="edit-box">
-                <button onClick={handleCancel}>Cancel</button>
-                <button onClick={(e) => handleEditMessage(e, message)}>
-                  Save
-                </button>
-              </span>
-            </div>
-          ) : (
-            <div
-              className="single-msg"
-              key={message.id}
-              onMouseEnter={() => setShowButtons(idx)}
-            >
-              <div className="sender-pic">
-                <img src={message.sender_profile_picture} alt="profile" />
-              </div>
-              <div className="sender-content">
-                <div className="sender-name">
-                  <h4>{message.sender_username}</h4>
-                  <p style={{ fontSize: 10, marginLeft: 5 }}>
-                    {message.created_at} PM
-                  </p>
-                </div>
-                <div className="sender-msg">
-                  {ReactHtmlParser(message.content)}
-                </div>
-              </div>
-              {user.id === message.sender_id && showButtons === idx && (
-                <span className="edit-delete">
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setEditContent(message.content);
-                      setEdit(message.id);
+            edit === message.id ? (
+              <div key={message.id} className="edit-message">
+                <img src={message.sender_profile_picture} alt=""></img>
+                <div className="editor">
+                  <CKEditor
+                    editor={ClassicEditor}
+                    onChange={updateMessageContent}
+                    data={message.content}
+                    config={{
+                      toolbar: [
+                        "heading",
+                        "|",
+                        "bold",
+                        "italic",
+                        "link",
+                        "bulletedList",
+                        "numberedList",
+                        "|",
+                        "indent",
+                        "outdent",
+                        "|",
+                        "codeBlock",
+                        "blockQuote",
+                        "insertTable",
+                        "undo",
+                        "redo",
+                      ],
                     }}
-                  >
-                    <i className="far fa-edit"></i>
-                  </button>
-                  <button onClick={(e) => handleDeleteMessage(e, message)}>
-                    <i className="far fa-trash-alt"></i>
+                  />
+                </div>
+                <span className="edit-box">
+                  <button onClick={handleCancel}>Cancel</button>
+                  <button onClick={(e) => handleEditMessage(e, message)}>
+                    Save
                   </button>
                 </span>
-              )}
-            </div>
-          )
-        )}
+              </div>
+            ) : (
+              <div
+                className="single-msg"
+                key={message.id}
+                onMouseEnter={() => setShowButtons(idx)}
+              >
+                <div className="sender-pic">
+                  <img src={message.sender_profile_picture} alt="profile" />
+                </div>
+                <div className="sender-content">
+                  <div className="sender-name">
+                    <h4>{message.sender_username}</h4>
+                    <p style={{ fontSize: 10, marginLeft: 5 }}>
+                      {message.created_at} PM
+                    </p>
+                  </div>
+                  <div className="sender-msg">
+                    {ReactHtmlParser(message.content)}
+                  </div>
+                </div>
+                {user.id === message.sender_id && showButtons === idx && (
+                  <span className="edit-delete">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setEditContent(message.content);
+                        setEdit(message.id);
+                      }}
+                    >
+                      <i className="far fa-edit"></i>
+                    </button>
+                    <button onClick={(e) => handleDeleteMessage(e, message)}>
+                      <i className="far fa-trash-alt"></i>
+                    </button>
+                  </span>
+                )}
+              </div>
+            )
+          )}
+        </div>
+        <div className="chat-box">
+          <form onSubmit={sendChat}>
+            <CKEditor
+              editor={ClassicEditor}
+              onChange={updateChatInput}
+              data={chatInput}
+              config={{
+                toolbar: [
+                  "heading",
+                  "|",
+                  "bold",
+                  "italic",
+                  "link",
+                  "bulletedList",
+                  "numberedList",
+                  "|",
+                  "indent",
+                  "outdent",
+                  "|",
+                  "blockQuote",
+                  "insertTable",
+                  "undo",
+                  "redo",
+                ],
+              }}
+            />
+            <button
+              className={`send-btn ${!chatInput.length}`}
+              type="submit"
+              disabled={!chatInput.length}
+            >
+              <i className="fas fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
       </div>
-      <div className="chat-box">
-        <form onSubmit={sendChat}>
-          <CKEditor
-            editor={ClassicEditor}
-            onChange={updateChatInput}
-            data={chatInput}
-            config={{
-              toolbar: [
-                "heading",
-                "|",
-                "bold",
-                "italic",
-                "link",
-                "bulletedList",
-                "numberedList",
-                "|",
-                "indent",
-                "outdent",
-                "|",
-                "blockQuote",
-                "insertTable",
-                "undo",
-                "redo",
-              ],
-            }}
-          />
-          <button
-            className={`send-btn ${!chatInput.length}`}
-            type="submit"
-            disabled={!chatInput.length}
-          >
-            <i className="fas fa-paper-plane"></i>
-          </button>
-        </form>
-      </div>
-    </div>
+    )
   );
 };
 
