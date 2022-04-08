@@ -21,7 +21,6 @@ const DmRooms = ({ workspace }) => {
   const handleDelete = async (e, roomId) => {
     e.preventDefault();
     e.stopPropagation();
-    // e.stopImmediatePropagation();
     await dispatch(deleteDmRoom(roomId));
     let url = window.location.href;
     if (url.includes(`dm_rooms/${roomId}`)) {
