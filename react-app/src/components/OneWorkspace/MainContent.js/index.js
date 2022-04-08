@@ -169,7 +169,7 @@ const MainContent = () => {
     view.workspace_id === workspaceId * 1 && (
       <div id="main-content">
         <div>
-          <div style={{ marginLeft: 5 }}>
+          <div style={{ marginLeft: 20 }}>
             {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
           </div>
           <div id="main-header">

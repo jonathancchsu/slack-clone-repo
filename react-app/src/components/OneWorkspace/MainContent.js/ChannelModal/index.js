@@ -77,14 +77,14 @@ const ChannelModal = ({ setShowModal, channel }) => {
               <button onClick={() => setEditName("")}>Cancel</button>
             </div>
           ) : (
-            <>
+            <div className="title-container">
               <b>#{channel.name}</b>
               {user.id === channel.owner_id &&
-                <button onClick={(e) => setEditName(channel.id)}>
-                  edit channel name
-                </button>
+                <div onClick={(e) => setEditName(channel.id)}>
+                  Edit
+                </div>
               }
-            </>
+            </div>
           )}
 
         </div>
@@ -101,14 +101,14 @@ const ChannelModal = ({ setShowModal, channel }) => {
               <button onClick={() => setEditTopic("")}>Cancel</button>
             </div>
           ) : (
-            <>
+            <div className="title-container">
               <p>{channel.topic}</p>
               {user.id === channel.owner_id &&
-                <button onClick={(e) => setEditTopic(channel.id)}>
-                  edit channel topic
-                </button>
+                <div onClick={(e) => setEditTopic(channel.id)}>
+                  Edit
+                </div>
               }
-            </>
+            </div>
           )}
 
         </div>
@@ -125,14 +125,14 @@ const ChannelModal = ({ setShowModal, channel }) => {
               <button onClick={() => setEditDescription("")}>Cancel</button>
             </div>
           ) : (
-            <>
+            <div className="title-container">
               <p>{channel.description}</p>
               {user.id === channel.owner_id &&
-                <button onClick={(e) => setEditDescription(channel.id)}>
-                  edit channel description
-                </button>
+                <div className="" onClick={(e) => setEditDescription(channel.id)}>
+                  Edit
+                </div>
               }
-            </>
+            </div>
           )}
         </div>
         <div className="subcontainer">
