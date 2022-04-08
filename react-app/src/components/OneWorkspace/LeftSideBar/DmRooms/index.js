@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { deleteDmRoom } from "../../../../store/dmRooms";
 
-import './DmRooms.css';
+import "./DmRooms.css";
 
 import CreateDmModal from "./DmForm/DmFormModal";
 const DmRooms = ({ workspace }) => {
@@ -29,19 +29,26 @@ const DmRooms = ({ workspace }) => {
     }
   };
 
+  console.log('rooms', dmRooms)
   useEffect(() => {
     setLoaded(false);
     setLoaded(true);
   }, [user, workspace]);
+
   const dmRoom = async (e, id) => {
     e.preventDefault();
-    history.push(`/workspaces/${workspace.id}/messages/dm_rooms/${id}`);
+    history.push(`/workspaces/${workspace.id}/dm_rooms/${id}`);
   };
   return (
     loaded && (
       <div id='dm-rooms-list-main'>
         <span id='dm-rooms-list-child'>
-          <button onClick={() => setShowDmRooms(!showDmRooms)}><i className="fas fa-caret-right"></i></button>
+          <button onClick={() => setShowDmRooms(!showDmRooms)}>
+            {showDmRooms ?
+              <i className="fas fa-caret-down"></i> :
+              <i className="fas fa-caret-right"></i>
+            }
+          </button>
           <p>Direct Messages</p>
           <CreateDmModal />
         </span>
@@ -54,14 +61,15 @@ const DmRooms = ({ workspace }) => {
               className="single_dm_room"
             >
               <div className="single_dm_room_child">
+                <i className="fas fa-user" />
                 {room.neighbors.members.map((member) => (
                   <div className="single_dm_room_child" key={member.id}>
-                    {member.username}
+                    {member.username},
                   </div>
                 ))}
                 {user.id === room.user_id && (
                   <button onClick={(e) => handleDelete(e, room.dm_room_id)}>
-                    ❌
+                    <i className="fas fa-trash-alt" />
                   </button>
                 )}
               </div>
@@ -69,7 +77,7 @@ const DmRooms = ({ workspace }) => {
           ))}
       </div>
     )
-  );
-};
+  )
+}
 
 export default DmRooms;
