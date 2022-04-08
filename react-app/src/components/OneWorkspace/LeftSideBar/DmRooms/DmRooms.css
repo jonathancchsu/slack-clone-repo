@@ -11,12 +11,16 @@ span#dm-rooms-list-child {
 }
 .single_dm_room_child {
   display: flex;
+  justify-content: flex-start;
   flex-direction: row;
   font-size: 12px;
+  width: 200px;
 }
 
 .single_dm_room_child:hover {
   cursor: pointer;
+  background-color: #130513;
+  justify-content: flex-start;
 }
 
 span#dm-rooms-list-child > button {

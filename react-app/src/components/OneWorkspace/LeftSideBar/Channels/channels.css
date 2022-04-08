@@ -17,6 +17,12 @@ span#channels-tab-child > button {
     justify-content: center;
 }
 
+.channel-name:hover {
+    background-color: #130513;
+    cursor: pointer;
+    width: 235px;
+}
+
 .channel-tab {
-    margin-left: 15px;
+    width: 250px;
 }
