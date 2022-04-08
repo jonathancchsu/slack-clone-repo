@@ -180,7 +180,7 @@ const MainContent = () => {
           </div>
           <div id="main-header">
             <div className="main-header-members">
-              members:{view.members?.length}
+              <i className="fas fa-users"/>:{view.members?.length}
             </div>
           </div>
           <div>

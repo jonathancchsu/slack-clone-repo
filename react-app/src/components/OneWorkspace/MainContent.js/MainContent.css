@@ -88,15 +88,16 @@ div#chat-container {
     position: fixed;
     display: flex;
     padding: 20px;
-    height: 150px;
+    height: auto;
     right: 0;
-    bottom: -50px;
+    bottom: 0;
     left: 250px;
     background-color: white;
 }
 
 .chat-box > form {
     width: 100vw;
+    margin-bottom:10px;
 }
 
 .send-btn {

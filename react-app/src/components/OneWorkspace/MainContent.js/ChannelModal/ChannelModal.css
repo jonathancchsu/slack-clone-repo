@@ -1,6 +1,8 @@
 .channel-name-modal {
   display: flex;
   font-size: 10px;
+  position: fixed;
+  top: 40px;
 }
 
 .channel-name-modal:hover {

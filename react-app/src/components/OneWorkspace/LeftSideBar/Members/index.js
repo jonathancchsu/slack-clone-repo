@@ -14,7 +14,7 @@ function Members({ workspace, user, members }) {
     return (
         <div id='members-main'>
           <span id='members-tab'>
-            <button onClick={() => setShowMembers(!showMembers)}><i className="fas fa-caret-right"></i></button>
+            <button onClick={() => setShowMembers(!showMembers)}><i className="fas fa-ellipsis-v"></i></button>
             <p>Members</p>
             <button onClick={() => setShowModal(true)}><i className="fas fa-plus"></i></button>
           </span>
