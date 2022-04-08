@@ -20,7 +20,7 @@ span#channels-tab-child > button {
 .channel-name:hover {
     background-color: #130513;
     cursor: pointer;
-    width: 235px;
+    width: 220px;
 }
 
 .channel-tab {
@@ -36,4 +36,5 @@ span#channels-tab-child > button {
 .channel-name {
     margin-left: 9px;
     display:flex;
+    width: 220px;
 }
