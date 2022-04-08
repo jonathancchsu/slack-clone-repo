@@ -35,11 +35,11 @@ span#members-tab>button {
     align-items: center;
     justify-content: center;
     transition-duration: 0.5s;
-  }
+}
 
-  .add-member:hover {
-    cursor: pointer;
-  }
+.add-member:hover {
+cursor: pointer;
+}
 
 .results-map:hover {
     cursor: pointer;

@@ -38,6 +38,9 @@ function AddMembersModal({ workspace, members, users, setShowModal }) {
 
     return (
         <div id='add-members-modal'>
+            <div className="icon-container">
+            <i className="fas fa-users"></i>
+            </div>
             <h3>{`Add members to ${workspace.name}`}</h3>
             <form onSubmit={addMember}>
                 <input type='text' placeholder='username' value={query} onChange={e => setQuery(e.target.value)} onClick={() => setQuery('')}></input>
