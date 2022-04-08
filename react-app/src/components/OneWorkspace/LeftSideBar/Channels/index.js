@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CreateChannelModal from "../ChannelForm/CreateChannelModal";
 import "./channels.css";
+import { useParams } from "react-router-dom";
 
-const Channels = ({ workspace }) => {
+const Channels = () => {
   const dispatch = useDispatch();
   let history = useHistory();
+  const { workspaceId } = useParams();
 
   const user = useSelector((state) => state.session.user);
   const channelsObj = useSelector((state) => state.channels);
@@ -19,7 +21,7 @@ const Channels = ({ workspace }) => {
   const [loaded, setLoaded] = useState(false);
   const [showChannels, setShowChannels] = useState(true);
   const channelRoom = (id) => {
-    history.push(`/workspaces/${workspace.id}/channels/${id}`);
+    history.push(`/workspaces/${workspaceId}/channels/${id}`);
   };
 
   return (
