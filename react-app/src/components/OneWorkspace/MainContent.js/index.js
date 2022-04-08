@@ -37,7 +37,6 @@ const MainContent = () => {
   const [showButtons, setShowButtons] = useState(null);
   useEffect(() => {
     if (channelId) {
-      console.log("idddddddd", channelId);
       dispatch(getCurrentChannel(channelId));
       setSocketRoom(`channel${channelId}`);
     }
@@ -55,7 +54,6 @@ const MainContent = () => {
   useEffect(() => {
     socket = io();
     socket.on("message", (data) => {
-      console.log("hereeeeeeeeeeeeeeeeeeee", data);
       setMessages((messages) => [...messages, data]);
     });
 
@@ -165,8 +163,6 @@ const MainContent = () => {
     setShowButtons(null);
   };
 
-  console.log(view);
-
   return (
     view.workspace_id === workspaceId * 1 && (
       <div id="main-content">
@@ -177,9 +173,16 @@ const MainContent = () => {
           <div id="main-header">
             <div className="main-header-members">
               {view.members?.map((member, idx) => {
-                return (idx < 3 && (
-                  <img key={member.id} className={`idx${idx}`} src={member.profile_picture} alt=""></img>
-                ))
+                return (
+                  idx < 3 && (
+                    <img
+                      key={member.id}
+                      className={`idx${idx}`}
+                      src={member.profile_picture}
+                      alt=""
+                    ></img>
+                  )
+                );
               })}
               <p>{view.members?.length}</p>
             </div>
