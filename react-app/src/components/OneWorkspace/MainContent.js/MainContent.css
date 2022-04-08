@@ -15,6 +15,12 @@ div#chat-container {
     display: none;
 }
 
+.dm-members {
+    display: flex;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
 #main-header {
     border-bottom: 1px solid lightgray;
     height: 48px;
@@ -26,7 +32,7 @@ div#chat-container {
     position: fixed;
     top: 45px;
     background-color: white;
-    z-index: 1;
+    z-index: -1;
 }
 
 .main-header-members {
@@ -88,15 +94,16 @@ div#chat-container {
     position: fixed;
     display: flex;
     padding: 20px;
-    height: 150px;
+    height: auto;
     right: 0;
-    bottom: -50px;
+    bottom: 0;
     left: 250px;
     background-color: white;
 }
 
 .chat-box > form {
     width: 100vw;
+    margin-bottom:10px;
 }
 
 .send-btn {

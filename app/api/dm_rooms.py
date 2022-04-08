@@ -9,31 +9,53 @@ from app.forms.channel_form import ChannelForm
 
 import json
 
+def room_exists(workspace_id, user_ids):
+    available_room_ids = db.session.query(DirectMessageRoom.id).filter(DirectMessageRoom.workspace_id == workspace_id)
+    available_room_ids = [available_room_id[0] for available_room_id in available_room_ids]
+    for available_room_id in available_room_ids:
+        users_in_room = db.session.query(DirectMessageMember.user_id).filter(DirectMessageMember.room_id == available_room_id)
+        users_in_room = [user_in_room[0] for user_in_room in users_in_room]
+        users_in_room.sort()
+        users_in_room = "".join([str(user_in_room) for user_in_room in users_in_room])
+        if user_ids == users_in_room:
+            return available_room_id
+    return False
+
 bp = Blueprint('dm_rooms', __name__, url_prefix='dm_rooms')
 @bp.route('/', methods=['POST'])
 def dm_create():
     data = request.json
-    # print('hereeeeeeeeeeeeeeeeeeeeee', data)
-    dm_room = DirectMessageRoom(
-            owner_id=data['owner_id'],
-            workspace_id=data['workspace_id'],
-        )
-    db.session.add(dm_room)
-    db.session.commit()
 
-    requestMembers = data['members']
-    for member in requestMembers:
+    user_ids = [member['id'] for member in data['members']]
+    user_ids.sort()
+    user_ids = "".join([str(user_id) for user_id in user_ids])
 
-        dm_member = DirectMessageMember(
-            room_id=dm_room.id,
-            user_id=member['id'],
+    room_exists_id = room_exists(data['workspace_id'], user_ids)
+
+    if room_exists_id is not False:
+        return { 'error': room_exists_id }
+    else:
+        dm_room = DirectMessageRoom(
+                owner_id=data['owner_id'],
+                workspace_id=data['workspace_id'],
         )
-        db.session.add(dm_member)
+        db.session.add(dm_room)
         db.session.commit()
-    user = User.query.get(dm_room.owner_id)
-    dm
 
-    return {'dm_room_id': dm_room.id, 'user_id': dm_room.owner_id, 'workspace_id': dm_room.workspace_id, 'neighbors': [member.room.to_dict() for member in user.dm_room_member][-1]}
+        requestMembers = data['members']
+        print(requestMembers)
+        for member in requestMembers:
+
+            dm_member = DirectMessageMember(
+                room_id=dm_room.id,
+                user_id=member['id'],
+            )
+            db.session.add(dm_member)
+            db.session.commit()
+        user = User.query.get(dm_room.owner_id)
+
+        return {'dm_room_id': dm_room.id, 'user_id': dm_room.owner_id, 'workspace_id': dm_room.workspace_id, 'neighbors': [member.room.to_dict() for member in user.dm_room_member][-1]}
+
 
 
 

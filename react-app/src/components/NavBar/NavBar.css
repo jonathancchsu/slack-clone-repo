@@ -123,7 +123,7 @@
 }
 
 .search {
-  width: 400px;
+  width: 50%;
   height: 25px;
   border-radius: 5px;
   background-color: #5e515e;
@@ -131,6 +131,8 @@
   align-items: center;
   justify-content: space-between;
   transition-duration: 0.5s;
+  position: fixed;
+  left: 22%;
 }
 
 .search:hover {
@@ -225,6 +227,7 @@
   display: flex;
   align-items: center;
   padding: 0px 20px;
+  cursor: pointer;
 }
 
 .result-user > i {
@@ -264,6 +267,7 @@
   display: flex;
   align-items: center;
   padding: 0px 20px;
+  cursor: pointer;
 }
 
 .result-channel > i {

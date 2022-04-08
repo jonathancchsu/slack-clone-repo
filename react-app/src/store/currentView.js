@@ -62,8 +62,17 @@ export const postChannelMessage = (message) => async (dispatch) => {
     body: JSON.stringify(message),
   });
   const newMessage = await res.json();
-  let socketMessage = { channel_id: newMessage.channel_id };
-  socketMessage[newMessage.id] = newMessage;
+  let socketMessage = {
+    id: newMessage.id,
+    channel_id: newMessage.channel_id,
+    dm_room_id: newMessage.room_id,
+    content: newMessage.content,
+    created_at: newMessage.created_at,
+    room: message.room,
+    sender_username: message.sender_username,
+    sender_profile_picture: message.sender_profile_picture,
+  };
+
   return socketMessage;
 };
 export const postDirectMessage = (message) => async (dispatch) => {
@@ -72,8 +81,16 @@ export const postDirectMessage = (message) => async (dispatch) => {
     body: JSON.stringify(message),
   });
   const newMessage = await res.json();
-  let socketMessage = { dm_room_id: newMessage.room_id };
-  socketMessage[newMessage.id] = newMessage;
+  let socketMessage = {
+    id: newMessage.id,
+    dm_room_id: newMessage.room_id,
+    channel_id: newMessage.channel_id,
+    content: message.content,
+    created_at: newMessage.created_at,
+    room: message.room,
+    sender_username: message.sender_username,
+    sender_profile_picture: message.sender_profile_picture,
+  };
   return socketMessage;
 };
 //----------------------------------------------set channels
