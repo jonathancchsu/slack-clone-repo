@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { postDmRoom } from "../../../../../store/dmRooms";
 
 import "./DmForm.css";
 
 const DmRoomForm = ({ setShowModal }) => {
+  const history = useHistory();
   const user = useSelector((state) => state.session.user);
   const users = useSelector((state) => state.session.users);
   const owner_id = useSelector((state) => state.session.user.id);
@@ -12,15 +14,12 @@ const DmRoomForm = ({ setShowModal }) => {
     (state) => state.workspace.currentWorkspace.id
   );
   const [members, setMembers] = useState([user]);
-  console.log("membersssssss", members);
   const dispatch = useDispatch();
 
   const addMember = (username) => {
     const member = users.find((user) => user.username === username);
     let existingMember = members.find((member) => member.username === username);
     if (!existingMember && member) setMembers([...members, member]);
-
-    console.log(members);
   };
   const removeMember = (memberId) => {
     setMembers(members.filter((member) => member.id !== memberId));
@@ -29,9 +28,13 @@ const DmRoomForm = ({ setShowModal }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(postDmRoom({ owner_id, workspace_id, members: members }));
+    console.log(members)
 
-    setShowModal(false);
+    dispatch(postDmRoom({ owner_id, workspace_id, members: members })).then(result => {
+      history.push(`/workspaces/${workspace_id}/messages/dm_rooms/${result}`);
+      setShowModal(false);
+    });
+
   };
 
   const handleKeyPress = (e) => {
