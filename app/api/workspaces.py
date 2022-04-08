@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, redirect, url_for, request
 from app.forms.channel_form import ChannelForm
 # from flask_login import login_required
 # from sqlalchemy.orm import Session
-from app.models import User, Workspace, WorkspaceMember, Channel, ChannelMember, Message, DirectMessageRoom, DirectMessageMember, db
+from app.models import User, Workspace, WorkspaceMember, Channel, ChannelMember, Message, DirectMessageRoom, DirectMessageMember, channel, db, message
 from flask_login import current_user, login_user, logout_user, login_required
 from app.forms import WorkspaceForm
 
@@ -51,6 +51,31 @@ def workspace_create():
         )
 
         db.session.add(workspaceMember)
+        db.session.commit()
+        channel = Channel(
+            workspace_id= workspace.id,
+            owner_id=workspace.owner_id,
+            name='General',
+            topic='A place for everyone to chat',
+            description=f'This is a channel for all {workspace.name}\'s necessities'
+
+        )
+        db.session.add(channel)
+        db.session.commit()
+
+        channel_member = ChannelMember(
+            channel_id=channel.id,
+            user_id=channel.owner_id
+        )
+        db.session.add(channel_member)
+        db.session.commit()
+
+        message= Message(
+            channel_id=channel.id,
+            sender_id=1,
+            content=f'Welcome to {workspace.name}!!!'
+        )
+        db.session.add(message)
         db.session.commit()
 
         return workspace.to_dict()
