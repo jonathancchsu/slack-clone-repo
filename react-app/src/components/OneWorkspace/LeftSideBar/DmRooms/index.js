@@ -50,7 +50,6 @@ const DmRooms = ({ workspace }) => {
             )}
           </button>
           <p>Direct Messages</p>
-          <CreateDmModal />
         </span>
         {showDmRooms &&
           dmRooms.map(
@@ -75,9 +74,19 @@ const DmRooms = ({ workspace }) => {
                       </button>
                     )}
                   </div>
-                </div>
-              )
-          )}
+                ))}
+                {user.id === room.user_id && (
+                  <button onClick={(e) => handleDelete(e, room.dm_room_id)}>
+                    <i className="fas fa-trash-alt" />
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+        <div className="add-dm-room">
+          <CreateDmModal />
+          Add teammates
+        </div>
       </div>
     )
   );

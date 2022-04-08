@@ -28,3 +28,9 @@ span#dm-rooms-list-child > button {
     border: none;
     color: white;
 }
+
+.add-dm-room > button {
+  background-color: transparent;
+  border: 0;
+  color: rgba(109, 89, 89, 0.5);
+}
