@@ -45,7 +45,7 @@ const Workspaces = ({ userId }) => {
     workspace.name = workspaceName;
     await dispatch(putWorkspace(workspace))
       .then(() => setEdit(""))
-      .then(() => setWorkspaceName(""))
+      .then(() => setWorkspaceName(""));
   };
 
   const deleteWorkspace = (id) => {
@@ -144,7 +144,9 @@ const Workspaces = ({ userId }) => {
                                   <input
                                     type="text"
                                     value={workspaceName}
-                                    onChange={(e) => setWorkspaceName(e.target.value)}
+                                    onChange={(e) =>
+                                      setWorkspaceName(e.target.value)
+                                    }
                                     className="main-edit-field"
                                   ></input>
                                 </div>
@@ -155,13 +157,16 @@ const Workspaces = ({ userId }) => {
                           </div>
                         </div>
                       </div>
-                    </div>) : <></>}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             ))}
           </div>
           <div className="create-wmn-ws">
-            <img src='/static/create-ws.png' alt='wmn' />
+            <img src="/static/create-ws.png" alt="wmn" />
 
             <h4>Want to use Slack with a different team?</h4>
             <button className="create-wmn-btn" onClick={(e) => createForm()}>
