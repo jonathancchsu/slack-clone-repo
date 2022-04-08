@@ -75,10 +75,11 @@ const DmRooms = ({ workspace }) => {
                 )}
               </div>
             </div>
-          </div>
-        ))}
-    </div>
-  );
-};
+          ))}
+      </div>
+    )
+  )
+}
+
 
 export default DmRooms;
