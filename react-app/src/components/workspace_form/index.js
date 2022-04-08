@@ -54,8 +54,8 @@ const WorkspaceForm = () => {
             Create Workspace
           </button>
         </form>
-        <div className="create-ws-cancel-btn">
-          <a style={{ textDecoration: 'none', fontSize: 12 }} href='/'>cancel</a>
+        <div className="create-ws-cancel-btn" onClick={() => history.push('/')}>
+          cancel
         </div>
       </div>
     </div>
