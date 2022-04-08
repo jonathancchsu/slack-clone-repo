@@ -26,3 +26,14 @@ span#channels-tab-child > button {
 .channel-tab {
     width: 250px;
 }
+
+.add-channel-btn > button {
+    background-color: transparent;
+    border: 0;
+    color: rgba(109, 89, 89, 0.5);
+}
+
+.channel-name {
+    margin-left: 9px;
+    display:flex;
+}

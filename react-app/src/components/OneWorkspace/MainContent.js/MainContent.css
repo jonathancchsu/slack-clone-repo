@@ -19,6 +19,9 @@ div#chat-container {
     display: flex;
     margin-left: 20px;
     font-weight: bold;
+    align-items: center;
+    position:fixed;
+    top: 60px;
 }
 
 #main-header {

@@ -8,7 +8,7 @@ const CreateDmModal = () => {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}><i className="fas fa-plus"></i></button>
+      <button onClick={() => setShowModal(true)}><i className="fas fa-plus-square fa-lg"></i></button>
       {showModal && (
         <Modal className="modal" onClose={() => setShowModal(false)}>
           <DmRoomForm setShowModal={setShowModal}></DmRoomForm>
