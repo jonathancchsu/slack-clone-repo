@@ -12,10 +12,10 @@ function AddMembersModal({ workspace, members, users, setShowModal }) {
     const [query, setQuery] = useState(' ');
 
 
-    useEffect(() => {
+    useEffect((users) => {
         let find = users.filter(user => user.username.toLowerCase().includes(query.toLowerCase()))
         setResults(find);
-    }, [query]);
+    }, [query, users]);
 
     const selectMember = (user) => {
         setUserId(user.id);

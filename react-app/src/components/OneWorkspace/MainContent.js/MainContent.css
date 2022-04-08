@@ -1,5 +1,6 @@
 div#main-content {
     margin-top: 42px;
+    width: 100vw;
 }
 
 div#chat-container {
@@ -8,7 +9,7 @@ div#chat-container {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    margin-bottom:100px;
+    margin-bottom:120px;
 }
 #chat-container::-webkit-scrollbar {
     display: none;
@@ -25,7 +26,7 @@ div#chat-container {
     position: fixed;
     top: 45px;
     background-color: white;
-    z-index: -1;
+    z-index: 1;
 }
 
 .main-header-members {
@@ -84,23 +85,24 @@ div#chat-container {
 }
 
 .chat-box {
-    position: relative;
-    top: 600px;
+    position: fixed;
     display: flex;
     padding: 20px;
     height: 150px;
-    width: 95%;
+    right: 0;
+    bottom: -50px;
+    left: 250px;
+    background-color: white;
 }
 
 .chat-box > form {
-    height: 100%;
-    width: 100%;
+    width: 100vw;
 }
 
 .send-btn {
     position: fixed;
-    bottom: 50px;
-    right: 90px;
+    bottom: 40px;
+    right: 30px;
     background-color: transparent;
     border: none;
     cursor: default;

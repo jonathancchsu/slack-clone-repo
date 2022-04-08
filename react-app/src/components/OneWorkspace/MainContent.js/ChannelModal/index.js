@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteChannel, putChannel, addNewChannelMember } from "../../../../store/channel";
+import { getAllUsers } from "../../../../store/session";
 
 import "./ChannelModal.css";
 
 const ChannelModal = ({ setShowModal, channel }) => {
   const dispatch = useDispatch();
-  const channelOwner = useSelector((state) => state.channels.owner_id);
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, [dispatch]);
+
+  const allUsers = useSelector ((state) => state.session.users)
   const [newMember, setNewMember] = useState("");
   const [edit, setEdit] = useState("");
-  const [channelName, setChannelName] = useState("");
-  const [channelTopic, setChannelTopic] = useState("");
-  const [channelDescription, setChannelDescription] = useState("");
+  const [channelName, setChannelName] = useState(channel.name);
+  const [channelTopic, setChannelTopic] = useState(channel.topic);
+  const [channelDescription, setChannelDescription] = useState(channel.description);
+
+  const ownername = allUsers.filter(user => user.id === channel.owner_id)[0].username
 
   const handleAddMember = (e, id) => {
     e.preventDefault();
@@ -46,7 +54,7 @@ const ChannelModal = ({ setShowModal, channel }) => {
         </div>
         <div className="subcontainer">
           <b>Created By</b>
-          <p>{channelOwner}</p>
+          <p>{ownername}</p>
         </div>
         <div className="subcontainer">
           <form onSubmit={(e) => handleAddMember(e, channel.id)}>
