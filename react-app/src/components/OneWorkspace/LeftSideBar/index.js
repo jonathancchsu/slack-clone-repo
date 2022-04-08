@@ -3,7 +3,7 @@ import DmRooms from "./DmRooms";
 import Members from "./Members";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getAllUsers } from "../../../store/session";
 
 import "./LeftSideBar.css";
