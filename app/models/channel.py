@@ -48,5 +48,6 @@ class ChannelMember(db.Model):
             'channel_id': self.channel_id,
             'user_id': self.user_id,
             'username':self.member.username,
+            'profile_picture': self.member.profile_picture,
             'workspace_id': self.channel.workspace_id
         }

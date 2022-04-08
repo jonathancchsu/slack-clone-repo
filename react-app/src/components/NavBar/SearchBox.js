@@ -44,14 +44,14 @@ function SearchBox({ setShowSearchBox }) {
                                 <div className='result-box' key={idx}>
                                     {result.username && <div className='result-user' onClick={() => {
                                         dispatch(postDmRoom({ owner_id: user.id, workspace_id: workspace.id, members: [{ id: user.id }, { id: result.id }] })).then(dmRoom => {
-                                            history.push(`/workspaces/${workspace.id}/messages/dm_rooms/${dmRoom}`);
+                                            history.push(`/workspaces/${workspace.id}/dm_rooms/${dmRoom}`);
                                             setShowSearchBox(false);
                                         })
                                     }}><i className="far fa-user"></i><img src={result.profile_picture} alt=''></img><p>{result.username}</p></div>}
                                     {result.content &&
                                         <div className='result-message' onClick={() => {
-                                            if (result.channel_id) history.push(`/workspaces/${workspace.id}/messages/channels/${result.channel_id}`);
-                                            else history.push(`/workspaces/${workspace.id}/messages/dm_rooms/${result.room_id}`);
+                                            if (result.channel_id) history.push(`/workspaces/${workspace.id}/channels/${result.channel_id}`);
+                                            else history.push(`/workspaces/${workspace.id}/dm_rooms/${result.room_id}`);
                                             setShowSearchBox(false);
                                         }}>
                                             <i className="far fa-comment-dots"></i>
@@ -62,7 +62,7 @@ function SearchBox({ setShowSearchBox }) {
                                             </div>
                                         </div>}
                                     {result.name && <div onClick={() => {
-                                        history.push(`/workspaces/${workspace.id}/messages/channels/${result.id}`);
+                                        history.push(`/workspaces/${workspace.id}/channels/${result.id}`);
                                         setShowSearchBox(false);
                                     }} className='result-channel'><i className="fas fa-chalkboard-teacher"></i> <p>{result.name}</p></div>}
                                 </div>

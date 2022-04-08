@@ -17,11 +17,20 @@ span#dm-rooms-list-child {
 }
 .single_dm_room_child {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   flex-direction: row;
   font-size: 12px;
-  width: 200px;
+  width: auto;
+  margin-left: 5px;
 }
+
+.dm-rooms-names {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 180px;
+}
+
 
 .single_dm_room_child:hover {
   cursor: pointer;
@@ -39,4 +48,13 @@ span#dm-rooms-list-child > button {
   background-color: transparent;
   border: 0;
   color: rgba(109, 89, 89, 0.5);
+}
+
+.dm-room-members {
+  display: flex;
+  flex-direction: row;
+  margin-left: 15px;
+  position: fixed;
+  top: 60px;
+  font-weight: bold;
 }
