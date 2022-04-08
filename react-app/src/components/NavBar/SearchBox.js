@@ -43,8 +43,9 @@ function SearchBox({ setShowSearchBox }) {
                             return (
                                 <div className='result-box' key={idx}>
                                     {result.username && <div className='result-user' onClick={() => {
-                                        dispatch({ owner_id: user.id, workspace_id: workspace.id, members: [{ id: user.id }, { id: result.id }] }).then(dmMember => {
-                                            console.log(dmMember);
+                                        dispatch(postDmRoom({ owner_id: user.id, workspace_id: workspace.id, members: [{ id: user.id }, { id: result.id }] })).then(dmRoom => {
+                                            history.push(`/workspaces/${workspace.id}/messages/channels/${dmRoom}`);
+                                            setShowSearchBox(false);
                                         })
                                     }}><i className="far fa-user"></i><img src={result.profile_picture} alt=''></img><p>{result.username}</p></div>}
                                     {result.content &&

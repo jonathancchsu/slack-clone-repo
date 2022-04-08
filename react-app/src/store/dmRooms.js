@@ -19,11 +19,12 @@ export const postDmRoom = (dmRoom) => async (dispatch) => {
     body: JSON.stringify(dmRoom),
   });
   const dm = await res.json();
-
-  if (!dm.errors) {
+  if (!dm.error) {
     dispatch(addDmRoom(dm));
+    return dm.dm_room_id;
+  } else {
+    return dm.error;
   }
-
 };
 
 //------------------------------------edit dmroom---------------------------------

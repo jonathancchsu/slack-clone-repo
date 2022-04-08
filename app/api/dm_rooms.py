@@ -11,14 +11,15 @@ import json
 
 def room_exists(workspace_id, user_ids):
     available_room_ids = db.session.query(DirectMessageRoom.id).filter(DirectMessageRoom.workspace_id == workspace_id)
+    available_room_ids = [available_room_id[0] for available_room_id in available_room_ids]
     for available_room_id in available_room_ids:
         users_in_room = db.session.query(DirectMessageMember.user_id).filter(DirectMessageMember.room_id == available_room_id)
+        users_in_room = [user_in_room[0] for user_in_room in users_in_room]
         users_in_room.sort()
         users_in_room = "".join([str(user_in_room) for user_in_room in users_in_room])
         if user_ids == users_in_room:
-            return True
+            return available_room_id
     return False
-
 
 bp = Blueprint('dm_rooms', __name__, url_prefix='dm_rooms')
 @bp.route('/', methods=['POST'])
@@ -29,8 +30,10 @@ def dm_create():
     user_ids.sort()
     user_ids = "".join([str(user_id) for user_id in user_ids])
 
-    if room_exists(data['workspace_id'], user_ids):
-        return { 'error': 'room already exists' }
+    room_exists_id = room_exists(data['workspace_id'], user_ids)
+
+    if room_exists_id is not False:
+        return { 'error': room_exists_id }
     else:
         dm_room = DirectMessageRoom(
                 owner_id=data['owner_id'],
