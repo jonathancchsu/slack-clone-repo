@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ReactHtmlParser from "react-html-parser";
+import { useParams } from "react-router-dom";
 
 import {
   getCurrentChannel,
@@ -20,11 +21,12 @@ import ChannelModalMain from "./ChannelModal/ChannelModalMain";
 let socket;
 
 const MainContent = () => {
-  const [loaded, setloaded] = useState(false);
+  const { workspaceId, channelId, dmRoomId } = useParams();
+  const [prevRoom, setPrevRoom] = useState(
+    channelId ? `channel${channelId}` : `dmroom${dmRoomId}`
+  );
+  const [socketRoom, setSocketRoom] = useState();
   const dispatch = useDispatch();
-  let url = window.location.href;
-  const [dmRoom, setDmRoom] = useState();
-  const [channelRoom, setChannelRoom] = useState();
   const [chatInput, setChatInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [edit, setEdit] = useState(null);
@@ -32,88 +34,154 @@ const MainContent = () => {
   // const [showChannelModal, setShowChannelModal] = useState(false);
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView.main_content);
-
   const [showButtons, setShowButtons] = useState(null);
-
   useEffect(() => {
-    setloaded(false);
-    let id = url.split("/")[7] * 1;
-    if (url.includes("channels")) {
-      setDmRoom(false);
-      setChannelRoom(true);
-      dispatch(getCurrentChannel(id));
-    } else if (url.includes("dm_rooms")) {
-      setChannelRoom(false);
-      setDmRoom(true);
-      dispatch(getCurrentRoom(id));
+    if (channelId) {
+      console.log("idddddddd", channelId);
+      dispatch(getCurrentChannel(channelId));
+      setSocketRoom(`channel${channelId}`);
     }
 
-    socket = io();
-    socket.on("chat", (chat) => {
-      if (chat.edit) {
-        setMessages((messages) =>
-          messages.map((message) => (chat.id === message.id ? chat : message))
-        );
-      } else if (chat.delete) {
-        setMessages((messages) =>
-          messages.filter((message) => chat.id !== message.id)
-        );
-      } else {
-        setMessages((messages) => [...messages, chat]);
-      }
-    });
-
-    // when component unmounts, disconnect
-    return () => {
-      socket.disconnect();
-    };
-  }, [dispatch, url]);
+    if (dmRoomId) {
+      dispatch(getCurrentRoom(dmRoomId));
+      setSocketRoom(`dmroom${dmRoomId}`);
+    }
+  }, [dispatch, dmRoomId, channelId]);
 
   useEffect(() => {
     setMessages(view.messages);
-    setloaded(true);
-  }, [view.messages]);
+  }, [view]);
+
+  useEffect(() => {
+    socket = io();
+    socket.on("message", (data) => {
+      console.log("hereeeeeeeeeeeeeeeeeeee", data);
+      setMessages((messages) => [...messages, data]);
+    });
+    // socket.on("chat", (chat) => {
+    //   if (chat.edit) {
+    //     setMessages((messages) =>
+    //       messages.map((message) => (chat.id === message.id ? chat : message))
+    //     );
+    //   } else if (chat.delete) {
+    //     setMessages((messages) =>
+    //       messages.filter((message) => chat.id !== message.id)
+    //     );
+    //   } else {
+    //     setMessages((messages) => [...messages, chat]);
+    //   }
+    // });
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    leaveRoom(prevRoom);
+    joinRoom(socketRoom);
+    setPrevRoom(socketRoom);
+  }, [prevRoom, socketRoom]);
+
+  // useEffect(() => {
+  // socket.on("chat", (chat) => {
+  //   if (chat.edit) {
+  //     setMessages((messages) =>
+  //       messages.map((message) => (chat.id === message.id ? chat : message))
+  //     );
+  //   } else if (chat.delete) {
+  //     setMessages((messages) =>
+  //       messages.filter((message) => chat.id !== message.id)
+  //     );
+  //   } else {
+  //     setMessages((messages) => [...messages, chat]);
+  //   }
+  // });
+
+  // // when component unmounts, disconnect
+  // //   return () => {
+  // //     socket.disconnect();
+  // //   };
+  // // }, [dispatch, dmRoomId, channelId]);
+  const leaveRoom = (oldRoom) => {
+    socket.emit("leave_room", { room: oldRoom });
+  };
+
+  const joinRoom = (newRoom) => {
+    socket.emit("join_room", { room: newRoom });
+  };
+
+  // const sendChat = async (e) => {
+  //   e.preventDefault();
+  //   dmRoomId
+  //     ? await dispatch(
+  //         postDirectMessage({
+  //           room_id: view.id,
+  //           sender_id: user.id,
+  //           content: chatInput,
+  //         })
+  //       ).then((message) =>
+  //         socket.send({
+  //           id: message.id,
+  //           room_id: view.id,
+  //           sender_id: user.id,
+  //           content: chatInput,
+  //           sender_username: user.username,
+  //           sender_profile_picture: user.profile_picture,
+  //           created_at: message.created_at,
+  //           socket: true,
+  //           room: socketRoom,
+  //         })
+  //       )
+  //     : await dispatch(
+  //         postChannelMessage({
+  //           channel_id: view.id,
+  //           sender_id: user.id,
+  //           content: chatInput,
+  //         })
+  //       ).then((message) =>
+  //         socket.send({
+  //           id: message.id,
+  //           channel_id: view.id,
+  //           sender_id: user.id,
+  //           content: chatInput,
+  //           sender_username: user.username,
+  //           sender_profile_picture: user.profile_picture,
+  //           created_at: message.created_at,
+  //           room: socketRoom,
+  //           socket: true,
+  //         })
+  //       );
+  //   setChatInput("");
+  // };
 
   const sendChat = async (e) => {
     e.preventDefault();
-
-    dmRoom
-      ? await dispatch(
+    if (dmRoomId) {
+      await dispatch(
         postDirectMessage({
-          room_id: view.id,
+          room_id: dmRoomId,
+          channel_id: null,
           sender_id: user.id,
           content: chatInput,
-        })
-      ).then((message) =>
-        socket.emit("chat", {
-          id: message.id,
-          room_id: view.id,
-          sender_id: user.id,
-          content: chatInput,
+          room: socketRoom,
           sender_username: user.username,
           sender_profile_picture: user.profile_picture,
-          created_at: message.created_at,
-          socket: true,
         })
-      )
-      : await dispatch(
+      ).then((message) => socket.send(message));
+    }
+    if (channelId) {
+      await dispatch(
         postChannelMessage({
           channel_id: view.id,
+          room_id: null,
           sender_id: user.id,
           content: chatInput,
-        })
-      ).then((message) =>
-        socket.emit("chat", {
-          id: message.id,
-          channel_id: view.id,
-          sender_id: user.id,
-          content: chatInput,
+          room: socketRoom,
           sender_username: user.username,
           sender_profile_picture: user.profile_picture,
-          created_at: message.created_at,
-          socket: true,
         })
-      );
+      ).then((message) => socket.send(message));
+    }
     setChatInput("");
     let audio = new Audio('/static/knock_brush.mp3')
     audio.play()
@@ -132,7 +200,7 @@ const MainContent = () => {
   const handleEditMessage = async (e, message) => {
     e.preventDefault();
     message.content = editContent;
-    socket.emit("chat", {
+    socket.send({
       id: message.id,
       channel_id: view.id,
       sender_id: user.id,
@@ -141,6 +209,7 @@ const MainContent = () => {
       sender_profile_picture: user.profile_picture,
       created_at: message.created_at,
       socket: message.socket,
+      room: socketRoom,
       edit: true,
     });
     await dispatch(putMessage(message));
@@ -150,7 +219,7 @@ const MainContent = () => {
 
   const handleDeleteMessage = async (e, message) => {
     e.preventDefault();
-    socket.emit("chat", {
+    socket.on("chat", {
       id: message.id,
       channel_id: view.id,
       sender_id: user.id,
@@ -158,6 +227,7 @@ const MainContent = () => {
       sender_username: user.username,
       sender_profile_picture: user.profile_picture,
       created_at: message.created_at,
+      room: socketRoom,
       delete: true,
     });
     await dispatch(deleteMessage(message));
@@ -170,147 +240,141 @@ const MainContent = () => {
   };
 
   return (
-    loaded && (
-      <div id="main-content">
-        <div>
-          <div style={{ marginLeft: 5 }}>
-            {channelRoom
 
-              &&
-              <ChannelModalMain channel={view}></ChannelModalMain>
-            }
-          </div>
-          <div id="main-header">
-            <div className="main-header-members">
-              <i className="fas fa-users"/>:{view.members?.length}
-            </div>
-          </div>
-          <div>
-            {dmRoom && (
-              <div className="dm-members">{view.members?.map((member) => (<p>{member.username},</p>))}</div>
-            )}
+    <div id="main-content">
+      <div>
+        <div style={{ marginLeft: 5 }}>
+          {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
+        </div>
+        <div id="main-header">
+          <div className="main-header-members">
+            <i className="fas fa-users" />:{view.members?.length}
+
           </div>
         </div>
-        <div id="chat-container">
-          {messages?.map(
-            (message, idx) =>
-              // TO EDIT
-              (message.channel_id === view.channel_id ||
-                message.room_id === view.dm_room_id) &&
-              (edit === message.id ? (
-                <div key={message.id} className="edit-message">
-                  <img src={message.sender_profile_picture} alt=""></img>
-                  <div className="editor">
-                    <CKEditor
-                      editor={ClassicEditor}
-                      onChange={updateMessageContent}
-                      data={message.content}
-                      config={{
-                        toolbar: [
-                          "heading",
-                          "|",
-                          "bold",
-                          "italic",
-                          "link",
-                          "bulletedList",
-                          "numberedList",
-                          "|",
-                          "indent",
-                          "outdent",
-                          "|",
-                          "codeBlock",
-                          "blockQuote",
-                          "insertTable",
-                          "undo",
-                          "redo",
-                        ],
-                      }}
-                    />
-                  </div>
-                  <span className="edit-box">
-                    <button onClick={handleCancel}>Cancel</button>
-                    <button onClick={(e) => handleEditMessage(e, message)}>
-                      Save
-                    </button>
-                  </span>
-                </div>
-              ) : (
-                <div
-                  className="single-msg"
-                  key={message.id}
-                  onMouseEnter={() => setShowButtons(idx)}
-                >
-                  <div className="sender-pic">
-                    <img src={message.sender_profile_picture} alt="profile" />
-                  </div>
-                  <div className="sender-content">
-                    <div className="sender-name">
-                      <h4>{message.sender_username}</h4>
-                      <p style={{ fontSize: 10, marginLeft: 5 }}>
-                        {message.created_at} PM
-                      </p>
-                    </div>
-                    <div className="sender-msg">
-                      {ReactHtmlParser(message.content)}
-                    </div>
-                  </div>
-                  {user.id === message.sender_id && showButtons === idx && (
-                    <span className="edit-delete">
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setEditContent(message.content);
-                          setEdit(message.id);
-                        }}
-                      >
-                        <i className="far fa-edit"></i>
-                      </button>
-                      <button onClick={(e) => handleDeleteMessage(e, message)}>
-                        <i className="far fa-trash-alt"></i>
-                      </button>
-                    </span>
-                  )}
-                </div>
-              ))
+        <div>
+          {dmRoomId && (
+            <h2>{view.members?.map((member) => member.username)}</h2>
           )}
         </div>
-        <div className="chat-box">
-          <form onSubmit={sendChat}>
-            <CKEditor
-              editor={ClassicEditor}
-              onChange={updateChatInput}
-              data={chatInput}
-              config={{
-                toolbar: [
-                  "heading",
-                  "|",
-                  "bold",
-                  "italic",
-                  "link",
-                  "bulletedList",
-                  "numberedList",
-                  "|",
-                  "indent",
-                  "outdent",
-                  "|",
-                  "blockQuote",
-                  "insertTable",
-                  "undo",
-                  "redo",
-                ],
-              }}
-            />
-            <button
-              className={`send-btn ${!chatInput.length}`}
-              type="submit"
-              disabled={!chatInput.length}
-            >
-              <i className="fas fa-paper-plane"></i>
-            </button>
-          </form>
-        </div>
       </div>
-    )
+      <div id="chat-container">
+        {messages?.map((message, idx) =>
+          // TO EDIT
+
+          edit === message.id ? (
+            <div key={message.id} className="edit-message">
+              <img src={message.sender_profile_picture} alt=""></img>
+              <div className="editor">
+                <CKEditor
+                  editor={ClassicEditor}
+                  onChange={updateMessageContent}
+                  data={message.content}
+                  config={{
+                    toolbar: [
+                      "heading",
+                      "|",
+                      "bold",
+                      "italic",
+                      "link",
+                      "bulletedList",
+                      "numberedList",
+                      "|",
+                      "indent",
+                      "outdent",
+                      "|",
+                      "codeBlock",
+                      "blockQuote",
+                      "insertTable",
+                      "undo",
+                      "redo",
+                    ],
+                  }}
+                />
+              </div>
+              <span className="edit-box">
+                <button onClick={handleCancel}>Cancel</button>
+                <button onClick={(e) => handleEditMessage(e, message)}>
+                  Save
+                </button>
+              </span>
+            </div>
+          ) : (
+            <div
+              className="single-msg"
+              key={message.id}
+              onMouseEnter={() => setShowButtons(idx)}
+            >
+              <div className="sender-pic">
+                <img src={message.sender_profile_picture} alt="profile" />
+              </div>
+              <div className="sender-content">
+                <div className="sender-name">
+                  <h4>{message.sender_username}</h4>
+                  <p style={{ fontSize: 10, marginLeft: 5 }}>
+                    {message.created_at} PM
+                  </p>
+                </div>
+                <div className="sender-msg">
+                  {ReactHtmlParser(message.content)}
+                </div>
+              </div>
+              {user.id === message.sender_id && showButtons === idx && (
+                <span className="edit-delete">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setEditContent(message.content);
+                      setEdit(message.id);
+                    }}
+                  >
+                    <i className="far fa-edit"></i>
+                  </button>
+                  <button onClick={(e) => handleDeleteMessage(e, message)}>
+                    <i className="far fa-trash-alt"></i>
+                  </button>
+                </span>
+              )}
+            </div>
+          )
+        )}
+      </div>
+      <div className="chat-box">
+        <form onSubmit={sendChat}>
+          <CKEditor
+            editor={ClassicEditor}
+            onChange={updateChatInput}
+            data={chatInput}
+            config={{
+              toolbar: [
+                "heading",
+                "|",
+                "bold",
+                "italic",
+                "link",
+                "bulletedList",
+                "numberedList",
+                "|",
+                "indent",
+                "outdent",
+                "|",
+                "blockQuote",
+                "insertTable",
+                "undo",
+                "redo",
+              ],
+            }}
+          />
+          <button
+            className={`send-btn ${!chatInput.length}`}
+            type="submit"
+            disabled={!chatInput.length}
+          >
+            <i className="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 

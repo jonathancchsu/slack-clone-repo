@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { deleteDmRoom } from "../../../../store/dmRooms";
 
-import './DmRooms.css';
+import "./DmRooms.css";
 
 import CreateDmModal from "./DmForm/DmFormModal";
 const DmRooms = ({ workspace }) => {
@@ -28,16 +28,19 @@ const DmRooms = ({ workspace }) => {
       history.push(`/workspaces/${workspace.id}`);
     }
   };
+
   console.log('rooms', dmRooms)
   useEffect(() => {
     setLoaded(false);
     setLoaded(true);
   }, [user, workspace]);
+
   const dmRoom = async (e, id) => {
     e.preventDefault();
-    history.push(`/workspaces/${workspace.id}/messages/dm_rooms/${id}`);
+    history.push(`/workspaces/${workspace.id}/dm_rooms/${id}`);
   };
   return (
+
     loaded && (
       <div id='dm-rooms-list-main'>
         <span id='dm-rooms-list-child'>
@@ -72,9 +75,9 @@ const DmRooms = ({ workspace }) => {
                 )}
               </div>
             </div>
-          ))}
-      </div>
-    )
+          </div>
+        ))}
+    </div>
   );
 };
 

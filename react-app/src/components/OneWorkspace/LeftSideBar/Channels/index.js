@@ -20,9 +20,6 @@ const Channels = () => {
   const workspace = useSelector((state) => state.workspace.currentWorkspace);
   const channelsObj = useSelector((state) => state.channels);
   const userChannels = Object.values(channelsObj.userChannels);
-  useEffect(() => {
-    setLoaded(true);
-  }, [dispatch, channelsObj, user]);
 
   const [loaded, setLoaded] = useState(false);
   const [edit, setEdit] = useState("");
@@ -33,7 +30,7 @@ const Channels = () => {
   const [showChannels, setShowChannels] = useState(true);
   const [newMember, setNewMember] = useState("");
   const channelRoom = (id) => {
-    history.push(`/workspaces/${workspace.id}/messages/channels/${id}`);
+    history.push(`/workspaces/${workspace.id}/channels/${id}`);
   };
 
   const handleEdit = (e) => {
@@ -121,24 +118,44 @@ const Channels = () => {
                         ></input>
                         <input
                           type="text"
-                          value={channelDescription}
-                          onChange={(e) =>
-                            setChannelDescription(e.target.value)
-                          }
+                          value={newMember}
+                          onChange={(e) => setNewMember(e.target.value)}
                         ></input>
-                        <button onClick={handleEdit}>Save</button>
-                        <button onClick={() => setEdit("")}>Cancel</button>
-                      </div>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
+                        <button>add member</button>
+                      </form>
+                    </>
+                  )}
+                  {edit === channel.channel_id ? (
+                    <div>
+                      <input
+                        type="text"
+                        value={channelName}
+                        onChange={(e) => setChannelName(e.target.value)}
+                      ></input>
+                      <input
+                        type="text"
+                        value={channelTopic}
+                        onChange={(e) => setChannelTopic(e.target.value)}
+                      ></input>
+                      <input
+                        type="text"
+                        value={channelDescription}
+                        onChange={(e) => setChannelDescription(e.target.value)}
+                      ></input>
+                      <button onClick={handleEdit}>Save</button>
+                      <button onClick={() => setEdit("")}>Cancel</button>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </div>
+
               )
           )}
         <div><CreateChannelModal/>Add Channel</div>
       </div>
     )
+
   );
 };
 

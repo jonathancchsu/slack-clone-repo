@@ -12,7 +12,6 @@ import OneWorkspace from "./components/OneWorkspace";
 import WorkspaceForm from "./components/workspace_form";
 import ChannelForm from "./components/OneWorkspace/LeftSideBar/ChannelForm";
 import { authenticate } from "./store/session";
-
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -43,6 +42,20 @@ function App() {
         </Route>
         <ProtectedRoute path="/users" exact={true}>
           <UsersList />
+        </ProtectedRoute>
+        <ProtectedRoute
+          path="/workspaces/:workspaceId/channels/:channelId"
+          exact={true}
+        >
+          <NavBar />
+          <OneWorkspace />
+        </ProtectedRoute>
+        <ProtectedRoute
+          path="/workspaces/:workspaceId/dm_rooms/:dmRoomId"
+          exact={true}
+        >
+          <NavBar />
+          <OneWorkspace />
         </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true}>
           <User />
