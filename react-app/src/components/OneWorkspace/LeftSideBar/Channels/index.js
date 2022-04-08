@@ -29,10 +29,9 @@ const Channels = () => {
       <div id="channels-tab-main">
         <span id="channels-tab-child">
           <button onClick={() => setShowChannels(!showChannels)}>
-            {userChannels ? (
-              <i className="fas fa-caret-down"></i>
-            ) : (
-              <i className="fas fa-caret-right"></i>
+            {userChannels && showChannels ?
+              (<i className="fas fa-caret-down"></i>
+            ):( <i className="fas fa-caret-right"></i>
             )}
           </button>
           <p>Channels</p>
