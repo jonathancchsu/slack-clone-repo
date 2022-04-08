@@ -51,7 +51,6 @@ const DmRooms = ({ workspace }) => {
             }
           </button>
           <p>Direct Messages</p>
-          <CreateDmModal />
         </span>
         {showDmRooms &&
           dmRooms.map((room) => (
@@ -76,6 +75,10 @@ const DmRooms = ({ workspace }) => {
               </div>
             </div>
           ))}
+        <div className="add-dm-room">
+          <CreateDmModal />
+          Add teammates
+        </div>
       </div>
     )
   )

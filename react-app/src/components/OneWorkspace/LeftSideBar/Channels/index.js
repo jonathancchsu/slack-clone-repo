@@ -27,21 +27,24 @@ const Channels = ({ workspace }) => {
       <div id="channels-tab-main">
         <span id="channels-tab-child">
           <button onClick={() => setShowChannels(!showChannels)}>
-            {userChannels? <i className="fas fa-caret-down"></i>
-            :  <i className="fas fa-caret-right"></i>
-          }
+            {userChannels ? <i className="fas fa-caret-down"></i>
+              : <i className="fas fa-caret-right"></i>
+            }
           </button>
           <p>Channels</p>
-          <CreateChannelModal></CreateChannelModal>
         </span>
         {showChannels &&
           userChannels.map((channel) => (
             <div key={channel.channel_id}>
               <div className='channel-name' onClick={() => channelRoom(channel.channel_id)}>
-                # {channel.channel_data.name}
+                # <div style={{marginLeft: 10}}>{channel.channel_data.name}</div>
               </div>
             </div>
           ))}
+        <div className="add-channel-btn">
+          <CreateChannelModal></CreateChannelModal>
+          Add channels
+        </div>
       </div>
     )
   );
