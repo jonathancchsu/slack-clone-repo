@@ -31,7 +31,7 @@ const DmRoomForm = ({ setShowModal }) => {
     console.log(members)
 
     dispatch(postDmRoom({ owner_id, workspace_id, members: members })).then(result => {
-      history.push(`/workspaces/${workspace_id}/messages/dm_rooms/${result}`);
+      history.push(`/workspaces/${workspace_id}/dm_rooms/${result}`);
       setShowModal(false);
     });
 
