@@ -167,6 +167,8 @@ const MainContent = () => {
     setEditContent("");
   };
 
+  console.log(view);
+
   return (
     loaded && (
       <div id="main-content">
