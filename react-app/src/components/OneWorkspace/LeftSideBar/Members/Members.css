@@ -1,61 +1,75 @@
-span#members-tab {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#members-main {
+  width: 100%;
 }
 
-span#members-tab>button {
-    background-color: transparent;
-    border: none;
-    color: white;
+span#members-tab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+}
+.title_drop_down {
+  display: flex;
+  flex-direction: row;
+}
+.dots {
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+span#members-tab > button {
+  background-color: transparent;
+  border: none;
+  color: white;
 }
 
 #add-members-modal {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #4a154b;
-    background-color: rgb(255, 255, 255);
-    width: 100%;
-    padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #4a154b;
+  background-color: rgb(255, 255, 255);
+  width: 100%;
+  padding: 50px;
 }
 
 .add-member {
-    background-color: #4a154b;
-    border: 0;
-    border-radius: 5px;
-    height: 40px;
-    margin:10px 0px;
-    font-family: 'Open Sans';
-    color:white;
-    padding: 10px;
-    width: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition-duration: 0.5s;
+  background-color: #4a154b;
+  border: 0;
+  border-radius: 5px;
+  height: 40px;
+  margin: 10px 0px;
+  font-family: "Open Sans";
+  color: white;
+  padding: 10px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.5s;
 }
 
 .add-member:hover {
-cursor: pointer;
+  cursor: pointer;
 }
 
 .results-map:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #members-list {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20px;
 }
 
 #members-list > p {
-    margin: 0;
+  margin: 0;
 }
 
 .add-ws-members-btn {
-    opacity: 0.2;
+  opacity: 0.2;
 }
