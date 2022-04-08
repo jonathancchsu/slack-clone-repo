@@ -40,6 +40,7 @@ const DmRooms = ({ workspace }) => {
     history.push(`/workspaces/${workspace.id}/dm_rooms/${id}`);
   };
   return (
+
     loaded && (
       <div id='dm-rooms-list-main'>
         <span id='dm-rooms-list-child'>
@@ -79,5 +80,6 @@ const DmRooms = ({ workspace }) => {
     )
   )
 }
+
 
 export default DmRooms;

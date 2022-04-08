@@ -1,3 +1,7 @@
+* {
+    font-family: 'Helvetica Nue'
+}
+
 div#left-sb-main {
     color: #CFC3CF;
     background-color: #3F0E40;
@@ -16,11 +20,11 @@ div#members-tab {
 .left-sb-ws-name {
     border-top: 1px solid #7e6b7e;
     border-bottom: 1px solid rgba(192, 143, 199, 0.5);
-    height: 100%;
+    height: 27px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
     padding: 10px;
     color: white;
     font-size: 12px;
@@ -38,7 +42,7 @@ div#members-tab {
     justify-content: center;
     align-items: flex-start;
     position: fixed;
-    padding: 20px;
+    padding: 13px;
 }
 
 .left-sb-container::-webkit-scrollbar {
