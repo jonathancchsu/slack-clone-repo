@@ -1,40 +1,52 @@
 span#channels-tab-child {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+}
+
+.title_drop_down {
+  display: flex;
+  flex-direction: row;
+}
+.carrot {
+  background-color: transparent;
+  border: none;
+  color: white;
 }
 
 span#channels-tab-child > button {
-    background-color: transparent;
-    border: none;
-    color: white;
+  background-color: transparent;
+  border: none;
+  color: white;
 }
 
 #channels-tab-main {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .channel-name:hover {
-    background-color: #130513;
-    cursor: pointer;
-    width: 220px;
+  background-color: #130513;
+  cursor: pointer;
+  width: 220px;
 }
 
 .channel-tab {
-    width: 250px;
+  width: 250px;
 }
 
 .add-channel-btn > button {
-    background-color: transparent;
-    border: 0;
-    color: rgba(109, 89, 89, 0.5);
+  background-color: transparent;
+  border: 0;
+  color: rgba(109, 89, 89, 0.5);
 }
 
 .channel-name {
-    margin-left: 9px;
-    display:flex;
-    width: 220px;
+  margin-left: 9px;
+  display: flex;
+  width: 220px;
 }

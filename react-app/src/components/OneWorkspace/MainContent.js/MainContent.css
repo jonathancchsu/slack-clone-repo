@@ -171,13 +171,12 @@ div#chat-container {
 }
 
 .edit-delete {
-    position: fixed;
-    right: 20px;
+    position: relative;
     border: .5px solid #616061;
     border-radius: 10px;
-    margin-bottom: 70px;
     padding: 2px;
     background-color: white;
+    margin-left: 20px;
 }
 
 .edit-delete > button {

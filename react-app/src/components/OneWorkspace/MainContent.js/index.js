@@ -1,6 +1,6 @@
 import "./MainContent.css";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -37,6 +37,8 @@ const MainContent = () => {
   const view = useSelector((state) => state.currentView.main_content);
   const userChannels = useSelector(state => state.channels.userChannels);
   const [showButtons, setShowButtons] = useState(null);
+  const messagesEnd = useRef(null);
+
   useEffect(() => {
     if (channelId) {
       dispatch(getCurrentChannel(channelId));
@@ -69,6 +71,10 @@ const MainContent = () => {
     joinRoom(socketRoom);
     setPrevRoom(socketRoom);
   }, [prevRoom, socketRoom]);
+
+  useEffect(() => {
+    messagesEnd.current?.scrollIntoView();
+  }, [messages])
 
   const leaveRoom = (oldRoom) => {
     socket.emit("leave_room", { room: oldRoom });
@@ -206,7 +212,6 @@ const MainContent = () => {
         <div id="chat-container">
           {messages?.map((message, idx) =>
             // TO EDIT
-
             edit === message.id ? (
               <div key={message.id} className="edit-message">
                 <img src={message.sender_profile_picture} alt=""></img>
@@ -284,6 +289,7 @@ const MainContent = () => {
               </div>
             )
           )}
+          <div ref={messagesEnd}></div>
         </div>
         <div className="chat-box">
           <form onSubmit={sendChat}>
