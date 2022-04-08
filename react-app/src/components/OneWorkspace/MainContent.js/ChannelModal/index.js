@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteChannel, putChannel, addNewChannelMember } from "../../../../store/channel";
+import { getCurrentChannel } from "../../../../store/currentView";
 import { getAllUsers } from "../../../../store/session";
 
 import "./ChannelModal.css";
@@ -31,7 +32,7 @@ const ChannelModal = ({ setShowModal, channel }) => {
 
   const handleAddMember = (e, id) => {
     e.preventDefault();
-    dispatch(addNewChannelMember(id, newMember));
+    dispatch(addNewChannelMember(id, newMember)).then(() => dispatch(getCurrentChannel(id)));
     setNewMember("");
     setShowModal(false);
   }
