@@ -27,7 +27,6 @@ const DmRooms = ({ workspace }) => {
     }
   };
 
-
   useEffect(() => {
     setLoaded(false);
     setLoaded(true);
@@ -41,14 +40,22 @@ const DmRooms = ({ workspace }) => {
     loaded && (
       <div id="dm-rooms-list-main">
         <span id="dm-rooms-list-child">
-          <button onClick={() => setShowDmRooms(!showDmRooms)}>
-            {showDmRooms ? (
-              <i className="fas fa-caret-down"></i>
-            ) : (
-              <i className="fas fa-caret-right"></i>
-            )}
-          </button>
-          <p>Direct Messages</p>
+          <div id="title_drop_down">
+            <button
+              className="carrot"
+              onClick={() => setShowDmRooms(!showDmRooms)}
+            >
+              {showDmRooms ? (
+                <i className="fas fa-caret-down"></i>
+              ) : (
+                <i className="fas fa-caret-right"></i>
+              )}
+            </button>
+            <p>Direct Messages</p>
+          </div>
+          <div className="add-dm-room">
+            <CreateDmModal />
+          </div>
         </span>
         {showDmRooms &&
           dmRooms.map(
@@ -60,27 +67,24 @@ const DmRooms = ({ workspace }) => {
                   id={room.id}
                   className="single_dm_room"
                 >
-                <div className="single_dm_room_child">
-                  <i className="fas fa-user" />
-                  <div className="dm-rooms-names">
-                    {room.neighbors.members.map((member) => (
-                      <div className="single_dm_room_child" key={member.id}>
-                      {member.username},
-                      </div>
-                    ))}
+                  <div className="single_dm_room_child">
+                    <i className="fas fa-user" />
+                    <div className="dm-rooms-names">
+                      {room.neighbors.members.map((member) => (
+                        <div className="single_dm_room_child" key={member.id}>
+                          {member.username},
+                        </div>
+                      ))}
+                    </div>
+                    {user.id === room.user_id && (
+                      <button onClick={(e) => handleDelete(e, room.dm_room_id)}>
+                        <i className="fas fa-trash-alt" />
+                      </button>
+                    )}
                   </div>
-                  {user.id === room.user_id && (
-                    <button onClick={(e) => handleDelete(e, room.dm_room_id)}>
-                      <i className="fas fa-trash-alt" />
-                    </button>
-                  )}
                 </div>
-                </div>
-              ))}
-        <div className="add-dm-room">
-          <CreateDmModal />
-          Add teammates
-        </div>
+              )
+          )}
       </div>
     )
   );
