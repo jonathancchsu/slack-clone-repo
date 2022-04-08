@@ -49,12 +49,16 @@ function SearchBox({ setShowSearchBox }) {
                                         })
                                     }}><i className="far fa-user"></i><img src={result.profile_picture} alt=''></img><p>{result.username}</p></div>}
                                     {result.content &&
-                                        <div className='result-message'>
+                                        <div className='result-message' onClick={() => {
+                                            if (result.channel_id) history.push(`/workspaces/${workspace.id}/messages/channels/${result.channel_id}`);
+                                            else history.push(`/workspaces/${workspace.id}/messages/dm_rooms/${result.room_id}`);
+                                            setShowSearchBox(false);
+                                        }}>
                                             <i className="far fa-comment-dots"></i>
                                             <img src={result.sender_profile_picture} alt=''></img>
                                             <div>
                                                 <strong>{result.sender_username}</strong>
-                                                <p>{ReactHtmlParser(result.content)}</p>
+                                                {ReactHtmlParser(result.content)}
                                             </div>
                                         </div>}
                                     {result.name && <div onClick={() => {
