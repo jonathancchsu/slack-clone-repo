@@ -28,6 +28,7 @@ const Channels = () => {
     loaded && (
       <div id="channels-tab-main">
         <span id="channels-tab-child">
+
           <div className="title_drop_down">
             <button
               className="carrot"
@@ -44,6 +45,7 @@ const Channels = () => {
           <div className="add-channel-btn">
             <CreateChannelModal></CreateChannelModal>
           </div>
+
         </span>
         {showChannels &&
           userChannels.map(
