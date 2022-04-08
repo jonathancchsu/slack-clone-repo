@@ -10,7 +10,9 @@ const ChannelModalMain = (channel) => {
   return(
     <>
       <div onClick={() => setShowModal(true)} className='channel-name-modal'>
-        <h1># {channel.channel.name}</h1>
+        <div className="channel-name-tag">
+          <h1 className="channelname"># {channel.channel.name}</h1><i className="fas fa-chevron-down"></i>
+        </div>
       </div>
       {showModal && (
         <Modal className="modal" onClose={() => setShowModal(false)}>

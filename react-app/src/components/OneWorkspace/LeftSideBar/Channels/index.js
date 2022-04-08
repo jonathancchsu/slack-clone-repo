@@ -29,20 +29,39 @@ const Channels = () => {
       <div id="channels-tab-main">
         <span id="channels-tab-child">
           <button onClick={() => setShowChannels(!showChannels)}>
-            {userChannels ? <i className="fas fa-caret-down"></i>
-              : <i className="fas fa-caret-right"></i>
-            }
+            {userChannels && showChannels ?
+              (<i className="fas fa-caret-down"></i>
+            ):( <i className="fas fa-caret-right"></i>
+            )}
           </button>
           <p>Channels</p>
         </span>
         {showChannels &&
-          userChannels.map((channel) => channel.channel_data ? (
-            <div key={channel.channel_id}>
-              <div className='channel-name' onClick={() => channelRoom(channel.channel_id)}>
-                # <div style={{marginLeft: 10}}>{channel.channel_data.name}</div>
-              </div>
-            </div>
-          ) : null)}
+// <<<<<<< HEAD
+//           userChannels.map((channel) => channel.channel_data ? (
+//             <div key={channel.channel_id}>
+//               <div className='channel-name' onClick={() => channelRoom(channel.channel_id)}>
+//                 # <div style={{marginLeft: 10}}>{channel.channel_data.name}</div>
+//               </div>
+//             </div>
+//           ) : null)}
+// =======
+          userChannels.map(
+            (channel) => channel.channel_data ?
+              (channel.workspace_id === workspaceId * 1 && (
+                <div key={channel.channel_id}>
+                  <div
+                    className="channel-name"
+                    onClick={() => channelRoom(channel.channel_id)}
+                  >
+                    #{" "}
+                    <div style={{ marginLeft: 10 }}>
+                      {channel.channel_data.name}
+                    </div>
+                  </div>
+                </div>
+              )) : null
+          )}
         <div className="add-channel-btn">
           <CreateChannelModal></CreateChannelModal>
           Add channels

@@ -75,7 +75,7 @@ export const postWorkspace = (workspace) => async (dispatch) => {
     body: JSON.stringify(workspace),
   });
   const new_workspace = await res.json();
-  // console.log("new workspace+++++++++++++++++++++++",new_workspace)
+
   dispatch(addWorkspace(new_workspace));
 };
 //--------------------------------------------update workspace-----------------------
@@ -112,11 +112,15 @@ export const deleteEvent = (workspaceId) => async (dispatch) => {
 
 //---------------------------------------------search----------------------------
 
-export const searchInWorkspace = data => async () => {
-  const response = await fetch(`/api/workspaces/${data.workspace_id}/search/${data.parameters.length ? data.parameters : 'nothing'}/${data.keyword}`);
+export const searchInWorkspace = (data) => async () => {
+  const response = await fetch(
+    `/api/workspaces/${data.workspace_id}/search/${
+      data.parameters.length ? data.parameters : "nothing"
+    }/${data.keyword}`
+  );
   const result = await response.json();
   return result;
-}
+};
 
 //---------------------------------------------reducer----------------------------
 
@@ -151,7 +155,10 @@ const workspaceReducer = (
       return newState;
     }
     case ADD_MEMBER: {
-      newState.currentWorkspace.members = [...newState.currentWorkspace.members, action.member];
+      newState.currentWorkspace.members = [
+        ...newState.currentWorkspace.members,
+        action.member,
+      ];
       return newState;
     }
     default:

@@ -39,7 +39,6 @@ const MainContent = () => {
   const [showButtons, setShowButtons] = useState(null);
   useEffect(() => {
     if (channelId) {
-      console.log("idddddddd", channelId);
       dispatch(getCurrentChannel(channelId));
       setSocketRoom(`channel${channelId}`);
     }
@@ -57,7 +56,6 @@ const MainContent = () => {
   useEffect(() => {
     socket = io();
     socket.on("message", (data) => {
-      console.log("hereeeeeeeeeeeeeeeeeeee", data);
       setMessages((messages) => [...messages, data]);
     });
 
@@ -141,6 +139,7 @@ const MainContent = () => {
     await dispatch(putMessage(message));
     setEdit(null);
     setEditContent("");
+    setShowButtons(null);
   };
 
   const handleDeleteMessage = async (e, message) => {
@@ -163,14 +162,14 @@ const MainContent = () => {
     e.preventDefault();
     setEdit(null);
     setEditContent("");
+    setShowButtons(null);
   };
-
-  console.log(view);
 
   return (
     view.workspace_id === workspaceId * 1 && (
       <div id="main-content">
         <div>
+<<<<<<< HEAD
           <div id="main-header">
             <div style={{ marginLeft: 20 }}>
               {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
@@ -181,18 +180,33 @@ const MainContent = () => {
               });
             }}>Join Channel</button>}
             <div></div>
+=======
+          <div style={{ marginLeft: 20 }}>
+            {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
+          </div>
+          <div id="main-header">
+>>>>>>> main
             <div className="main-header-members">
               {view.members?.map((member, idx) => {
-                return (idx < 3 && (
-                  <img key={member.id} className={`idx${idx}`} src={member.profile_picture} alt=""></img>
-                ))
+                return (
+                  idx < 3 && (
+                    <img
+                      key={member.id}
+                      className={`idx${idx}`}
+                      src={member.profile_picture}
+                      alt=""
+                    ></img>
+                  )
+                );
               })}
               <p>{view.members?.length}</p>
             </div>
           </div>
           <div>
             {dmRoomId && (
-              <h2>{view.members?.map((member) => member.username)}</h2>
+              <div>
+                <div className="dm-room-members">{view.members?.map((member) => (<div style={{ marginLeft: 5 }}>{member.username},</div>))}</div>
+              </div>
             )}
           </div>
         </div>
@@ -241,7 +255,6 @@ const MainContent = () => {
               <div
                 className="single-msg"
                 key={message.id}
-                onMouseEnter={() => setShowButtons(idx)}
               >
                 <div className="sender-pic">
                   <img src={message.sender_profile_picture} alt="profile" />
@@ -253,12 +266,14 @@ const MainContent = () => {
                       {message.created_at} PM
                     </p>
                   </div>
-                  <div className="sender-msg">
+                  <div className="sender-msg" onClick={() => setShowButtons(idx)}>
                     {ReactHtmlParser(message.content)}
                   </div>
                 </div>
                 {user.id === message.sender_id && showButtons === idx && (
-                  <span className="edit-delete">
+                  <span
+                  className="edit-delete"
+                  >
                     <button
                       onClick={(e) => {
                         e.preventDefault();
