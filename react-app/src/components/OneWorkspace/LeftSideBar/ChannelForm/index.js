@@ -43,6 +43,7 @@ const ChannelForm = ({ setShowModal }) => {
 
   return (
     <div className="create-channel-container">
+      <i className="far fa-list-alt"></i><h3>Create a Channel</h3>
       {errors.length > 0 && (
         <div className="errors-container">
           {errors.map((error, ind) => (
@@ -50,7 +51,10 @@ const ChannelForm = ({ setShowModal }) => {
           ))}
         </div>
       )}
-      <div>
+      <div className="input">
+        <div className="icon-container">
+          <i class="fas fa-hashtag"></i>
+        </div>
         <input
           type="text"
           name="name"
@@ -60,7 +64,10 @@ const ChannelForm = ({ setShowModal }) => {
           placeholder="Channel Name"
         ></input>
       </div>
-      <div>
+      <div className="input">
+        <div className="icon-container">
+          <i className="fas fa-quote-left"></i><i className="fas fa-quote-right"></i>
+        </div>
         <input
           type="text"
           name="topic"
@@ -70,7 +77,10 @@ const ChannelForm = ({ setShowModal }) => {
           placeholder="Channel Topic"
         ></input>
       </div>
-      <div>
+      <div className="input desc">
+        <div className="icon-container">
+        <i className="fas fa-sticky-note"></i>
+        </div>
         <input
           type="text"
           name="description"
