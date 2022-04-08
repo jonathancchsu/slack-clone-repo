@@ -4,10 +4,16 @@ span#dm-rooms-list-child {
   align-items: center;
 }
 
+#dm-rooms-list-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .single_dm_room {
   display: flex;
   flex-direction: row;
-  margin-left: 15px;
+  margin-left: 8px;
 }
 .single_dm_room_child {
   display: flex;
@@ -27,4 +33,10 @@ span#dm-rooms-list-child > button {
     background-color: transparent;
     border: none;
     color: white;
+}
+
+.add-dm-room > button {
+  background-color: transparent;
+  border: 0;
+  color: rgba(109, 89, 89, 0.5);
 }
