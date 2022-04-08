@@ -43,12 +43,32 @@ div#chat-container {
     right: 0;
     margin-right: 5px;
     border: 1px solid lightgray;
-    height: 20px;
-    width: 100px;
+    height: 25px;
+    width: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+    padding: 0 5px;
+}
+
+.main-header-members > img {
+    width: 20px;
+    border-radius: 5px;
+    border: solid white 1px;
+    margin-right: -5px;
+}
+
+.main-header-members > img.idx0 {
+    z-index: 1;
+}
+
+.main-header-members > img.idx2 {
+    z-index: -1;
+}
+
+.main-header-members > p {
+    margin-left: 10px;
 }
 
 .single-msg {

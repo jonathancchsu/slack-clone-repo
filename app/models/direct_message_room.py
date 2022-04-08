@@ -44,5 +44,6 @@ class DirectMessageMember(db.Model):
             'room_id': self.room_id,
             'user_id': self.user_id,
             'username':self.member.username,
+            'profile_picture': self.member.profile_picture,
             'workspace_id': self.room.workspace_id
     }

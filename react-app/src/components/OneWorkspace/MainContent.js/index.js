@@ -169,12 +169,17 @@ const MainContent = () => {
     view.workspace_id === workspaceId * 1 && (
       <div id="main-content">
         <div>
-          <div style={{ marginLeft: 5 }}>
+          <div id="main-header">
+          <div style={{ marginLeft: 20 }}>
             {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
           </div>
-          <div id="main-header">
             <div className="main-header-members">
-              <i className="fas fa-users" />:{view.members?.length}
+              {view.members?.map((member, idx) => {
+                return (idx < 3 && (
+                  <img key={member.id} className={`idx${idx}`} src={member.profile_picture} alt=""></img>
+                ))
+              })}
+              <p>{view.members?.length}</p>
             </div>
           </div>
           <div>
