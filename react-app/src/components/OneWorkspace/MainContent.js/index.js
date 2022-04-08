@@ -1,6 +1,6 @@
 import "./MainContent.css";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -16,6 +16,7 @@ import {
   putMessage,
   deleteMessage,
 } from "../../../store/currentView";
+import { addNewChannelMember } from "../../../store/channel";
 import { io } from "socket.io-client";
 import ChannelModalMain from "./ChannelModal/ChannelModalMain";
 let socket;
@@ -34,7 +35,10 @@ const MainContent = () => {
 
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView.main_content);
+  const userChannels = useSelector(state => state.channels.userChannels);
   const [showButtons, setShowButtons] = useState(null);
+  const messagesEnd = useRef(null);
+
   useEffect(() => {
     if (channelId) {
       dispatch(getCurrentChannel(channelId));
@@ -67,6 +71,10 @@ const MainContent = () => {
     joinRoom(socketRoom);
     setPrevRoom(socketRoom);
   }, [prevRoom, socketRoom]);
+
+  useEffect(() => {
+    messagesEnd.current?.scrollIntoView();
+  }, [messages])
 
   const leaveRoom = (oldRoom) => {
     socket.emit("leave_room", { room: oldRoom });
@@ -137,6 +145,7 @@ const MainContent = () => {
     await dispatch(putMessage(message));
     setEdit(null);
     setEditContent("");
+    setShowButtons(null);
   };
 
   const handleDeleteMessage = async (e, message) => {
@@ -159,21 +168,36 @@ const MainContent = () => {
     e.preventDefault();
     setEdit(null);
     setEditContent("");
+    setShowButtons(null);
   };
 
   return (
     view.workspace_id === workspaceId * 1 && (
       <div id="main-content">
         <div>
-          <div style={{ marginLeft: 20 }}>
-            {channelId && <ChannelModalMain></ChannelModalMain>}
-          </div>
           <div id="main-header">
+            <div style={{ marginLeft: 20 }}>
+              {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
+            </div>
+            {/* {console.log(userChannels[view.id] !== undefined && view.channel_id !== undefined) } */}
+            {(userChannels[view.id] === undefined && view.channel_id !== undefined) ? <button id='join-channel' onClick={() => {
+              dispatch(addNewChannelMember(channelId, user.username)).then(() => {
+                dispatch(getCurrentChannel(channelId));
+              });
+            }}>Join Channel</button> : null}
+            <div></div>
             <div className="main-header-members">
               {view.members?.map((member, idx) => {
-                return (idx < 3 && (
-                  <img key={member.id} className={`idx${idx}`} src={member.profile_picture} alt=""></img>
-                ))
+                return (
+                  idx < 3 && (
+                    <img
+                      key={member.id}
+                      className={`idx${idx}`}
+                      src={member.profile_picture}
+                      alt=""
+                    ></img>
+                  )
+                );
               })}
               <p>{view.members?.length}</p>
             </div>
@@ -181,7 +205,7 @@ const MainContent = () => {
           <div>
             {dmRoomId && (
               <div>
-                <div className="dm-room-members">{view.members?.map((member) => (<div style={{marginLeft: 5}}>{member.username},</div>))}</div>
+                <div className="dm-room-members">{view.members?.map((member) => (<div style={{ marginLeft: 5 }}>{member.username},</div>))}</div>
               </div>
             )}
           </div>
@@ -189,7 +213,6 @@ const MainContent = () => {
         <div id="chat-container">
           {messages?.map((message, idx) =>
             // TO EDIT
-
             edit === message.id ? (
               <div key={message.id} className="edit-message">
                 <img src={message.sender_profile_picture} alt=""></img>
@@ -228,11 +251,7 @@ const MainContent = () => {
                 </span>
               </div>
             ) : (
-              <div
-                className="single-msg"
-                key={message.id}
-                onMouseEnter={() => setShowButtons(idx)}
-              >
+              <div className="single-msg" key={message.id ? message.id : idx}>
                 <div className="sender-pic">
                   <img src={message.sender_profile_picture} alt="profile" />
                 </div>
@@ -243,12 +262,14 @@ const MainContent = () => {
                       {message.created_at} PM
                     </p>
                   </div>
-                  <div className="sender-msg">
+                  <div className="sender-msg" onClick={() => setShowButtons(idx)}>
                     {ReactHtmlParser(message.content)}
                   </div>
                 </div>
                 {user.id === message.sender_id && showButtons === idx && (
-                  <span className="edit-delete">
+                  <span
+                  className="edit-delete"
+                  >
                     <button
                       onClick={(e) => {
                         e.preventDefault();
@@ -266,6 +287,7 @@ const MainContent = () => {
               </div>
             )
           )}
+          <div ref={messagesEnd}></div>
         </div>
         <div className="chat-box">
           <form onSubmit={sendChat}>

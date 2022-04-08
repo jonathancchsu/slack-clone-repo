@@ -28,19 +28,29 @@ const Channels = () => {
     loaded && (
       <div id="channels-tab-main">
         <span id="channels-tab-child">
-          <button onClick={() => setShowChannels(!showChannels)}>
-            {userChannels ? (
-              <i className="fas fa-caret-down"></i>
-            ) : (
-              <i className="fas fa-caret-right"></i>
-            )}
-          </button>
-          <p>Channels</p>
+
+          <div className="title_drop_down">
+            <button
+              className="carrot"
+              onClick={() => setShowChannels(!showChannels)}
+            >
+              {userChannels ? (
+                <i className="fas fa-caret-down"></i>
+              ) : (
+                <i className="fas fa-caret-right"></i>
+              )}
+            </button>
+            <p>Channels</p>
+          </div>
+          <div className="add-channel-btn">
+            <CreateChannelModal></CreateChannelModal>
+          </div>
+
         </span>
         {showChannels &&
           userChannels.map(
-            (channel) =>
-              channel.workspace_id === workspaceId * 1 && (
+            (channel) => channel.channel_data ?
+              (channel.workspace_id === workspaceId * 1 && (
                 <div key={channel.channel_id}>
                   <div
                     className="channel-name"
@@ -52,12 +62,8 @@ const Channels = () => {
                     </div>
                   </div>
                 </div>
-              )
+              )) : null
           )}
-        <div className="add-channel-btn">
-          <CreateChannelModal></CreateChannelModal>
-          Add channels
-        </div>
       </div>
     )
   );

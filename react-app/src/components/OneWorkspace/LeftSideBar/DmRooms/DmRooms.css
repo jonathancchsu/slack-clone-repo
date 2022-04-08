@@ -1,13 +1,25 @@
 span#dm-rooms-list-child {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
+}
+#title_drop_down {
+  display: flex;
+  flex-direction: row;
+}
+.carrot {
+  background-color: transparent;
+  border: none;
+  color: white;
 }
 
 #dm-rooms-list-main {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
 }
 
 .single_dm_room {
@@ -31,7 +43,6 @@ span#dm-rooms-list-child {
   width: 180px;
 }
 
-
 .single_dm_room_child:hover {
   cursor: pointer;
   background-color: #130513;
@@ -39,9 +50,9 @@ span#dm-rooms-list-child {
 }
 
 span#dm-rooms-list-child > button {
-    background-color: transparent;
-    border: none;
-    color: white;
+  background-color: transparent;
+  border: none;
+  color: white;
 }
 
 .add-dm-room > button {
