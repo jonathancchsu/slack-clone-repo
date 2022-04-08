@@ -183,6 +183,8 @@ const MainContent = () => {
       ).then((message) => socket.send(message));
     }
     setChatInput("");
+    let audio = new Audio('/static/knock_brush.mp3')
+    audio.play()
   };
 
   const updateChatInput = (e, editor) => {
@@ -238,6 +240,7 @@ const MainContent = () => {
   };
 
   return (
+
     <div id="main-content">
       <div>
         <div style={{ marginLeft: 5 }}>
@@ -246,6 +249,7 @@ const MainContent = () => {
         <div id="main-header">
           <div className="main-header-members">
             <i className="fas fa-users" />:{view.members?.length}
+
           </div>
         </div>
         <div>

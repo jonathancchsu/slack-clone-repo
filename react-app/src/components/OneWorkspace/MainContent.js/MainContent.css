@@ -15,6 +15,12 @@ div#chat-container {
     display: none;
 }
 
+.dm-members {
+    display: flex;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
 #main-header {
     border-bottom: 1px solid lightgray;
     height: 48px;
