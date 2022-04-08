@@ -8,3 +8,25 @@
 .channel-name-modal:hover {
   cursor: pointer;
 }
+
+.channel-modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #4a154b;
+  background-color: white;
+  width: 100%;
+  padding: 50px;
+}
+
+.channel-name-tag {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.channelname {
+  padding-right: 10px; 
+}
