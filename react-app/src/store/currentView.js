@@ -20,6 +20,7 @@ export const getCurrentRoom = (roomId) => async (dispatch) => {
   dm_room["dm_room_id"] = dm_room.id;
   dispatch(loadMainContent(dm_room));
 };
+
 //-----------------------------------------------------delete message
 const DELETE_MESSAGE = "view/deleteMessage";
 export const removeMessage = (message) => ({
