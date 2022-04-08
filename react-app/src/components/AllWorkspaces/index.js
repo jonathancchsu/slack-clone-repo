@@ -18,6 +18,7 @@ const Workspaces = ({ userId }) => {
   const workspace = useSelector((state) => state.workspace);
   const workspacesObj = workspace.userWorkspaces;
   const workspaces = Object.values(workspacesObj);
+  console.log("workspaces hereeeeeeeeeeeeeeeee", workspace);
 
   useEffect(() => {
     dispatch(getUser(userId));
@@ -29,7 +30,10 @@ const Workspaces = ({ userId }) => {
   }, [dispatch, user, userId]);
 
   const redirect = (workspaceId) => {
-    history.push(`/workspaces/${workspaceId}`);
+    const channel = user.channel_member.find(
+      (channel) => channel.workspace_id === workspaceId
+    );
+    history.push(`/workspaces/${workspaceId}/channels/${channel.channel_id}`);
   };
 
   const createForm = () => {

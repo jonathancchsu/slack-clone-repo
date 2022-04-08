@@ -1,7 +1,7 @@
 from app.models import db, Workspace
 
 def seed_workspace():
-    workspaces = [{'id': 1, 'owner_id':1, 'name': 'test workspace1'},{'id': 2, 'owner_id': 2, 'name': 'test workspace2'}, {'id': 3, 'owner_id':3, 'name': 'test workspace3'}]
+    workspaces = [{'id': 1, 'owner_id':2, 'name': 'test workspace1'},{'id': 2, 'owner_id': 3, 'name': 'test workspace2'}, {'id': 4, 'owner_id':3, 'name': 'test workspace3'}]
 
     for workspace in workspaces:
         new_workspace =  Workspace(
