@@ -1,6 +1,6 @@
 import "./MainContent.css";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -16,6 +16,7 @@ import {
   putMessage,
   deleteMessage,
 } from "../../../store/currentView";
+import { addNewChannelMember } from "../../../store/channel";
 import { io } from "socket.io-client";
 import ChannelModalMain from "./ChannelModal/ChannelModalMain";
 let socket;
@@ -34,7 +35,10 @@ const MainContent = () => {
 
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView.main_content);
+  const userChannels = useSelector(state => state.channels.userChannels);
   const [showButtons, setShowButtons] = useState(null);
+  const messagesEnd = useRef(null);
+
   useEffect(() => {
     if (channelId) {
       dispatch(getCurrentChannel(channelId));
@@ -67,6 +71,10 @@ const MainContent = () => {
     joinRoom(socketRoom);
     setPrevRoom(socketRoom);
   }, [prevRoom, socketRoom]);
+
+  useEffect(() => {
+    messagesEnd.current?.scrollIntoView();
+  }, [messages])
 
   const leaveRoom = (oldRoom) => {
     socket.emit("leave_room", { room: oldRoom });
@@ -167,10 +175,17 @@ const MainContent = () => {
     view.workspace_id === workspaceId * 1 && (
       <div id="main-content">
         <div>
-          <div style={{ marginLeft: 20 }}>
-            {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
-          </div>
           <div id="main-header">
+            <div style={{ marginLeft: 20 }}>
+              {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
+            </div>
+            {/* {console.log(userChannels[view.id] !== undefined && view.channel_id !== undefined) } */}
+            {(userChannels[view.id] === undefined && view.channel_id !== undefined) ? <button id='join-channel' onClick={() => {
+              dispatch(addNewChannelMember(channelId, user.username)).then(() => {
+                dispatch(getCurrentChannel(channelId));
+              });
+            }}>Join Channel</button> : null}
+            <div></div>
             <div className="main-header-members">
               {view.members?.map((member, idx) => {
                 return (
@@ -198,7 +213,6 @@ const MainContent = () => {
         <div id="chat-container">
           {messages?.map((message, idx) =>
             // TO EDIT
-
             edit === message.id ? (
               <div key={message.id} className="edit-message">
                 <img src={message.sender_profile_picture} alt=""></img>
@@ -237,10 +251,7 @@ const MainContent = () => {
                 </span>
               </div>
             ) : (
-              <div
-                className="single-msg"
-                key={message.id}
-              >
+              <div className="single-msg" key={message.id ? message.id : idx}>
                 <div className="sender-pic">
                   <img src={message.sender_profile_picture} alt="profile" />
                 </div>
@@ -276,6 +287,7 @@ const MainContent = () => {
               </div>
             )
           )}
+          <div ref={messagesEnd}></div>
         </div>
         <div className="chat-box">
           <form onSubmit={sendChat}>

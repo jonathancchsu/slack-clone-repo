@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { postChannel } from "../../../../store/channel";
 
 import "./ChannelForm.css";
 
 const ChannelForm = ({ setShowModal }) => {
+  const history = useHistory();
   const [errors, setErrors] = useState([]);
   const [name, setName] = useState("");
   const [topic, setTopic] = useState("");
@@ -31,9 +33,11 @@ const ChannelForm = ({ setShowModal }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name.length >= 1 && topic.length >= 1 && description.length >= 1) {
-      const data = dispatch(
-        postChannel({ name, topic, description, owner_id, workspace_id })
-      );
+      const data = dispatch(postChannel({ name, topic, description, owner_id, workspace_id }))
+        .then(result => {
+          console.log(result);
+          history.push(`/workspaces/${workspace_id}/channels/${result.channel_id}`);
+        });
       if (data) {
         setErrors(data);
       }
@@ -53,7 +57,7 @@ const ChannelForm = ({ setShowModal }) => {
       )}
       <div className="input">
         <div className="icon-container">
-          <i class="fas fa-hashtag"></i>
+          <i className="fas fa-hashtag"></i>
         </div>
         <input
           type="text"

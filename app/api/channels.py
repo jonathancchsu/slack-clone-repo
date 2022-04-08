@@ -77,4 +77,11 @@ def add_member(channel_id):
 
     db.session.add(channelMember)
     db.session.commit()
-    return { "channel_id": channel.id, "id": channelMember.id, "user_id": user.id, "username": user.username, "workspace_id": channel.workspace_id }
+    return {
+        "channel_data": channel.to_dict(),
+        "channel_id": channel.id,
+        "id": channelMember.id,
+        "user_id": user.id,
+        "username": user.username,
+        "workspace_id": channel.workspace_id
+    }
