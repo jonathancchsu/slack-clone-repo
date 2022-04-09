@@ -13,6 +13,7 @@
   justify-content: center;
   min-height: 100vh;
   align-items: center;
+  margin-top: 0px;
 }
 
 .team {
@@ -25,8 +26,8 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  width: 600px;
-  margin-top: 100px;
+  width: 60vw;
+  margin-top: 50px;
 }
 
 .workspace-box {
@@ -38,7 +39,8 @@
   border: 4px solid rgba(112, 90, 112, 0.9);
   border-radius: 15px;
   margin-bottom: 30px;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
+  width: 100%;
 }
 
 .main-nav {
@@ -47,6 +49,7 @@
   height: 100px;
   align-items: center;
   width: 100vw;
+  align-self: flex-start;
 }
 
 .create-btn {
@@ -54,8 +57,8 @@
   border: 0px;
   border-radius: 5px;
   height: 40px;
-  font-family: 'Open Sans';
-  color:#4a154b;
+  font-family: "Open Sans";
+  color: #4a154b;
   padding: 15px;
   display: flex;
   align-items: center;
@@ -64,7 +67,7 @@
 
 .main-logo {
   font-size: 30px;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   font-weight: bold;
   color: white;
 }
@@ -73,11 +76,10 @@
   display: flex;
   align-items: center;
   background-color: #d6bbd7;
-  width:600px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   height: 30px;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   padding: 10px;
   transition-duration: 0.5s;
 }
@@ -94,8 +96,8 @@
   border-radius: 5px;
   height: 40px;
   margin: 15px;
-  font-family: 'Open Sans';
-  color:white;
+  font-family: "Open Sans";
+  color: white;
   padding: 15px;
   display: flex;
   align-items: center;
@@ -114,8 +116,8 @@
   border-radius: 5px;
   height: 40px;
   margin: 10px;
-  font-family: 'Open Sans';
-  color:white;
+  font-family: "Open Sans";
+  color: white;
   padding: 15px;
   display: flex;
   align-items: center;
@@ -125,16 +127,14 @@
   cursor: pointer;
 }
 
-
-
 .main-delete-btn {
   background-color: #4a154b;
   border: 0;
   border-radius: 5px;
   height: 40px;
   margin: 10px;
-  font-family: 'Open Sans';
-  color:white;
+  font-family: "Open Sans";
+  color: white;
   padding: 15px;
   display: flex;
   align-items: center;
@@ -153,7 +153,7 @@
 }
 
 .main-buttons:hover {
-  display:flex;
+  display: flex;
   opacity: 1;
   height: 100px;
   align-items: center;
@@ -183,8 +183,8 @@
 }
 
 .workspace-info > h2 {
-  margin-bottom : 0;
-  font-family: 'Open Sans';
+  margin-bottom: 0;
+  font-family: "Open Sans";
   font-size: 18px;
   font-weight: bolder;
 }
@@ -192,7 +192,7 @@
 .workspace-info > p {
   margin-top: 0;
   font-weight: lighter;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   font-size: 12px;
   color: charcoal;
 }
@@ -202,7 +202,7 @@
   border-radius: 5px;
   height: 5px;
   margin: 10px;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   padding: 15px;
   display: flex;
   align-items: center;
@@ -214,8 +214,8 @@
   border-radius: 5px;
   height: 40px;
   margin: 10px;
-  font-family: 'Open Sans';
-  color:white;
+  font-family: "Open Sans";
+  color: white;
   padding: 15px;
   display: flex;
   align-items: center;
@@ -232,8 +232,8 @@
   border-radius: 5px;
   height: 40px;
   margin: 10px;
-  font-family: 'Open Sans';
-  color:white;
+  font-family: "Open Sans";
+  color: white;
   padding: 15px;
   display: flex;
   align-items: center;
@@ -252,10 +252,16 @@
 .create-wmn-ws {
   background-color: white;
   height: 100px;
-  width: 620px;
+  width: 60vw;
   border-radius: 15px;
   border: 4px solid rgba(112, 90, 112, 0.9);
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.wmn-ws-left {
+  display: flex;
+  flex-direction: row;
   align-items: center;
 }
 
@@ -274,7 +280,7 @@
   border-radius: 5px;
   margin-right: 15px;
   padding: 5px;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   transition-duration: 0.5s;
 }
 
@@ -289,15 +295,15 @@
   align-items: center;
   justify-content: center;
   color: white;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   width: 600px;
   margin-top: 15px;
   height: 100px;
 }
 
 .diff-email-btn {
-  background-color: rgba(255,255,255, 0);
-  border:0;
+  background-color: rgba(255, 255, 255, 0);
+  border: 0;
   color: cornflowerblue;
   transition-duration: 0.5s;
 }
