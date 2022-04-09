@@ -163,6 +163,7 @@ const MainContent = () => {
       delete: true,
     });
     await dispatch(deleteMessage(message));
+    await dispatch(getCurrentChannel(channelId))
   };
 
   const handleCancel = (e) => {

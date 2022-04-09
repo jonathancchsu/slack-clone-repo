@@ -132,7 +132,7 @@ const workspaceReducer = (
 
   switch (action.type) {
     case SET_USER_WORKSPACES: {
-      action.workspaces.forEach(
+      action.workspaces?.forEach(
         (workspace) => (newState.userWorkspaces[workspace.id] = workspace)
       );
       return newState;
