@@ -10,10 +10,10 @@
   background-color: #4a154b;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  width: 100vw;
   min-height: 100vh;
   align-items: center;
-  margin-top: 0px;
+  gap: 50px;
 }
 
 .team {
@@ -27,7 +27,6 @@
   align-items: flex-start;
   justify-content: center;
   width: 60vw;
-  margin-top: 50px;
 }
 
 .workspace-box {
@@ -45,11 +44,10 @@
 
 .main-nav {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   height: 100px;
   align-items: center;
-  width: 100vw;
-  align-self: flex-start;
+  width: 98%;
 }
 
 .create-btn {
@@ -296,8 +294,8 @@
   justify-content: center;
   color: white;
   font-family: "Open Sans";
-  width: 600px;
-  margin-top: 15px;
+  width: 100%;
+  margin-top: 10px;
   height: 100px;
 }
 
