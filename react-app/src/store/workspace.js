@@ -114,8 +114,7 @@ export const deleteEvent = (workspaceId) => async (dispatch) => {
 
 export const searchInWorkspace = (data) => async () => {
   const response = await fetch(
-    `/api/workspaces/${data.workspace_id}/search/${
-      data.parameters.length ? data.parameters : "nothing"
+    `/api/workspaces/${data.workspace_id}/search/${data.parameters.length ? data.parameters : "nothing"
     }/${data.keyword}`
   );
   const result = await response.json();
@@ -132,9 +131,14 @@ const workspaceReducer = (
 
   switch (action.type) {
     case SET_USER_WORKSPACES: {
-      action.workspaces?.forEach(
-        (workspace) => (newState.userWorkspaces[workspace.id] = workspace)
-      );
+      if (action.workspaces) {
+        action.workspaces.forEach(
+          (workspace) => (newState.userWorkspaces[workspace.id] = workspace)
+        );
+      } else {
+        newState.userWorkspaces = {}
+      }
+
       return newState;
     }
     case ADD_WORKSPACE: {
