@@ -1,23 +1,31 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Modal } from "../../../../context/Modal";
+import { addNewChannelMember } from "../../../../store/channel";
+import { getCurrentChannel } from "../../../../store/currentView";
 
 import ChannelModal from ".";
 import './ChannelModal.css'
 
 const ChannelModalMain = () => {
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  const channelsObj = useSelector((state) => state.channels);
-  const userChannels = Object.values(channelsObj.userChannels);
-  const channelId = Number(window.location.href.split('/')[6])
-  const channelobj = userChannels.filter(channel => channel.channel_id === channelId)
-  const channel = channelobj[0].channel_data
+  const channel = useSelector(state => state.currentView.main_content);
+  const userChannels = useSelector(state => state.channels.userChannels);
+  const view = useSelector((state) => state.currentView.main_content);
+  const user = useSelector((state) => state.session.user);
 
   return(
     <>
       <div onClick={(e) => setShowModal(true)} className='channel-name-modal'>
         <div className="channel-name-tag">
-          <h1 className="channelname"># {channel.name}</h1><i className="fas fa-chevron-down"></i>
+          <h1 className="channelname"># {channel?.name}</h1>
+          <i className="fas fa-chevron-down"></i>
+          {(userChannels[view.id] === undefined && view.channel_id !== undefined) ? <button id='join-channel' onClick={e => {
+            e.stopPropagation();
+            dispatch(addNewChannelMember(channel.id, user.username)).then(() => {
+              dispatch(getCurrentChannel(channel.id))});
+          }}>Join Channel</button> : null}
         </div>
       </div>
       {showModal && (
