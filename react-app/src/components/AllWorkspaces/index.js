@@ -26,7 +26,7 @@ const Workspaces = ({ userId }) => {
   useEffect(() => {
     dispatch(setUserWorkspaces(user.workspace_member));
     setLoaded(true);
-  }, [dispatch, user, userId, history, logout]);
+  }, [dispatch, user, userId, history]);
 
   const redirect = (workspaceId) => {
     const channel = user.channel_member.find(
