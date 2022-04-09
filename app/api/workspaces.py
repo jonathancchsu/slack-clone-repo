@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, redirect, url_for, request
 from app.forms.channel_form import ChannelForm
 # from flask_login import login_required
 # from sqlalchemy.orm import Session
-from app.models import User, Workspace, WorkspaceMember, Channel, ChannelMember, Message, DirectMessageRoom, DirectMessageMember, channel, db, message
+from app.models import User, Workspace, WorkspaceMember, Channel, ChannelMember, Message, DirectMessageRoom, DirectMessageMember, channel, db, message, workspace
 from flask_login import current_user, login_user, logout_user, login_required
 from app.forms import WorkspaceForm
 
@@ -98,6 +98,12 @@ def workspace_edit_delete(workspace_id):
 
 @bp.route('/users/<int:workspace_id>/<int:user_id>', methods=['POST'])
 def add_workspace_member(workspace_id, user_id):
+    workspace = Workspace.query.get(workspace_id)
+    channels = workspace.channels
+    general_id = None
+    for channel in channels:
+        if channel.name == 'General':
+            general_id = channel.id
     user = User.query.get(user_id)
     member = WorkspaceMember(
         workspace_id = workspace_id,
@@ -105,6 +111,11 @@ def add_workspace_member(workspace_id, user_id):
     )
     db.session.add(member)
     db.session.commit()
+    channel_member = ChannelMember(
+        channel_id=general_id,
+        user_id=user_id
+    )
+    db.session.add(channel_member)
     return { "id": member.id, "user_id": user_id, "username": user.username, "workspace_id": workspace_id }
 
 @bp.route('/<int:workspace_id>/search/<string:parameters>/<string:keyword>')
