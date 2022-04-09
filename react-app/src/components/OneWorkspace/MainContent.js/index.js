@@ -175,10 +175,10 @@ const MainContent = () => {
     view.workspace_id === workspaceId * 1 && (
       <div id="main-content">
         <div>
+          <div style={{ marginLeft: 20 }}>
+            {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
+          </div>
           <div id="main-header">
-            <div style={{ marginLeft: 20 }}>
-              {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
-            </div>
             {/* {console.log(userChannels[view.id] !== undefined && view.channel_id !== undefined) } */}
             {(userChannels[view.id] === undefined && view.channel_id !== undefined) ? <button id='join-channel' onClick={() => {
               dispatch(addNewChannelMember(channelId, user.username)).then(() => {
