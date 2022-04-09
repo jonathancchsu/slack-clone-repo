@@ -3,6 +3,7 @@
   font-size: 10px;
   position: fixed;
   top: 45px;
+  justify-content: space-between;
 }
 
 .channel-name-modal:hover {
@@ -12,8 +13,6 @@
 .channel-modal-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   color: #4a154b;
   background-color: white;
   width: 100%;
@@ -33,10 +32,77 @@
 
 .title-container .subcontainer {
   display:flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+.edit-btn {
+  color: blue;
+  font-size: small;
+  text-decoration: underline;
+  display: flex;
+  justify-content:flex-end;
+  margin-right: 10px;
+  top: 0;
 }
 
 .edit-btn:hover {
   cursor: pointer;
 }
+
+.text {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.delete-btn {
+  width:fit-content;
+  margin-top: 15px;
+}
+
+.add-member-btn {
+  margin-left: 10px;
+}
+
+.style-btn {
+  background-color: #4a154b;
+  border: 0;
+  border-radius: 5px;
+  height: 40px;
+  margin:10px 0px;
+  font-family: 'Open Sans';
+  color:white;
+  padding: 10px;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.5s;
+}
+
+.smallstyle-btn {
+  background-color: #4a154b;
+  border: 0;
+  border-radius: 5px;
+  height: 10px;
+  margin:10px 0px;
+  font-family: 'Open Sans';
+  color:white;
+  padding: 10px;
+  width: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.5s;
+  text-decoration: none;
+}
+
+#icon {
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  font-weight: bold;
+}
+
