@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteChannel, putChannel, addNewChannelMember } from "../../../../store/channel";
 import { getCurrentChannel } from "../../../../store/currentView";
 import { getAllUsers } from "../../../../store/session";
-import { setUserWorkspaces } from "../../../../store/workspace";
+
 
 import "./ChannelModal.css";
 
@@ -47,6 +47,7 @@ const ChannelModal = ({ setShowModal, channel }) => {
     dispatch(getCurrentChannel(channel.id))
     setEditName("");
     setChannelName("");
+    setShowModal(false);
   };
 
   const handleEditTopic = e => {
@@ -55,6 +56,7 @@ const ChannelModal = ({ setShowModal, channel }) => {
     dispatch(getCurrentChannel(channel.id))
     setEditTopic("");
     setChannelTopic("");
+    setShowModal(false);
   };
 
   const handleEditDescription = e => {
@@ -63,11 +65,13 @@ const ChannelModal = ({ setShowModal, channel }) => {
     dispatch(getCurrentChannel(channel.id))
     setEditDescription("");
     setChannelDescription("");
+    setShowModal(false);
   };
 
   const deleteEvent = (e, id) => {
     e.preventDefault();
     dispatch(deleteChannel(id));
+    setShowModal(false);
   };
 
   return (
