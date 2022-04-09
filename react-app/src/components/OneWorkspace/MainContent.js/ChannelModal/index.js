@@ -4,6 +4,7 @@ import { deleteChannel, putChannel, addNewChannelMember } from "../../../../stor
 import { getCurrentChannel } from "../../../../store/currentView";
 import { getAllUsers } from "../../../../store/session";
 
+
 import "./ChannelModal.css";
 
 const ChannelModal = ({ setShowModal, channel }) => {
@@ -20,6 +21,8 @@ const ChannelModal = ({ setShowModal, channel }) => {
   const [channelTopic, setChannelTopic] = useState(channel.topic);
   const [channelDescription, setChannelDescription] = useState(channel.description);
   const ownername = allUsers.filter(user => user.id === channel.owner_id)[0].username
+
+  console.log(user, 'owner!!!!!!')
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -41,28 +44,34 @@ const ChannelModal = ({ setShowModal, channel }) => {
   const handleEditName = e => {
     e.preventDefault();
     dispatch(putChannel({ id: channel.id, description: channelDescription, topic: channelTopic, name: channelName }));
-
+    dispatch(getCurrentChannel(channel.id))
     setEditName("");
     setChannelName("");
+    setShowModal(false);
   };
 
   const handleEditTopic = e => {
     e.preventDefault();
     dispatch(putChannel({ id: channel.id, description: channelDescription, topic: channelTopic, name: channelName }));
+    dispatch(getCurrentChannel(channel.id))
     setEditTopic("");
     setChannelTopic("");
+    setShowModal(false);
   };
 
   const handleEditDescription = e => {
     e.preventDefault();
     dispatch(putChannel({ id: channel.id, description: channelDescription, topic: channelTopic, name: channelName }));
+    dispatch(getCurrentChannel(channel.id))
     setEditDescription("");
     setChannelDescription("");
+    setShowModal(false);
   };
 
   const deleteEvent = (e, id) => {
     e.preventDefault();
     dispatch(deleteChannel(id));
+    setShowModal(false);
   };
 
   return (
