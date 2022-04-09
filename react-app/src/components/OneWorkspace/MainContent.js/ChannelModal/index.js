@@ -69,7 +69,7 @@ const ChannelModal = ({ setShowModal, channel }) => {
     loaded && (
       <div className="channel-modal-container">
         <div><i className="fas fa-list" id="icon"></i></div>
-        <div className="sub-container">
+        <div className="sub-container space">
           {editName === channel.id ? (
             <div className="title-container">
               <input
@@ -94,7 +94,7 @@ const ChannelModal = ({ setShowModal, channel }) => {
           )}
 
         </div>
-        <div className="sub-container">
+        <div className="sub-container space">
           <b>Topic</b>
           {editTopic === channel.id ? (
             <div className="title-container">
@@ -118,7 +118,7 @@ const ChannelModal = ({ setShowModal, channel }) => {
           )}
 
         </div>
-        <div className="sub-container">
+        <div className="sub-container space">
           <b>Description</b>
           {editDescription === channel.id ? (
             <div className="title-container">
@@ -143,10 +143,10 @@ const ChannelModal = ({ setShowModal, channel }) => {
         </div>
         <div className="subcontainer">
           <b>Created By</b>
-          <p>{ownername}</p>
+          <div className="text">{ownername}</div>
         </div>
         <div className="subcontainer">
-          <form onSubmit={(e) => handleAddMember(e, channel.id)}>
+          <form className="input" onSubmit={(e) => handleAddMember(e, channel.id)}>
             <input
               type='text'
               value={newMember}

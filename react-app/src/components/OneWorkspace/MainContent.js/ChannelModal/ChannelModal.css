@@ -53,11 +53,13 @@
 .text {
   display: flex;
   justify-content: flex-start;
+  padding-top: 7px;
 }
 
 .delete-btn {
   width:fit-content;
   margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .add-member-btn {
@@ -107,3 +109,12 @@
   font-weight: bold;
 }
 
+.space {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.input {
+  margin-top: 15px;
+  padding-left: 0px;
+}
