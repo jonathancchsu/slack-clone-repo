@@ -68,25 +68,28 @@ const ChannelModal = ({ setShowModal, channel }) => {
   return (
     loaded && (
       <div className="channel-modal-container">
+        <div><i className="fas fa-list" id="icon"></i></div>
         <div className="sub-container">
           {editName === channel.id ? (
-            <div>
+            <div className="title-container">
               <input
                 type="text"
                 value={channelName}
                 onChange={(e) => setChannelName(e.target.value)}
                 ></input>
-              <button onClick={handleEditName}>Save</button>
-              <button onClick={() => setEditName("")}>Cancel</button>
+              <button className="edit-btn smallstyle-btn" onClick={handleEditName}>Save</button>
+              <button className="edit-btn smallstyle-btn" onClick={() => setEditName("")}>Cancel</button>
             </div>
           ) : (
             <div className="title-container">
-              <b>#{channel.name}</b>
+              <div className="text-edit">
+              <div className="text title">#{channel.name}</div>
               {user.id === channel.owner_id &&
-                <div onClick={(e) => setEditName(channel.id)}>
+                <div className="edit-btn" onClick={(e) => setEditName(channel.id)}>
                   Edit
                 </div>
               }
+              </div>
             </div>
           )}
 
@@ -94,20 +97,20 @@ const ChannelModal = ({ setShowModal, channel }) => {
         <div className="sub-container">
           <b>Topic</b>
           {editTopic === channel.id ? (
-            <div>
+            <div className="title-container">
               <input
                 type="text"
                 value={channelTopic}
                 onChange={(e) => setChannelTopic(e.target.value)}
                 ></input>
-              <button onClick={handleEditTopic}>Save</button>
-              <button onClick={() => setEditTopic("")}>Cancel</button>
+              <button className="edit-btn smallstyle-btn" onClick={handleEditTopic}>Save</button>
+              <button className="edit-btn smallstyle-btn" onClick={() => setEditTopic("")}>Cancel</button>
             </div>
           ) : (
             <div className="title-container">
-              <p>{channel.topic}</p>
+              <div className="text">{channel.topic}</div>
               {user.id === channel.owner_id &&
-                <div onClick={(e) => setEditTopic(channel.id)}>
+                <div className="edit-btn" onClick={(e) => setEditTopic(channel.id)}>
                   Edit
                 </div>
               }
@@ -118,20 +121,20 @@ const ChannelModal = ({ setShowModal, channel }) => {
         <div className="sub-container">
           <b>Description</b>
           {editDescription === channel.id ? (
-            <div>
+            <div className="title-container">
               <input
                 type="text"
                 value={channelDescription}
                 onChange={(e) => setChannelDescription(e.target.value)}
                 ></input>
-              <button onClick={handleEditDescription}>Save</button>
-              <button onClick={() => setEditDescription("")}>Cancel</button>
+              <button className="edit-btn smallstyle-btn" onClick={handleEditDescription}>Save</button>
+              <button className="edit-btn smallstyle-btn" onClick={() => setEditDescription("")}>Cancel</button>
             </div>
           ) : (
             <div className="title-container">
-              <p>{channel.description}</p>
+              <div className="text">{channel.description}</div>
               {user.id === channel.owner_id &&
-                <div className="" onClick={(e) => setEditDescription(channel.id)}>
+                <div className="edit-btn" onClick={(e) => setEditDescription(channel.id)}>
                   Edit
                 </div>
               }
@@ -148,12 +151,13 @@ const ChannelModal = ({ setShowModal, channel }) => {
               type='text'
               value={newMember}
               onChange={e => setNewMember(e.target.value)}
+              placeholder="member username"
             ></input>
-            <button>add member</button>
+            <button className="add-member-btn style-btn">add member</button>
           </form>
         </div>
         {user.id === channel.owner_id &&
-          <button onClick={(e) => deleteEvent(e, channel.id)}>
+          <button className="delete-btn style-btn" onClick={(e) => deleteEvent(e, channel.id)}>
             delete channel
           </button>
         }
