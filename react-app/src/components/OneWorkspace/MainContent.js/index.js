@@ -216,7 +216,9 @@ const MainContent = () => {
             edit === message.id ? (
               <div key={message.id} className="edit-message">
                 <img src={message.sender_profile_picture} alt=""></img>
-                <div className="editor">
+                <div className="editor"
+                     onMouseLeave={() => setShowButtons(null)}
+                >
                   <CKEditor
                     editor={ClassicEditor}
                     onChange={updateMessageContent}
