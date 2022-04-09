@@ -16,7 +16,6 @@ import {
   putMessage,
   deleteMessage,
 } from "../../../store/currentView";
-import { addNewChannelMember } from "../../../store/channel";
 import { io } from "socket.io-client";
 import ChannelModalMain from "./ChannelModal/ChannelModalMain";
 let socket;
@@ -35,7 +34,6 @@ const MainContent = () => {
 
   const user = useSelector((state) => state.session.user);
   const view = useSelector((state) => state.currentView.main_content);
-  const userChannels = useSelector(state => state.channels.userChannels);
   const [showButtons, setShowButtons] = useState(null);
   const messagesEnd = useRef(null);
 
@@ -115,6 +113,7 @@ const MainContent = () => {
     setChatInput("");
     let audio = new Audio("/static/knock_brush.mp3");
     audio.play();
+    dispatch(getCurrentChannel(channelId))
   };
 
   const updateChatInput = (e, editor) => {
@@ -162,6 +161,7 @@ const MainContent = () => {
       delete: true,
     });
     await dispatch(deleteMessage(message));
+    await dispatch(getCurrentChannel(channelId))
   };
 
   const handleCancel = (e) => {
@@ -179,12 +179,6 @@ const MainContent = () => {
             {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
           </div>
           <div id="main-header">
-            {/* {console.log(userChannels[view.id] !== undefined && view.channel_id !== undefined) } */}
-            {(userChannels[view.id] === undefined && view.channel_id !== undefined) ? <button id='join-channel' onClick={() => {
-              dispatch(addNewChannelMember(channelId, user.username)).then(() => {
-                dispatch(getCurrentChannel(channelId));
-              });
-            }}>Join Channel</button> : null}
             <div></div>
             <div className="main-header-members">
               {view.members?.map((member, idx) => {
@@ -216,7 +210,9 @@ const MainContent = () => {
             edit === message.id ? (
               <div key={message.id} className="edit-message">
                 <img src={message.sender_profile_picture} alt=""></img>
-                <div className="editor">
+                <div className="editor"
+                     onMouseLeave={() => setShowButtons(null)}
+                >
                   <CKEditor
                     editor={ClassicEditor}
                     onChange={updateMessageContent}
@@ -275,8 +271,7 @@ const MainContent = () => {
                         e.preventDefault();
                         setEditContent(message.content);
                         setEdit(message.id);
-                      }}
-                    >
+                      }}>
                       <i className="far fa-edit"></i>
                     </button>
                     <button onClick={(e) => handleDeleteMessage(e, message)}>

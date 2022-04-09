@@ -116,6 +116,7 @@ def add_workspace_member(workspace_id, user_id):
         user_id=user_id
     )
     db.session.add(channel_member)
+    db.session.commit()
     return { "id": member.id, "user_id": user_id, "username": user.username, "workspace_id": workspace_id }
 
 @bp.route('/<int:workspace_id>/search/<string:parameters>/<string:keyword>')
