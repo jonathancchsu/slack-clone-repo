@@ -115,6 +115,7 @@ const MainContent = () => {
     setChatInput("");
     let audio = new Audio("/static/knock_brush.mp3");
     audio.play();
+    dispatch(getCurrentChannel(channelId))
   };
 
   const updateChatInput = (e, editor) => {
@@ -162,6 +163,7 @@ const MainContent = () => {
       delete: true,
     });
     await dispatch(deleteMessage(message));
+    await dispatch(getCurrentChannel(channelId))
   };
 
   const handleCancel = (e) => {
@@ -216,7 +218,9 @@ const MainContent = () => {
             edit === message.id ? (
               <div key={message.id} className="edit-message">
                 <img src={message.sender_profile_picture} alt=""></img>
-                <div className="editor">
+                <div className="editor"
+                     onMouseLeave={() => setShowButtons(null)}
+                >
                   <CKEditor
                     editor={ClassicEditor}
                     onChange={updateMessageContent}
