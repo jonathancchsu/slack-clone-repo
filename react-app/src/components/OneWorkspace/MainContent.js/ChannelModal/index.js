@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteChannel, putChannel, addNewChannelMember } from "../../../../store/channel";
 import { getCurrentChannel } from "../../../../store/currentView";
 import { getAllUsers } from "../../../../store/session";
+import { setUserWorkspaces } from "../../../../store/workspace";
 
 import "./ChannelModal.css";
 
@@ -20,6 +21,8 @@ const ChannelModal = ({ setShowModal, channel }) => {
   const [channelTopic, setChannelTopic] = useState(channel.topic);
   const [channelDescription, setChannelDescription] = useState(channel.description);
   const ownername = allUsers.filter(user => user.id === channel.owner_id)[0].username
+
+  console.log(user, 'owner!!!!!!')
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -41,7 +44,7 @@ const ChannelModal = ({ setShowModal, channel }) => {
   const handleEditName = e => {
     e.preventDefault();
     dispatch(putChannel({ id: channel.id, description: channelDescription, topic: channelTopic, name: channelName }));
-
+    dispatch(getCurrentChannel(channel.id))
     setEditName("");
     setChannelName("");
   };
@@ -49,6 +52,7 @@ const ChannelModal = ({ setShowModal, channel }) => {
   const handleEditTopic = e => {
     e.preventDefault();
     dispatch(putChannel({ id: channel.id, description: channelDescription, topic: channelTopic, name: channelName }));
+    dispatch(getCurrentChannel(channel.id))
     setEditTopic("");
     setChannelTopic("");
   };
@@ -56,6 +60,7 @@ const ChannelModal = ({ setShowModal, channel }) => {
   const handleEditDescription = e => {
     e.preventDefault();
     dispatch(putChannel({ id: channel.id, description: channelDescription, topic: channelTopic, name: channelName }));
+    dispatch(getCurrentChannel(channel.id))
     setEditDescription("");
     setChannelDescription("");
   };
