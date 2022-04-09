@@ -31,8 +31,12 @@
   padding-right: 10px;
 }
 
-.title-container {
+.title-container .subcontainer {
   display:flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+.edit-btn:hover {
+  cursor: pointer;
 }

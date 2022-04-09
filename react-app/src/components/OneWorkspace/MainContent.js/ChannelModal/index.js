@@ -76,14 +76,14 @@ const ChannelModal = ({ setShowModal, channel }) => {
                 value={channelName}
                 onChange={(e) => setChannelName(e.target.value)}
                 ></input>
-              <button onClick={handleEditName}>Save</button>
-              <button onClick={() => setEditName("")}>Cancel</button>
+              <button className="edit-btn" onClick={handleEditName}>Save</button>
+              <button className="edit-btn" onClick={() => setEditName("")}>Cancel</button>
             </div>
           ) : (
             <div className="title-container">
               <b>#{channel.name}</b>
               {user.id === channel.owner_id &&
-                <div onClick={(e) => setEditName(channel.id)}>
+                <div className="edit-btn" onClick={(e) => setEditName(channel.id)}>
                   Edit
                 </div>
               }
@@ -100,14 +100,14 @@ const ChannelModal = ({ setShowModal, channel }) => {
                 value={channelTopic}
                 onChange={(e) => setChannelTopic(e.target.value)}
                 ></input>
-              <button onClick={handleEditTopic}>Save</button>
-              <button onClick={() => setEditTopic("")}>Cancel</button>
+              <button className="edit-btn" onClick={handleEditTopic}>Save</button>
+              <button className="edit-btn" onClick={() => setEditTopic("")}>Cancel</button>
             </div>
           ) : (
             <div className="title-container">
               <p>{channel.topic}</p>
               {user.id === channel.owner_id &&
-                <div onClick={(e) => setEditTopic(channel.id)}>
+                <div className="edit-btn" onClick={(e) => setEditTopic(channel.id)}>
                   Edit
                 </div>
               }
@@ -124,14 +124,14 @@ const ChannelModal = ({ setShowModal, channel }) => {
                 value={channelDescription}
                 onChange={(e) => setChannelDescription(e.target.value)}
                 ></input>
-              <button onClick={handleEditDescription}>Save</button>
-              <button onClick={() => setEditDescription("")}>Cancel</button>
+              <button className="edit-btn" onClick={handleEditDescription}>Save</button>
+              <button className="edit-btn" onClick={() => setEditDescription("")}>Cancel</button>
             </div>
           ) : (
             <div className="title-container">
               <p>{channel.description}</p>
               {user.id === channel.owner_id &&
-                <div className="" onClick={(e) => setEditDescription(channel.id)}>
+                <div className="edit-btn" onClick={(e) => setEditDescription(channel.id)}>
                   Edit
                 </div>
               }
@@ -149,11 +149,11 @@ const ChannelModal = ({ setShowModal, channel }) => {
               value={newMember}
               onChange={e => setNewMember(e.target.value)}
             ></input>
-            <button>add member</button>
+            <button className="edit-btn">add member</button>
           </form>
         </div>
         {user.id === channel.owner_id &&
-          <button onClick={(e) => deleteEvent(e, channel.id)}>
+          <button className="edit-btn" onClick={(e) => deleteEvent(e, channel.id)}>
             delete channel
           </button>
         }
