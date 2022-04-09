@@ -6,6 +6,8 @@ body {
   font-family: "Open Sans";
   overflow-y: scroll;
   height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body::-webkit-scrollbar {

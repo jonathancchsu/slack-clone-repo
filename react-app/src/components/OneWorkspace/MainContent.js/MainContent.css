@@ -52,6 +52,8 @@ div#chat-container {
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+    position: fixed;
+    right: 100px;
 }
 
 #join-channel:hover {

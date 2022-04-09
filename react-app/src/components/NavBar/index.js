@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import LogoutButton from '../auth/LogoutButton';
 import SearchBox from './SearchBox';
+import { Modal } from '../../context/Modal';
 
 import './NavBar.css'
 
@@ -32,15 +33,10 @@ const NavBar = () => {
             </NavLink>
           </li>
         </ul>
-        {
-          showSearchBox ?
-          <SearchBox setShowSearchBox={setShowSearchBox}/>
-          :
           <div className='search' onClick={() => setShowSearchBox(true)}>
             <p style={{ fontSize: 10 }}>Search Workspace</p>
             <i className="fas fa-search" style={{color:'white', marginRight: 5}}></i>
           </div>
-        }
         <div className='nav-profile' onClick={() => setuserMenu(!userMenu)}>
           {user.profile_picture ? <div><img src={user.profile_picture} alt='profile' />🟢</div> : <div style={{ color: 'white' }}>{user.username}🟢</div>}
           <div className={`user-menu ${userShowMenu}`} onMouseLeave={() => setuserMenu(!userMenu)}>
@@ -58,6 +54,7 @@ const NavBar = () => {
             </div>
           </div>
         </div>
+        {showSearchBox && <Modal onClose={() => setShowSearchBox(false)}><SearchBox setShowSearchBox={setShowSearchBox} /></Modal> }
       </nav>
     )
   }
