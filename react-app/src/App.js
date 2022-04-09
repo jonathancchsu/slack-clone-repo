@@ -50,6 +50,10 @@ function App() {
           <NavBar />
           <OneWorkspace />
         </ProtectedRoute>
+        <ProtectedRoute path="/workspaces/:workspaceId/general" exact={true}>
+          <NavBar />
+          <OneWorkspace />
+        </ProtectedRoute>
         <ProtectedRoute
           path="/workspaces/:workspaceId/dm_rooms/:dmRoomId"
           exact={true}

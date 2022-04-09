@@ -176,15 +176,16 @@ const MainContent = () => {
     view.workspace_id === workspaceId * 1 && (
       <div id="main-content">
         <div>
+          <div style={{ marginLeft: 20 }}>
+            {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
+          </div>
           <div id="main-header">
-            <div style={{ marginLeft: 20 }}>
-              {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
-            </div>
-            { userChannels[view.id] && view.channel_id ? null : <button id='join-channel' onClick={() => {
+            {/* {console.log(userChannels[view.id] !== undefined && view.channel_id !== undefined) } */}
+            {(userChannels[view.id] === undefined && view.channel_id !== undefined) ? <button id='join-channel' onClick={() => {
               dispatch(addNewChannelMember(channelId, user.username)).then(() => {
                 dispatch(getCurrentChannel(channelId));
               });
-            }}>Join Channel</button>}
+            }}>Join Channel</button> : null}
             <div></div>
             <div className="main-header-members">
               {view.members?.map((member, idx) => {
@@ -253,10 +254,7 @@ const MainContent = () => {
                 </span>
               </div>
             ) : (
-              <div
-                className="single-msg"
-                key={message.id}
-              >
+              <div className="single-msg" key={message.id ? message.id : idx}>
                 <div className="sender-pic">
                   <img src={message.sender_profile_picture} alt="profile" />
                 </div>
