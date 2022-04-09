@@ -263,7 +263,7 @@
   align-items: center;
 }
 
-.create-wmn-ws > img {
+.create-wmn-ws > .wmn-ws-left > img {
   height: 133.7px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
