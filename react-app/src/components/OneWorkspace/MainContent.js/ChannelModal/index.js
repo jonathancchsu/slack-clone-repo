@@ -64,8 +64,6 @@ const ChannelModal = ({ setShowModal, channel }) => {
     dispatch(deleteChannel(id));
   };
 
-  // console.log("update obj",{ id: channel.channel_id, description: channelDescription, topic: channelTopic, name: channelName })
-  // console.log("channel_id", channel)
   return (
     loaded && (
       <div className="channel-modal-container">
