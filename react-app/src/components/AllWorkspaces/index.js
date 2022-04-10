@@ -170,9 +170,11 @@ const Workspaces = ({ userId }) => {
             ))}
           </div>
           <div className="create-wmn-ws">
-            <img src="/static/create-ws.png" alt="wmn" />
+            <div className="wmn-ws-left">
+              <img src="/static/create-ws.png" alt="wmn" />
 
-            <h4>Want to use Slack with a different team?</h4>
+              <h4>Want to use Slack with a different team?</h4>
+            </div>
             <button className="create-wmn-btn" onClick={(e) => createForm()}>
               CREATE A NEW WORKSPACE
             </button>
