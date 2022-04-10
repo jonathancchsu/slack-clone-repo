@@ -1,3 +1,80 @@
-/* datalist {
-  display: block;
-} */
+ #create-dm-container {
+  background-color: white;
+  width: 500px;
+  height: 300px;
+  /* padding: 10px; */
+}
+
+#members-added {
+  display: flex;
+  max-width: 490px;
+  overflow-x: scroll;
+  border-bottom: 1px solid black;
+  padding: 10px;
+}
+
+#members-added > input {
+  border: none;
+  outline: none;
+}
+
+.added-member {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  background-color: rgba(29,155,209, .3);
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+
+.added-member > img {
+  width: 20px;
+  border-radius: 5px;
+  margin-right: 2px;
+}
+
+.added-member > i {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.add-member-button {
+  display: flex;
+  align-items: center;
+  padding: 2px 5px;
+  width: 100%;
+  border: none;
+  background-color: white;
+  padding: 5px 10px;
+}
+
+.add-member-button:hover {
+  background-color: #1164A3;
+  color: white;
+}
+
+.add-member-button > img {
+  width: 20px;
+  border-radius: 5px;
+  margin-right: 2px;
+}
+
+#create-dm-button.cannot-add {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: default;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+#create-dm-button.can-add {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-left: 5px;
+  background-color: #007A5A;
+  color: white;
+  cursor: pointer;
+}

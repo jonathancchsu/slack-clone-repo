@@ -9,7 +9,6 @@ import "./DmForm.css";
 const DmRoomForm = ({ setShowModal }) => {
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
-  // const users = useSelector((state) => state.session.users);
   const owner_id = useSelector((state) => state.session.user.id);
   const workspace_id = useSelector(
     (state) => state.workspace.currentWorkspace.id
@@ -46,28 +45,34 @@ const DmRoomForm = ({ setShowModal }) => {
   };
 
   return (
-    <div className="create-dm-container">
-      <div>
-        Members Added :
-        {members?.map((member) => (
-          <div key={member.id}>
+    <div id="create-dm-container">
+      <div id='members-added'>
+        To:
+        {members?.map((member) =>
+        (
+          member.id !== user.id && <div className="added-member" key={member.id}>
+            <img src={member.profile_picture} alt=''></img>
             <div>{member.username}</div>
             {user.username !== member.username && (
-              <div onClick={() => removeMember(member.id)}>❌</div>
+              // <div onClick={() => removeMember(member.id)}>❌</div>
+              <i className="fas fa-times" onClick={() => removeMember(member.id)}></i>
             )}
           </div>
         ))}
+        <input placeholder={members.length === 1 ? "@someone" : ""} type="text" defaultValue={inputField} onChange={e => setInputField(e.target.value)}/>
       </div>
       
-      <input type="text" defaultValue={inputField} onChange={e => setInputField(e.target.value)}/>
       <div id='results-field'>
         {
           allWorkspaceMembers.map(member => <div key={member.id}>
-            <button onClick={() => addMember(member)}>{member.username}</button>
+            <button className="add-member-button" onClick={() => addMember(member)}>
+              <img src={member.profile_picture} alt=''></img>
+              {member.username}
+              </button>
             </div>)
         }
       </div>
-      <button type="submit" className="create-dm-btn" onClick={handleSubmit}>
+      <button disabled={members.length === 1} className={members.length > 1 ? "can-add" : "cannot-add"} type="submit" id="create-dm-button" onClick={handleSubmit}>
         Create Direct Message
       </button>
     </div>
