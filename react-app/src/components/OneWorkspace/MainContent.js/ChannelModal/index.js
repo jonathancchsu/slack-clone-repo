@@ -22,8 +22,6 @@ const ChannelModal = ({ setShowModal, channel }) => {
   const [channelDescription, setChannelDescription] = useState(channel.description);
   const ownername = allUsers.filter(user => user.id === channel.owner_id)[0].username
 
-  console.log(user, 'owner!!!!!!')
-
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch]);

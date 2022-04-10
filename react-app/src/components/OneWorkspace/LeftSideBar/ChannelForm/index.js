@@ -35,7 +35,6 @@ const ChannelForm = ({ setShowModal }) => {
     if (name.length >= 1 && topic.length >= 1 && description.length >= 1) {
       const data = dispatch(postChannel({ name, topic, description, owner_id, workspace_id }))
         .then(result => {
-          console.log(result);
           history.push(`/workspaces/${workspace_id}/channels/${result.channel_id}`);
         });
       if (data) {

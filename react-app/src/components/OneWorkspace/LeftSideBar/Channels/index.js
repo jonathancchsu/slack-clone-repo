@@ -34,7 +34,7 @@ const Channels = () => {
               className="carrot"
               onClick={() => setShowChannels(!showChannels)}
             >
-              {userChannels ? (
+              {userChannels && showChannels ? (
                 <i className="fas fa-caret-down"></i>
               ) : (
                 <i className="fas fa-caret-right"></i>

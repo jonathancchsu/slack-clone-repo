@@ -21,6 +21,7 @@ const ChannelModalMain = () => {
         <div className="channel-name-tag">
           <h1 className="channelname"># {channel?.name}</h1>
           <i className="fas fa-chevron-down"></i>
+          <p>{channel?.topic}</p>
           {(userChannels[view.id] === undefined && view.channel_id !== undefined) ? <button id='join-channel' onClick={e => {
             e.stopPropagation();
             dispatch(addNewChannelMember(channel.id, user.username)).then(() => {

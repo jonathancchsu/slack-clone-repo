@@ -27,6 +27,12 @@
   align-items: center;
 }
 
+.channel-name-tag > p {
+  color: gray;
+  font-size: 12px;
+  margin-left: 15px;
+}
+
 .channelname {
   padding-right: 10px;
 }
