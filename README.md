@@ -133,3 +133,10 @@ One of the core function of this application is live chatting, using the library
    ```
 
 # Contributors
+**Johnny San** [GitHub](https://github.com/skyline502)
+
+**Blake Watts** [GitHub](https://github.com/Watts-Blake)
+
+**Carlos Rodriguez** [GitHub](https://github.com/twincarlos)
+
+**Jonathan Hsu** [GitHub](https://github.com/jonathancchsu)
