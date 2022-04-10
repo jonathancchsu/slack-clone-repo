@@ -86,8 +86,7 @@ Welcome to the **[Slack Project Clone repo](https://github.com/jonathancchsu/sla
    ```bash
    npm start
    ```
-
-<br>
+10. The application will start at [http://localhost:3000/](http://localhost:3000/).
 
 ### Standard (Traditional)
 
@@ -134,6 +133,7 @@ Welcome to the **[Slack Project Clone repo](https://github.com/jonathancchsu/sla
    ```bash
    npm start
    ```
+7. The application will start at [http://localhost:3000/](http://localhost:3000/).
 
 # Screenshots of Usage
 Log in page
