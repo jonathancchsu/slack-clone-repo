@@ -70,3 +70,23 @@
     cursor: pointer;
     text-decoration: underline;
 }
+
+.contact {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    font-size: 12px;
+    position: fixed;
+    bottom: 10px;
+    right: 0;
+}
+
+.contact > a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: skyblue;
+}
+
+.contact > a:visited {
+    color: skyblue;
+}

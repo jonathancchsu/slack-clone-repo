@@ -40,7 +40,7 @@ const LoginForm = () => {
       <form onSubmit={onLogin} className='log-in-form'>
         <div>
           {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
+            <div key={ind} style={{color: 'red'}}>{error}</div>
           ))}
         </div>
         <div>
@@ -65,7 +65,16 @@ const LoginForm = () => {
       </form>
       <p>Don't have an account? <a className='login-sgnup' href='/sign-up' style={{textDecoration:'none'}}>Sign up</a></p>
       <p>Want to check out the site? Log in as a <button className='demo-btn' onClick={() => dispatch(login('demo@demo.com', 'password'))}>Demo user</button></p>
-    </div>
+      <footer>
+        <div className='contact'>
+          Contact Us:
+          <a href="https://github.com/Watts-Blake">Blake Watts</a>
+          <a href="https://github.com/twincarlos">Carlos Rodriguez</a>
+          <a href="https://github.com/skyline502">Johnny San</a>
+          <a href="https://github.com/jonathancchsu">Jonathon Hsu</a>
+        </div>
+      </footer>
+   </div>
   );
 };
 
