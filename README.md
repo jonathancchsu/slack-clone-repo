@@ -124,15 +124,32 @@ Welcome to the **[Slack Project Clone repo](https://github.com/jonathancchsu/sla
 
 # Screenshots of Usage
 Log in Page
+![Screen Shot 2022-04-09 at 11 48 44 PM](https://user-images.githubusercontent.com/92463844/162600797-50baf375-4283-489a-83e3-bc9361c38559.png)
+
+![Screen Shot 2022-04-09 at 11 48 57 PM](https://user-images.githubusercontent.com/92463844/162600801-4943124e-db31-43fb-a6de-46544f9bd604.png)
+
+![Screen Shot 2022-04-09 at 11 49 22 PM](https://user-images.githubusercontent.com/92463844/162600807-8f0c9777-0c36-4c40-b214-89e36382f1b1.png)
+ 
+![Screen Shot 2022-04-09 at 11 49 38 PM](https://user-images.githubusercontent.com/92463844/162600820-de111891-cb58-4930-b34c-250c821b013b.png)
+
+![Screen Shot 2022-04-09 at 11 49 46 PM](https://user-images.githubusercontent.com/92463844/162600822-5379975e-50fc-4bc8-ad24-d28c6192b9ac.png)
+
+![Screen Shot 2022-04-09 at 11 49 49 PM](https://user-images.githubusercontent.com/92463844/162600824-f2112b00-fd67-4c6f-a82b-171e821c22f3.png)
+
+![Screen Shot 2022-04-09 at 11 49 57 PM](https://user-images.githubusercontent.com/92463844/162600828-c4b29065-45ea-4009-b78d-fb3010a20475.png)
+
+![Screen Shot 2022-04-09 at 11 50 04 PM](https://user-images.githubusercontent.com/92463844/162600830-97be419d-ec85-41a8-ad12-aca2172ca049.png)
 
 
 # Code Snippets
 One of the core function of this application is live chatting, using the library **[Socket.IO](https://socket.io/)** in both front end and back end to enable real time, bi-directional communication for the users.
 
-   ```bash
+
+  ```bash
    ```
 
 # Contributors
+
 **Johnny San** [GitHub](https://github.com/skyline502)
 
 **Blake Watts** [GitHub](https://github.com/Watts-Blake)
