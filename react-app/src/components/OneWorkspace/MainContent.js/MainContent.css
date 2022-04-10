@@ -119,10 +119,6 @@ div#chat-container {
     flex-direction: column;
 }
 
-.sender-name > p {
-    font-family: 'Helvetica';
-}
-
 .sender-pic > img {
     width: 40px;
     border-radius: 10px;
@@ -132,7 +128,6 @@ div#chat-container {
     margin-top: 0;
     font-size: 12px;
     font-weight: lighter;
-    font-family: 'Helvetica';
 }
 
 .sender-msg:hover {

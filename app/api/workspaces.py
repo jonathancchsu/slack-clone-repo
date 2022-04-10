@@ -143,11 +143,25 @@ def search(workspace_id, parameters, keyword):
     result = []
 
     if "channels" in parameters:
-        channels = db.session.query(Channel).filter(Channel.name.ilike(f"%{keyword}%"), Channel.workspace_id == workspace_id)
+        channels = Channel.query.filter(Channel.name.ilike(f"%{keyword}%"), Channel.workspace_id == workspace_id)
         result = result + [channel.to_dict() for channel in channels]
     if "people" in parameters:
-        people = db.session.query(User).filter(User.username.ilike(f"%{keyword}%"))
-        result = result + [user.to_dict() for user in people if user.in_workspace(workspace_id)]
+        people = db.session.query(WorkspaceMember.user_id).filter(WorkspaceMember.workspace_id == workspace_id).all()
+        if keyword == "no_specific_member":
+            new_people = []
+            for member_id in people:
+                check = db.session.query(User).filter(User.id == member_id[0], User.id != current_user.id).first()
+                if check:
+                    new_people.append(check.to_dict())
+            people = new_people
+        else:
+            new_people = []
+            for member_id in people:
+                check = db.session.query(User).filter(User.id == member_id[0], User.username.ilike(f"%{keyword}%")).first()
+                if check:
+                    new_people.append(check.to_dict())
+            people = new_people
+        result = result + [user for user in people]
     if "messages" in parameters:
         messages = db.session.query(Message).filter(Message.content.ilike(f"%{keyword}%"))
         result = result + [message.to_dict() for message in messages if message.channel_id in channel_ids or message.room_id in room_ids]
@@ -156,10 +170,17 @@ def search(workspace_id, parameters, keyword):
         channels = db.session.query(Channel).filter(Channel.name.ilike(f"%{keyword}%"), Channel.workspace_id == workspace_id)
         result = result + [channel.to_dict() for channel in channels]
         # people
-        people = db.session.query(User).filter(User.username.ilike(f"%{keyword}%"))
-        result = result + [user.to_dict() for user in people]
+        people = db.session.query(WorkspaceMember.user_id).filter(WorkspaceMember.workspace_id == workspace_id).all()
+        new_people = []
+        for member_id in people:
+            check = db.session.query(User).filter(User.id == member_id[0], User.username.ilike(f"%{keyword}%")).first()
+            if check:
+                new_people.append(check.to_dict())
+        people = new_people
+        result = result + [user for user in people]
         # messages
         messages = db.session.query(Message).filter(Message.content.ilike(f"%{keyword}%"))
         result = result + [message.to_dict() for message in messages if message.channel_id in channel_ids or message.room_id in room_ids]
 
     return { 'result': result }
+

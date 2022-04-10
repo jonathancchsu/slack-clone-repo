@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { postDmRoom } from "../../../../../store/dmRooms";
+import { searchInWorkspace } from "../../../../../store/workspace";
 
 import "./DmForm.css";
 
 const DmRoomForm = ({ setShowModal }) => {
   const history = useHistory();
   const user = useSelector((state) => state.session.user);
-  const users = useSelector((state) => state.session.users);
   const owner_id = useSelector((state) => state.session.user.id);
   const workspace_id = useSelector(
     (state) => state.workspace.currentWorkspace.id
@@ -16,10 +16,18 @@ const DmRoomForm = ({ setShowModal }) => {
   const [members, setMembers] = useState([user]);
   const dispatch = useDispatch();
 
-  const addMember = (username) => {
-    const member = users.find((user) => user.username === username);
-    let existingMember = members.find((member) => member.username === username);
-    if (!existingMember && member) setMembers([...members, member]);
+  const [inputField, setInputField] = useState("");
+  
+  const [allWorkspaceMembers, setAllWorkspaceMembers] = useState([])
+
+  useEffect(() => {
+    dispatch(searchInWorkspace({ workspace_id, parameters: 'people', keyword: inputField.length ? inputField : 'no_specific_member' })).then(result => setAllWorkspaceMembers(result.result));
+  }, [dispatch, inputField, user.id, workspace_id]);
+
+
+  const addMember = (new_member) => {
+    let existingMember = members.find((member) => member.username === new_member.username);
+    if (!existingMember) setMembers([...members, new_member]);
   };
   const removeMember = (memberId) => {
     setMembers(members.filter((member) => member.id !== memberId));
@@ -36,42 +44,35 @@ const DmRoomForm = ({ setShowModal }) => {
     );
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      addMember(e.target.value);
-    }
-  };
-
   return (
-    <div className="create-dm-container">
-      <div>
-        Members Added :
-        {members?.map((member) => (
-          <div key={member.id}>
+    <div id="create-dm-container">
+      <div id='members-added'>
+        To:
+        {members?.map((member) =>
+        (
+          member.id !== user.id && <div className="added-member" key={member.id}>
+            <img src={member.profile_picture} alt=''></img>
             <div>{member.username}</div>
             {user.username !== member.username && (
-              <div onClick={() => removeMember(member.id)}>❌</div>
+              // <div onClick={() => removeMember(member.id)}>❌</div>
+              <i className="fas fa-times" onClick={() => removeMember(member.id)}></i>
             )}
           </div>
         ))}
+        <input placeholder={members.length === 1 ? "@someone" : ""} type="text" defaultValue={inputField} onChange={e => setInputField(e.target.value)}/>
       </div>
-      <input type="text" list="users" onKeyPress={(e) => handleKeyPress(e)} />
-      <datalist id="users" className="users_datalist">
-        {users?.map(
-          (opUser) =>
-            user.username !== opUser.username && (
-              <option
-                value={opUser.username}
-                key={opUser.id}
-                onClick={() => addMember(opUser)}
-              >
-                {opUser.username}
-              </option>
-            )
-        )}
-      </datalist>
-
-      <button type="submit" className="create-dm-btn" onClick={handleSubmit}>
+      
+      <div id='results-field'>
+        {
+          allWorkspaceMembers.map(member => <div key={member.id}>
+            <button className="add-member-button" onClick={() => addMember(member)}>
+              <img src={member.profile_picture} alt=''></img>
+              {member.username}
+              </button>
+            </div>)
+        }
+      </div>
+      <button disabled={members.length === 1} className={members.length > 1 ? "can-add" : "cannot-add"} type="submit" id="create-dm-button" onClick={handleSubmit}>
         Create Direct Message
       </button>
     </div>
