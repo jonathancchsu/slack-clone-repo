@@ -1,6 +1,6 @@
 # **Slack Project Clone**
 ![GitHub Pipenv locked dependency version](https://img.shields.io/github/pipenv/locked/dependency-version/jonathancchsu/slack-clone-repo/flask) 
-![GitHub contributors](https://img.shields.io/github/contributors/jonathancchsu/slack-clone-repo?style=flat-square)
+![GitHub contributors](https://img.shields.io/github/contributors/jonathancchsu/slack-clone-repo)
 ![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&up_color=blue&up_message=online&url=https%3A%2F%2Fslack-project-clone.herokuapp.com%2F)
 
 Welcome to the **[Slack Project Clone repo](https://github.com/jonathancchsu/slack-clone-repo)**, this is a clone of **[Slack](https://slack.com/)**. **Slack Project Clone** is a web application that allows you to communicate with one another professionally. Slack Project Clone offers a variety of functions that allow users to organize private workspaces, channels, and direct message rooms.
