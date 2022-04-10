@@ -64,18 +64,15 @@ class User(db.Model, UserMixin):
     def in_workspace(self, workspace_id):
         for workspace in self.workspace_member:
             if workspace.workspace_id == workspace_id:
+                print(True)
                 return True
+        print(False)
         return False
 
     def in_channel(self, channel_id):
-        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
         print(self.channel_member)
-        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
         for channel in self.channel_member:
-            print("HERE??????")
             if channel.channel_id == channel_id:
                 return True
         return False

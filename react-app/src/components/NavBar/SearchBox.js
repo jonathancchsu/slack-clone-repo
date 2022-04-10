@@ -18,10 +18,12 @@ function SearchBox({ setShowSearchBox }) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        dispatch(searchInWorkspace({ workspace_id: workspace.id, parameters: parameters.join(), keyword: searchInput })).then((result) => {
-            console.log(result);
-            setResults(result.result);
-        })
+        if (searchInput.length) {
+            dispatch(searchInWorkspace({ workspace_id: workspace.id, parameters: parameters.join(), keyword: searchInput })).then((result) => {
+                console.log(result.result);
+                setResults(result.result);
+            });
+        }
     }
 
     return (
