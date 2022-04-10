@@ -54,7 +54,6 @@ const DmRooms = ({ workspace }) => {
             <p>Direct Messages</p>
           </div>
           <div className="add-dm-room">
-            <CreateDmModal />
           </div>
         </span>
         {showDmRooms &&
