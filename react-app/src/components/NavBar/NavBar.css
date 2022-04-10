@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
 
 .nav-bar {
-  font-family: 'Open Sans';
   background-color: #350d36;
   display: flex;
   height: 45px;
@@ -18,7 +17,6 @@
 
 .nav-logo {
   font-size: 30px;
-  font-family: 'Open Sans';
   font-weight: bold;
   color: white;
   transition-duration: 0.5s;
@@ -142,7 +140,6 @@
 .search p {
   margin-left: 10px;
   color:white;
-  font-family: 'Arial';
 }
 
 .search-btn {

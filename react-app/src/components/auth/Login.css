@@ -8,7 +8,6 @@
     margin-top: 5px;
     border: 0;
     width: 405px;
-    font-family: 'Open Sans';
     font-size: 20px;
     font-weight: bold;
 }
@@ -19,7 +18,6 @@
 }
 
 .log-in-form-container {
-    font-family: 'Open Sans';
     font-weight: 700;
     display: flex;
     flex-direction: column;
@@ -64,7 +62,6 @@
 .demo-btn {
     background-color: white;
     border: none;
-    font-family: 'Open Sans';
     color: rgb(65, 199, 253);
     font-size: 15px;
 }
