@@ -51,10 +51,10 @@ def dm_room_messages(dm_room_id):
 
 @bp.route('/<int:message_id>', methods=['PUT', 'DELETE'])
 def edit_message(message_id):
-    print("HELLOOOOOO***********", message_id)
+    # print("HELLOOOOOO***********", message_id)
     if request.method == 'PUT':
         data = request.json
-        print("************************************", data)
+        # print("************************************", data)
         message = Message.query.get(message_id)
         message.content = data['content']
         # db.session.add(message)
