@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteChannel, putChannel, addNewChannelMember } from "../../../../store/channel";
 import { getCurrentChannel } from "../../../../store/currentView";
 import { getAllUsers } from "../../../../store/session";
-
+import { useHistory, useParams } from "react-router-dom";
 
 import "./ChannelModal.css";
 
 const ChannelModal = ({ setShowModal, channel }) => {
   const dispatch = useDispatch();
-
+  const {workspaceId} = useParams();
+  let history = useHistory();
   const user = useSelector((state) => state.session.user);
   const allUsers = useSelector ((state) => state.session.users);
   const [loaded, setLoaded] = useState(false);
@@ -70,6 +71,7 @@ const ChannelModal = ({ setShowModal, channel }) => {
     e.preventDefault();
     dispatch(deleteChannel(id));
     setShowModal(false);
+    history.push(`/workspaces/${workspaceId}`)
   };
 
   return (
