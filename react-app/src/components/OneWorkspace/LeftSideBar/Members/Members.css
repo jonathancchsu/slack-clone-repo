@@ -35,6 +35,21 @@ span#members-tab > button {
   padding: 50px;
 }
 
+#add-members-modal > form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+#add-members-modal > form > input {
+  border: none;
+  outline: none;
+  background-color: rgb(228, 228, 228);
+  padding:  5px 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
 .add-member {
   background-color: #4a154b;
   border: 0;
@@ -50,14 +65,6 @@ span#members-tab > button {
   transition-duration: 0.5s;
 }
 
-.add-member:hover {
-  cursor: pointer;
-}
-
-.results-map:hover {
-  cursor: pointer;
-}
-
 #members-list {
   display: flex;
   flex-direction: column;
@@ -71,4 +78,27 @@ span#members-tab > button {
 
 .add-ws-members-btn {
   opacity: 0.2;
+}
+
+#query-results {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
+.results-map {
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.results-map:hover {
+  background-color: #1263a3;
+  color: white;
+}
+
+.results-map > img {
+  width: 20px;
+  border-radius: 5px;
+  margin-right: 10px;
 }

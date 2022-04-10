@@ -9,7 +9,7 @@ function AddMembersModal({ workspace, members, users, setShowModal }) {
     const [userId, setUserId] = useState('');
     const [results, setResults] = useState([]);
     const [errors, setErrors] = useState([])
-    const [query, setQuery] = useState(' ');
+    const [query, setQuery] = useState('');
 
 
 
@@ -44,12 +44,12 @@ function AddMembersModal({ workspace, members, users, setShowModal }) {
             <h3>{`Add members to ${workspace.name}`}</h3>
             <form onSubmit={addMember}>
                 <input type='text' placeholder='username' value={query} onChange={e => setQuery(e.target.value)} onClick={() => setQuery('')}></input>
-                <div>
+                <div id='query-results'>
                     {errors?.map(error => (
                         <div key={error} style={{ color: 'red' }}>{error}</div>
                     ))}
-                    {results?.map(user => (
-                        <div className='results-map' key={`user:${user.id}`} onClick={() => selectMember(user)}>{user.username}</div>
+                    {results?.map(user => user.username.toLowerCase().includes(query) && (
+                        <div className='results-map' key={`user:${user.id}`} onClick={() => selectMember(user)}><img src={user.profile_picture} alt=''></img>{user.username}</div>
                     ))}
                 </div>
                 <button className='add-member'>Add</button>
