@@ -77,8 +77,11 @@ const DmRooms = ({ workspace }) => {
                       ))}
                     </div>
                     {user.id === room.user_id && (
-                      <button onClick={(e) => handleDelete(e, room.dm_room_id)}>
-                        <i className="fas fa-trash-alt" />
+                      <button
+                      onClick={(e) => handleDelete(e, room.dm_room_id)}
+                      style={{backgroundColor: 'transparent', border: 0}}
+                      >
+                        <i className="fas fa-times" style={{color: 'white', opacity: 0.2}}/>
                       </button>
                     )}
                   </div>

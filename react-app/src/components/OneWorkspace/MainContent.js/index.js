@@ -37,6 +37,7 @@ const MainContent = () => {
   const [showButtons, setShowButtons] = useState(null);
   const messagesEnd = useRef(null);
 
+  console.log(view, 'viewss')
   useEffect(() => {
     if (channelId) {
       dispatch(getCurrentChannel(channelId));

@@ -18,8 +18,8 @@ div#members-tab {
 }
 
 .left-sb-ws-name {
-    border-top: 1px solid #7e6b7e;
-    border-bottom: 1px solid rgba(192, 143, 199, 0.5);
+    border-top: 1px solid rgb(82,38,83);
+    border-bottom: 1px solid rgb(82,38,83);
     height: 27px;
     display: flex;
     flex-direction: column;
