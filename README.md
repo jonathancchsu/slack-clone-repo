@@ -1,6 +1,5 @@
 # **Slack Project Clone**
 ![GitHub Pipenv locked dependency version](https://img.shields.io/github/pipenv/locked/dependency-version/jonathancchsu/slack-clone-repo/flask) 
-![GitHub Pipenv locked Python version](https://img.shields.io/github/pipenv/locked/python-version/jonathancchsu/slack-clone-repo?style=for-the-badge)
 ![GitHub contributors](https://img.shields.io/github/contributors/jonathancchsu/slack-clone-repo?style=flat-square)
 ![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&up_color=blue&up_message=online&url=https%3A%2F%2Fslack-project-clone.herokuapp.com%2F)
 
