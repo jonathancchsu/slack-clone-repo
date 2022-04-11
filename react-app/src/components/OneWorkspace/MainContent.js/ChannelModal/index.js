@@ -7,7 +7,7 @@ import { useHistory, useParams } from "react-router-dom";
 
 import "./ChannelModal.css";
 
-const ChannelModal = ({ setShowModal, channel }) => {
+const ChannelModal = ({ setShowModal, channel, setMessages }) => {
   const dispatch = useDispatch();
   const {workspaceId} = useParams();
   let history = useHistory();
@@ -71,6 +71,7 @@ const ChannelModal = ({ setShowModal, channel }) => {
     e.preventDefault();
     dispatch(deleteChannel(id));
     setShowModal(false);
+    setMessages([])
     history.push(`/workspaces/${workspaceId}`)
   };
 
