@@ -141,30 +141,30 @@ Sign up page
 ![Screen Shot 2022-04-09 at 11 48 57 PM](https://user-images.githubusercontent.com/92463844/162600948-56bac62b-d414-4338-91e1-8acd59940a2f.png)
 
 All workspaces page
-![Screen Shot 2022-04-09 at 11 49 22 PM](https://user-images.githubusercontent.com/92463844/162600968-0022a63b-1a8a-4b60-b59c-bc6f7c40cd55.png)
+![Screen Shot 2022-04-11 at 12 07 15 AM](https://user-images.githubusercontent.com/92463844/162664043-1c750b40-ad5e-419e-8448-43fa5ac84723.png)
 
-Main page 
-![Screen Shot 2022-04-09 at 11 49 38 PM](https://user-images.githubusercontent.com/92463844/162600981-daaf6333-a2c0-48cf-bd9a-5d08db826f8f.png)
-
-Adding members to a workspace
-![Screen Shot 2022-04-09 at 11 49 46 PM](https://user-images.githubusercontent.com/92463844/162600994-81d58fcc-e2bf-4968-b86e-aabe723b36f7.png)
-
-Creating a new channel in a workspace
-![Screen Shot 2022-04-09 at 11 49 49 PM](https://user-images.githubusercontent.com/92463844/162601005-cba7b5e0-ff39-4553-9f44-0491b0b8504c.png)
-
-Reading details of a channel and editing the channel 
-![Screen Shot 2022-04-09 at 11 49 57 PM](https://user-images.githubusercontent.com/92463844/162601010-d7e270fa-31b3-4c23-ab4a-2dae69ef7e21.png)
-
-Searching for a message, channel, or user in a workspace
-![Screen Shot 2022-04-09 at 11 50 04 PM](https://user-images.githubusercontent.com/92463844/162601023-fe77eb9c-003f-45ec-9f1c-e135e87cf80d.png)
+Main channel page 
+![Screen Shot 2022-04-11 at 12 05 53 AM](https://user-images.githubusercontent.com/92463844/162663692-5eba5111-6156-4867-a9b5-acdcdc977f69.png)
 
 Sending a direct message to another user in a workspace
-![Screen Shot 2022-04-10 at 11 23 37 PM](https://user-images.githubusercontent.com/92463844/162660118-1e04039c-7b3a-44d4-ad15-2adb44a480c3.png)
+![Screen Shot 2022-04-11 at 12 06 32 AM](https://user-images.githubusercontent.com/92463844/162663945-09068f27-f7e8-415b-975e-afdf683376f7.png)
 
-# Code Snippets
+Adding members to a workspace
+![Screen Shot 2022-04-11 at 12 06 00 AM](https://user-images.githubusercontent.com/92463844/162663753-67c29e0e-ed25-49dd-ad41-4b81e7f065fd.png)
+
+Creating a new channel in a workspace
+![Screen Shot 2022-04-11 at 12 06 18 AM](https://user-images.githubusercontent.com/92463844/162663801-8a82e078-214c-4c22-8675-a3a359bcec5a.png)
+
+Reading details of a channel and editing the channel 
+![Screen Shot 2022-04-11 at 12 06 25 AM](https://user-images.githubusercontent.com/92463844/162663895-8220ff66-1705-4084-8daa-d9d0cc8b4922.png)
+
+Searching for a message, channel, or user in a workspace
+![Screen Shot 2022-04-11 at 12 06 37 AM](https://user-images.githubusercontent.com/92463844/162663986-a28eafe3-37a3-4e63-aa90-fc55cd27ee9d.png)
+
+<!-- # Code Snippets
 One of the core function of this application is live chatting, using the library **[Socket.IO](https://socket.io/)** in both front end and back end to enable real time, bi-directional communication for the users.
 
 
   ```bash
-   ```
+   ``` -->
 
