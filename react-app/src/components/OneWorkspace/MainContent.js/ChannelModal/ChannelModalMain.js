@@ -7,7 +7,7 @@ import { getCurrentChannel } from "../../../../store/currentView";
 import ChannelModal from ".";
 import './ChannelModal.css'
 
-const ChannelModalMain = () => {
+const ChannelModalMain = ({setMessages}) => {
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const channel = useSelector(state => state.currentView.main_content);
@@ -31,7 +31,7 @@ const ChannelModalMain = () => {
       </div>
       {showModal && (
         <Modal className="modal" onClose={() => setShowModal(false)}>
-          <ChannelModal setShowModal={setShowModal} channel={channel}></ChannelModal>
+          <ChannelModal setShowModal={setShowModal} channel={channel} setMessages={setMessages}></ChannelModal>
         </Modal>
       )}
     </>
