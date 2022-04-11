@@ -71,7 +71,7 @@ const LoginForm = () => {
           <a href="https://github.com/Watts-Blake">Blake Watts</a>
           <a href="https://github.com/twincarlos">Carlos Rodriguez</a>
           <a href="https://github.com/skyline502">Johnny San</a>
-          <a href="https://github.com/jonathancchsu">Jonathon Hsu</a>
+          <a href="https://github.com/jonathancchsu">Jonathan Hsu</a>
         </div>
       </footer>
    </div>
