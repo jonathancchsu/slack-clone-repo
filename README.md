@@ -160,6 +160,8 @@ Reading details of a channel and editing the channel
 Searching for a message, channel, or user in a workspace
 ![Screen Shot 2022-04-09 at 11 50 04 PM](https://user-images.githubusercontent.com/92463844/162601023-fe77eb9c-003f-45ec-9f1c-e135e87cf80d.png)
 
+Sending a direct message to another user in a workspace
+![Screen Shot 2022-04-10 at 11 23 37 PM](https://user-images.githubusercontent.com/92463844/162660118-1e04039c-7b3a-44d4-ad15-2adb44a480c3.png)
 
 # Code Snippets
 One of the core function of this application is live chatting, using the library **[Socket.IO](https://socket.io/)** in both front end and back end to enable real time, bi-directional communication for the users.
