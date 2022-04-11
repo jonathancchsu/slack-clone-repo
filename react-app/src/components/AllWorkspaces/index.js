@@ -51,13 +51,22 @@ const Workspaces = ({ userId }) => {
       .then(() => setWorkspaceName(""));
   };
 
-  const deleteWorkspace = (id) => {
-    dispatch(deleteEvent(id));
+  const deleteWorkspace = async(id) => {
+    await dispatch(deleteEvent(id))
+    let newWorkspaces = [];
+    workspaces.forEach(workspace => {
+      if (workspace.id !== id) {
+        newWorkspaces.push(workspace);
+      }
+    })
+    dispatch(setUserWorkspaces(newWorkspaces))
+    dispatch(getUser(userId))
   };
 
   const onLogout = async (e) => {
     await dispatch(logout());
     dispatch(setUserWorkspaces(null));
+
   };
 
   return (
