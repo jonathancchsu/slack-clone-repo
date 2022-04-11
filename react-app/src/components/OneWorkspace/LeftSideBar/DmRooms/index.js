@@ -6,7 +6,6 @@ import { deleteDmRoom } from "../../../../store/dmRooms";
 import { useParams } from "react-router-dom";
 import "./DmRooms.css";
 
-import CreateDmModal from "./DmForm/DmFormModal";
 const DmRooms = ({ workspace }) => {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
