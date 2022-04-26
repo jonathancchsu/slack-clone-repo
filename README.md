@@ -1,7 +1,7 @@
 # **Slack Project Clone**
 ![GitHub Pipenv locked dependency version](https://img.shields.io/github/pipenv/locked/dependency-version/jonathancchsu/slack-clone-repo/flask) 
 ![GitHub contributors](https://img.shields.io/github/contributors/jonathancchsu/slack-clone-repo)
-![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&up_color=blue&up_message=online&url=https%3A%2F%2Fslack-project-clone.herokuapp.com%2F)
+<!-- ![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&up_color=blue&up_message=online&url=https%3A%2F%2Fslack-project-clone.herokuapp.com%2F) -->
 
 Welcome to the **[Slack Project Clone repo](https://github.com/jonathancchsu/slack-clone-repo)**, this is a clone of **[Slack](https://slack.com/)**. **Slack Project Clone** is a web application that allows you to communicate with one another professionally. Slack Project Clone offers a variety of functions that allow users to organize private workspaces, channels, and direct message rooms.
 
@@ -28,7 +28,8 @@ Welcome to the **[Slack Project Clone repo](https://github.com/jonathancchsu/sla
 <img src="https://camo.githubusercontent.com/5fa137d222dde7b69acd22c6572a065ce3656e6ffa1f5e88c1b5c7a935af3cc6/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f7673636f64652f7673636f64652d6f726967696e616c2e737667" alt="vscode" width="50"> 
 <img src="https://www.govconwire.com/wp-content/uploads/2018/03/AWS-EM-1.jpg" alt="aws" width="50"/> 
 <img src="https://www.kindpng.com/picc/m/207-2078621_electric-bikes-socket-io-facebook-icon-in-circle.png" alt="socketio" width="50"/>
-
+<img
+src="https://www.docker.com/wp-content/uploads/2022/03/vertical-logo-monochromatic.png" alt="docker" width="50">
 
 # Link to Live Site
 
