@@ -1,6 +1,7 @@
 import Channels from "./Channels";
 import DmRooms from "./DmRooms";
 import Members from "./Members";
+import CreateDmModal from "./DmRooms/DmForm/DmFormModal";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -30,6 +31,7 @@ const LeftSideBar = () => {
       <div id="left-sb-main">
         <div className="left-sb-ws-name">
           <h2>{workspace.name}</h2>
+          <CreateDmModal />
         </div>
         <div className="left-sb-container">
           <Members workspace={workspace} user={user} members={members} />

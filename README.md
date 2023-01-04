@@ -1,7 +1,7 @@
 # **Slack Project Clone**
 ![GitHub Pipenv locked dependency version](https://img.shields.io/github/pipenv/locked/dependency-version/jonathancchsu/slack-clone-repo/flask) 
 ![GitHub contributors](https://img.shields.io/github/contributors/jonathancchsu/slack-clone-repo)
-![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&up_color=blue&up_message=online&url=https%3A%2F%2Fslack-project-clone.herokuapp.com%2F)
+<!-- ![Website](https://img.shields.io/website?down_color=lightgrey&down_message=offline&up_color=blue&up_message=online&url=https%3A%2F%2Fslack-project-clone.herokuapp.com%2F) -->
 
 Welcome to the **[Slack Project Clone repo](https://github.com/jonathancchsu/slack-clone-repo)**, this is a clone of **[Slack](https://slack.com/)**. **Slack Project Clone** is a web application that allows you to communicate with one another professionally. Slack Project Clone offers a variety of functions that allow users to organize private workspaces, channels, and direct message rooms.
 
@@ -15,8 +15,6 @@ Welcome to the **[Slack Project Clone repo](https://github.com/jonathancchsu/sla
    - [Standard](#standard-traditional)
 - [Screenshots of Usage](#screenshots-of-usage)
 - [Code Snippets](#code-snippets)
-- [Contributors](#contributors)
-
 
 # Techonologies Used
 <img src="https://camo.githubusercontent.com/442c452cb73752bb1914ce03fce2017056d651a2099696b8594ddf5ccc74825e/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f6a6176617363726970742f6a6176617363726970742d6f726967696e616c2e737667" alt="drawing" width="50"/> <img src="https://camo.githubusercontent.com/27d0b117da00485c56d69aef0fa310a3f8a07abecc8aa15fa38c8b78526c60ac/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f72656163742f72656163742d6f726967696e616c2e737667" alt="react" width="50"> 
@@ -30,7 +28,8 @@ Welcome to the **[Slack Project Clone repo](https://github.com/jonathancchsu/sla
 <img src="https://camo.githubusercontent.com/5fa137d222dde7b69acd22c6572a065ce3656e6ffa1f5e88c1b5c7a935af3cc6/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f7673636f64652f7673636f64652d6f726967696e616c2e737667" alt="vscode" width="50"> 
 <img src="https://www.govconwire.com/wp-content/uploads/2018/03/AWS-EM-1.jpg" alt="aws" width="50"/> 
 <img src="https://www.kindpng.com/picc/m/207-2078621_electric-bikes-socket-io-facebook-icon-in-circle.png" alt="socketio" width="50"/>
-
+<img
+src="https://www.docker.com/wp-content/uploads/2022/03/vertical-logo-monochromatic.png" alt="docker" width="50">
 
 # Link to Live Site
 
@@ -143,37 +142,30 @@ Sign up page
 ![Screen Shot 2022-04-09 at 11 48 57 PM](https://user-images.githubusercontent.com/92463844/162600948-56bac62b-d414-4338-91e1-8acd59940a2f.png)
 
 All workspaces page
-![Screen Shot 2022-04-09 at 11 49 22 PM](https://user-images.githubusercontent.com/92463844/162600968-0022a63b-1a8a-4b60-b59c-bc6f7c40cd55.png)
+![Screen Shot 2022-04-11 at 12 07 15 AM](https://user-images.githubusercontent.com/92463844/162664043-1c750b40-ad5e-419e-8448-43fa5ac84723.png)
 
-Main page 
-![Screen Shot 2022-04-09 at 11 49 38 PM](https://user-images.githubusercontent.com/92463844/162600981-daaf6333-a2c0-48cf-bd9a-5d08db826f8f.png)
+Main channel page 
+![Screen Shot 2022-04-11 at 12 05 53 AM](https://user-images.githubusercontent.com/92463844/162663692-5eba5111-6156-4867-a9b5-acdcdc977f69.png)
+
+Sending a direct message to another user in a workspace
+![Screen Shot 2022-04-11 at 12 06 32 AM](https://user-images.githubusercontent.com/92463844/162663945-09068f27-f7e8-415b-975e-afdf683376f7.png)
 
 Adding members to a workspace
-![Screen Shot 2022-04-09 at 11 49 46 PM](https://user-images.githubusercontent.com/92463844/162600994-81d58fcc-e2bf-4968-b86e-aabe723b36f7.png)
+![Screen Shot 2022-04-11 at 12 06 00 AM](https://user-images.githubusercontent.com/92463844/162663753-67c29e0e-ed25-49dd-ad41-4b81e7f065fd.png)
 
 Creating a new channel in a workspace
-![Screen Shot 2022-04-09 at 11 49 49 PM](https://user-images.githubusercontent.com/92463844/162601005-cba7b5e0-ff39-4553-9f44-0491b0b8504c.png)
+![Screen Shot 2022-04-11 at 12 06 18 AM](https://user-images.githubusercontent.com/92463844/162663801-8a82e078-214c-4c22-8675-a3a359bcec5a.png)
 
 Reading details of a channel and editing the channel 
-![Screen Shot 2022-04-09 at 11 49 57 PM](https://user-images.githubusercontent.com/92463844/162601010-d7e270fa-31b3-4c23-ab4a-2dae69ef7e21.png)
+![Screen Shot 2022-04-11 at 12 06 25 AM](https://user-images.githubusercontent.com/92463844/162663895-8220ff66-1705-4084-8daa-d9d0cc8b4922.png)
 
 Searching for a message, channel, or user in a workspace
-![Screen Shot 2022-04-09 at 11 50 04 PM](https://user-images.githubusercontent.com/92463844/162601023-fe77eb9c-003f-45ec-9f1c-e135e87cf80d.png)
+![Screen Shot 2022-04-11 at 12 06 37 AM](https://user-images.githubusercontent.com/92463844/162663986-a28eafe3-37a3-4e63-aa90-fc55cd27ee9d.png)
 
-
-# Code Snippets
+<!-- # Code Snippets
 One of the core function of this application is live chatting, using the library **[Socket.IO](https://socket.io/)** in both front end and back end to enable real time, bi-directional communication for the users.
 
 
   ```bash
-   ```
+   ``` -->
 
-# Contributors
-
-**Johnny San** [GitHub](https://github.com/skyline502)
-
-**Blake Watts** [GitHub](https://github.com/Watts-Blake)
-
-**Carlos Rodriguez** [GitHub](https://github.com/twincarlos)
-
-**Jonathan Hsu** [GitHub](https://github.com/jonathancchsu)

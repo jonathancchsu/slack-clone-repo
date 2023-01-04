@@ -5,7 +5,7 @@ from app.models.db import db, environment, SCHEMA
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     slack_bot = User(
-        username='Slack Bot', email='slackbot@slackslackclone.com', password='slack54378965362183940201826354628192837', profile_picture='https://cdn.discordapp.com/attachments/958153208725897279/958829614745145384/favicon.png')
+        username='Slack Bot', email='slackbot@slackslackclone.com', password='slack54378965362183940201826354628192837', profile_picture='https://slack-project-clone.herokuapp.com/static/icon.png')
     demo = User(
         username='Demo', email='demo@demo.com', password='password', profile_picture='https://www.shareicon.net/data/2016/07/05/791214_man_512x512.png')
     demo2 = User(

@@ -8,7 +8,7 @@ const CreateDmModal = () => {
 
   return (
     <>
-      <button onClick={() => setShowModal(true)}><i className="fas fa-plus-square fa-lg"></i></button>
+      <button onClick={() => setShowModal(true)}><img style={{height: 30}} src='/static/edit-button.png' alt='dm-someone'/></button>
       {showModal && (
         <Modal className="modal" onClose={() => setShowModal(false)}>
           <DmRoomForm setShowModal={setShowModal}></DmRoomForm>

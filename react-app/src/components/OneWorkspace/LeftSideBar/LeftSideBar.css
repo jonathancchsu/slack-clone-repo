@@ -22,16 +22,21 @@ div#members-tab {
     border-bottom: 1px solid rgb(82,38,83);
     height: 27px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
     color: white;
     font-size: 12px;
     position:fixed;
     top: 45px;
     width: 230px;
-    background-color: #3F0E40;
+    background-color: #3f0e40;
+}
+
+.left-sb-ws-name > button {
+    background-color: transparent;
+    border: 0;
 }
 
 .left-sb-container {

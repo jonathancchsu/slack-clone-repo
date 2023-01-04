@@ -37,7 +37,6 @@ const MainContent = () => {
   const [showButtons, setShowButtons] = useState(null);
   const messagesEnd = useRef(null);
 
-
   useEffect(() => {
     if (channelId) {
       dispatch(getCurrentChannel(channelId));
@@ -177,7 +176,7 @@ const MainContent = () => {
       <div id="main-content">
         <div>
           <div style={{ marginLeft: 20 }}>
-            {channelId && <ChannelModalMain channel={view}></ChannelModalMain>}
+            {channelId && <ChannelModalMain channel={view} setMessages={setMessages}></ChannelModalMain>}
           </div>
           <div id="main-header">
             <div></div>
