@@ -16,7 +16,6 @@ socketio = SocketIO(cors_allowed_origins=origins, logger=True, engineio_logger=T
 # handle chat messages
 @socketio.on('connect')
 def on_connect():
-    print('user connected')
     retrieve_active_users()
 
 
@@ -39,17 +38,14 @@ def on_inactive_user(data):
 @socketio.on('join_room')
 def on_join(data):
     room = data['room']
-    print('joinnning hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', data)
     join_room(room)
     emit('open_room', {'room': room}, broadcast=True)
 
 @socketio.on("leave_room")
 def leave(data):
-    print('leaving hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', data)
     leave_room(data['room'])
 
 @socketio.on('message')
 def on_chat_sent(data):
-    print('data issssss hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', data)
     room = data['room']
     send({'id':data['id'],'dm_room_id': data['dm_room_id'] , 'channel_id':data['channel_id'], 'content': data['content'], 'created_at': data['created_at'], 'room':data['room'], 'sender_username': data['sender_username'], 'sender_profile_picture': data['sender_profile_picture'] }, room=data['room'],)

@@ -43,7 +43,6 @@ def dm_create():
         db.session.commit()
 
         requestMembers = data['members']
-        print(requestMembers)
         for member in requestMembers:
 
             dm_member = DirectMessageMember(
