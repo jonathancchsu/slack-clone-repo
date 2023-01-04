@@ -1,4 +1,5 @@
 from app.models import db, DirectMessageRoom
+from app.models.db import db, environment, SCHEMA
 
 def seed_dm_rooms():
     rooms = [{'id': 1, 'owner_id': 1, 'workspace_id': 1},{'id': 2, 'owner_id': 2, 'workspace_id': 1},{'id': 3, 'owner_id': 3, 'workspace_id': 1},{'id': 4, 'owner_id': 1, 'workspace_id': 2},{'id': 5, 'owner_id': 2, 'workspace_id': 2},{'id': 6, 'owner_id': 3, 'workspace_id': 2},{'id': 7, 'owner_id': 1, 'workspace_id': 3},{'id': 8, 'owner_id': 2, 'workspace_id': 3},{'id': 9, 'owner_id': 3, 'workspace_id': 3},]

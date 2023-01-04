@@ -1,5 +1,5 @@
 from app.models.workspace import Workspace
-from .db import db
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
@@ -9,8 +9,12 @@ from sqlalchemy.orm import relationship, Session
 from alembic import op
 from sqlalchemy.orm import Session
 
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)

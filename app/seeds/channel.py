@@ -1,4 +1,5 @@
 from app.models import db, Channel
+from app.models.db import db, environment, SCHEMA
 
 def seed_channels():
     channels = [{'name': 'General', 'topic': 'A place for everyone to chat' ,'description': 'This is a channel for all Workspace Necessities' , 'owner_id': 1, 'workspace_id': 1},{ 'name': 'General', 'topic': 'A place for everyone to chat' ,'description': 'This is a channel for all Workspace Necessities' , 'owner_id': 2, 'workspace_id': 2},{ 'name': 'General', 'topic': 'A place for everyone to chat' ,'description': 'This is a channel for all Workspace Necessities' , 'owner_id': 3, 'workspace_id': 3}]

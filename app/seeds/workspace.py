@@ -1,4 +1,5 @@
 from app.models import db, Workspace
+from app.models.db import db, environment, SCHEMA
 
 def seed_workspace():
     workspaces = [{'id': 1, 'owner_id':2, 'name': 'App Academy'},{'id': 2, 'owner_id': 3, 'name': 'Avengers'}, {'id': 4, 'owner_id':3, 'name': 'Justice League'}]

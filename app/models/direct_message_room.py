@@ -4,18 +4,20 @@ from sqlalchemy.sql import func, table, column
 from sqlalchemy.orm import relationship, Session
 from alembic import op
 from sqlalchemy.orm import Session
-from .db import db
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 
 class DirectMessageRoom(db.Model):
     __tablename__ = 'directMessageRooms'
 
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
     id = db.Column(Integer, primary_key=True)
-    owner_id = db.Column(Integer, ForeignKey('users.id'), nullable=False)
-    workspace_id = db.Column(Integer, ForeignKey('workspaces.id'), nullable=False)
+    owner_id = db.Column(Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    workspace_id = db.Column(Integer, ForeignKey(add_prefix_for_prod('workspaces.id')), nullable=False)
     created_at = db.Column(DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(DateTime(timezone=True), onupdate=func.now())
-
 
     members = relationship('DirectMessageMember', backref='room',cascade="all, delete")
     messages = relationship('Message', backref='room_messages',cascade="all, delete")
