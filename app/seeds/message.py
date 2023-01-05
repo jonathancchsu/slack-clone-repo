@@ -1,4 +1,5 @@
 from app.models import db, Message
+from app.models.db import db, environment, SCHEMA
 
 def seed_messages():
     channel_messages = [{'id': 1, 'channel_id':1, 'sender_id': 1, 'content': 'Welcome to App Academy'},{'id': 2, 'channel_id':1, 'sender_id': 2, 'content': 'test'},{'id': 3, 'channel_id':1, 'sender_id': 3, 'content': 'test'},{'id': 4, 'channel_id':2, 'sender_id': 1, 'content': 'Welcome to Avengers'},{'id': 5, 'channel_id':3, 'sender_id': 1, 'content': 'Welcome to Justice League'},{'id': 6, 'channel_id':2, 'sender_id': 3, 'content': 'test'},{'id': 7, 'channel_id':3, 'sender_id': 3, 'content': 'test'},{'id': 8, 'channel_id':3, 'sender_id': 2, 'content': 'test'}]
